@@ -1,0 +1,10 @@
+.encabezado{
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+    width: 100%;
+    background-color: #AED035;
+    margin: 5px;
+    color: whitesmoke;
+
+}
