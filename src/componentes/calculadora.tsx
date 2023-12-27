@@ -1,21 +1,19 @@
 import '../estilos/calculadora.css'
 import Select from 'react-select';
 import { ciudades } from './data';
+import SeleccionarCiudad from './seleccionarCiudad.tsx';
 
 
 function Calculadora() {
+
   const mostrarMensaje = () => {
     alert('Cotización en proceso');
   };
 
-    return (
+  return (
       <div className='contenedorCalculadora'>
-
-        <div className='ciudadOrigen'>
-        <Select 
-        placeholder="Ciudad origen"
-        options={ciudades}/>     
-        </div>
+       
+        <SeleccionarCiudad/>
 
         <div className='ciudadOrigen'>
         <Select 
