@@ -1,0 +1,14 @@
+.logoIntegra{
+    background-color: white;
+    width: 190px;
+    height: 80px;
+    border-radius: 15px;
+    padding: 0;
+    margin: 10px;
+
+    }
+
+.contenedorLogo{
+    Display: flex;
+    justify-content: center;
+}
