@@ -1,4 +1,5 @@
 import '../estilos/calculadora.css'
+import Select from 'react-select';
 
 function Calculadora() {
   const mostrarMensaje = () => {
@@ -8,7 +9,11 @@ function Calculadora() {
     return (
       <div className='contenedorCalculadora'>
 
-        <input type="text" placeholder="Ciudad origen" className='ingresosDatos'/>
+        <div className='ciudadOrigen'>
+        <Select/>     
+        </div>
+
+        <input type="text" placeholder="Ciudad origen" className='ingresosDatos'/>  
         <input type="text" placeholder="Ciudad destino" className='ingresosDatos'/>
 
         <div className='contenedorPesos'>
