@@ -1,5 +1,7 @@
 import '../estilos/calculadora.css'
 import Select from 'react-select';
+import { ciudades } from './data';
+
 
 function Calculadora() {
   const mostrarMensaje = () => {
@@ -10,11 +12,16 @@ function Calculadora() {
       <div className='contenedorCalculadora'>
 
         <div className='ciudadOrigen'>
-        <Select/>     
+        <Select 
+        placeholder="Ciudad origen"
+        options={ciudades}/>     
         </div>
 
-        <input type="text" placeholder="Ciudad origen" className='ingresosDatos'/>  
-        <input type="text" placeholder="Ciudad destino" className='ingresosDatos'/>
+        <div className='ciudadOrigen'>
+        <Select 
+        placeholder="Ciudad destino"
+        options={ciudades}/>     
+        </div>
 
         <div className='contenedorPesos'>
           <input type="text" placeholder="Alto (cm)" className='ingresosPesos'/>
