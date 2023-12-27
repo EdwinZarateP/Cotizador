@@ -5,7 +5,7 @@ import SelectorCiudad from './ciudad.tsx';
 function Calculadora() {
   
   const mostrarMensaje = () => {
-    alert('Estimado Nestor, si diste click te cuento que no es tan facil llegar a este punto jajajja');
+    alert('😀 Estimado Nestor , si diste clic 🤣 te cuento que no es tan fácil llegar a este punto, sigo trabajando en ello. Posdata, ya Juan envió el rfi al proveedor escala, quienes se comunicaron conmigo para darnos respuesta lo mas pronto');
   };
 
   return (
