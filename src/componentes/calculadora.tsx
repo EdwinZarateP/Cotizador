@@ -1,25 +1,47 @@
 import '../estilos/calculadora.css'
-import Select from 'react-select';
-import { ciudades } from './data';
-import SeleccionarCiudad from './seleccionarCiudad.tsx';
+import SelectorCiudad from './ciudad.tsx';
 
 
 function Calculadora() {
-
+  
   const mostrarMensaje = () => {
-    alert('Cotización en proceso');
+    alert('Estimado Nestor, si diste click te cuento que no es tan facil llegar a este punto jajajja');
   };
 
   return (
       <div className='contenedorCalculadora'>
-       
-        <SeleccionarCiudad/>
+        
+        <SelectorCiudad/>
 
-        <div className='ciudadOrigen'>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* <div className='ciudadOrigen'>
         <Select 
         placeholder="Ciudad destino"
         options={ciudades}/>     
-        </div>
+        </div> */}
 
         <div className='contenedorPesos'>
           <input type="text" placeholder="Alto (cm)" className='ingresosPesos'/>
