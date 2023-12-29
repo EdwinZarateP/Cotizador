@@ -35,7 +35,7 @@ const SelectorCiudad: React.FC = () => {
 
       <Select
         className="ciudad"
-        placeholder="Destino"
+        placeholder="Ciudad Destino"
         options={ciudades.map(ciudad => ({ value: ciudad, label: ciudad.nombre }))}
         onChange={manejarCiudadDestino}
       />    
