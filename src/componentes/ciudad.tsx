@@ -43,7 +43,6 @@ const SelectorCiudad: React.FC = () => {
       <div className='ciudades-seleccionadas'>
         {OrigenSeleccionado && ( 
           <div className='ciudad-seleccionada'>
-            {/* <h3>Ruta:</h3> */}
             <p><span className="negrita">Origen: <br /> </span>  {OrigenSeleccionado.nombre}</p>
           </div>
         )}
