@@ -8,19 +8,22 @@ interface Ciudad {
   costo: number;
 }
 
-const SelectorCiudad: React.FC = () => {
+interface SelectorCiudadProps {
+  onCiudadDestinoChange: (ciudad: string) => void;
+}
+
+const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ onCiudadDestinoChange }) => {
 
   const [OrigenSeleccionado, setOrigenSeleccionado] = useState<Ciudad | null>(null);
   const [DestinoSeleccionado, setDestinoSeleccionado] = useState<Ciudad | null>(null);
 
   const manejarCiudadOrigen = (opcionSeleccionada: any) => {
-    // `opcionSeleccionada` es el objeto de la ciudad seleccionada
     setOrigenSeleccionado(opcionSeleccionada.value);
   };
 
   const manejarCiudadDestino = (opcionSeleccionada: any) => {
-    // `opcionSeleccionada` es el objeto de la ciudad seleccionada
     setDestinoSeleccionado(opcionSeleccionada.value);
+    onCiudadDestinoChange(opcionSeleccionada.value.costo);
   };
 
   return (
