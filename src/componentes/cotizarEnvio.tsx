@@ -8,7 +8,7 @@ interface GenerarCotizacionProps {
 const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({ peso, declarado, costo }) => {
 
   const mostrarMensaje = () => {
-    alert(`El peso es: ${peso * declarado * costo}`);
+    alert(`El envío tiene un costo de $: ${peso * declarado * costo}`);
   };
    
      return (

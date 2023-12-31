@@ -10,6 +10,7 @@ function Calculadora() {
   
   const [valorPesoMin, setValorPesoMin] = useState<number | undefined>(undefined);
   const [valorDeclarado, setvalorDeclarado] = useState<number | undefined>(undefined);
+  const [valorCajas, setvalorCajas] = useState<number | undefined>(undefined);
   const [ciudadDestinoCosto, setCiudadDestinoCosto] = useState<string | undefined>(undefined);
 
   const manejarCambioDeValorPesoMin = (nuevoValorPesoMin: number | undefined) => {
@@ -20,6 +21,9 @@ function Calculadora() {
     setvalorDeclarado(nuevoValorDeclarado); // Actualiza el estado en el padre con el valor declarado
   };
 
+  const manejarCambioDeValorCajas = (nuevoValorCajas: number | undefined) => {
+    setvalorCajas(nuevoValorCajas); // Actualiza el estado en el padre con el valor declarado
+  };
   const manejarCambioDeCiudadDestino = (nuevaCiudadDestino: string | undefined) => {
     setCiudadDestinoCosto(nuevaCiudadDestino);
   };
@@ -35,7 +39,9 @@ function Calculadora() {
 
         <SelectorPesoMinyDec
         onValorPesoMinChange={manejarCambioDeValorPesoMin}
-        onValorDeclaradoChange={manejarCambioDeValorDeclarado}/>
+        onValorDeclaradoChange={manejarCambioDeValorDeclarado}
+        onValorCajasChange={manejarCambioDeValorCajas}
+        />
 
         <GenerarCotizacion
         peso={valorPesoMin ?? 0 }
@@ -45,7 +51,8 @@ function Calculadora() {
 
         <div>
             el peso minimo es {(valorPesoMin  ?? 0) * (valorDeclarado  ?? 0)} y
-            tiene un costo {ciudadDestinoCosto}
+            tiene un costo {ciudadDestinoCosto}  
+            El total cajas {valorCajas}  
         </div>
 
 
