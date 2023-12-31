@@ -32,7 +32,7 @@ function Calculadora() {
         <GenerarCotizacion/>      
 
         <div>
-            el peso minimo es {valorPesoMin * valorDeclarado}
+            el peso minimo es {(valorPesoMin  ?? 0) * (valorDeclarado  ?? 0)}
         </div>
 
 
