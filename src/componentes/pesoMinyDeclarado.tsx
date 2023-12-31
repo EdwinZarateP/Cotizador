@@ -9,6 +9,7 @@ const SelectorPesoMinyDec: React.FC <SelectorPesoMinyDecProps> = ({ onValorPesoM
 
    //Valor Peso minimo
   const [valorPesoMin, setPesoMin] = useState<number | undefined>(undefined);
+  
   const manejarvalorPesoMin = (event: React.ChangeEvent<HTMLInputElement>) => {
   const inputvalorPesoMin = parseFloat(event.target.value);
   
