@@ -4,7 +4,7 @@
     Justify-content:center;
     Align-items:center;
     background-color:whitesmoke;
-    width: 350px;
+    width: 450px;
     height: 700px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -25,7 +25,6 @@
     flex-wrap: wrap;
     Justify-content:center;
     Align-items:center;
-  
   }
   
   .ingresosPesos{
