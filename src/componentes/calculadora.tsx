@@ -3,7 +3,7 @@ import SelectorCiudad from './ciudad.tsx';
 import SelectorPesos from './pesos.tsx';
 import SelectorPesoMinyDec from './pesoMinyDeclarado.tsx';
 import GenerarCotizacion from './cotizarEnvio.tsx';
-import Resultado from './resultadoCotizacion.tsx';
+// import Resultado from './resultadoCotizacion.tsx';
 import { useState } from 'react';
 
 
@@ -78,8 +78,9 @@ function Calculadora() {
         cajas={Number(valorCajas)}
         />      
 
-        <Resultado/>
-        <div>
+        {/* <Resultado/> */}
+
+        {/* <div>
             el peso minimo es {valorPesoMin  ?? 0},
             el valor declarado es {valorDeclarado  ?? 0},
             tiene un costo {ciudadDestinoCosto},  
@@ -87,7 +88,7 @@ function Calculadora() {
             El alto es {valorAlto}, 
             El Largo es {valorLargo}, 
             El ancho es {valorAncho} 
-        </div>
+        </div> */}
 
 
       </div>
