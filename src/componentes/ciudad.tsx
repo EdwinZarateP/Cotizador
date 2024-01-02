@@ -43,7 +43,7 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ onCiudadDestinoChange }
         onChange={manejarCiudadDestino}
       />    
 
-      {/* <div className='ciudades-seleccionadas'>
+      <div className='ciudades-seleccionadas'>
         {OrigenSeleccionado && ( 
           <div className='ciudad-seleccionada'>
             <p><span className="negrita">Origen: <br /> </span>  {OrigenSeleccionado.nombre}</p>
@@ -56,7 +56,7 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ onCiudadDestinoChange }
           </div>
         )}
         
-      </div> */}
+      </div>
     </div>
   );
 };
