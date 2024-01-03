@@ -1,5 +1,6 @@
 import React, { useState } from 'react';  
 import '../estilos/cotizarEnvio.css'
+import Swal from 'sweetalert2';
 
 interface GenerarCotizacionProps {
   peso: number;
@@ -26,36 +27,96 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   const [mostrarResultado, setmostrarResultado] = useState(false);
 
   const visualizarResultado = () => {
-    if (!peso) {
-      alert('Debes ingresar el peso en kg de tu caja');
+    
+    if (!costo) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Por favor el destino',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
       return;
     }
 
+    if (!peso) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Por favor ingrese el peso',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
+      return;
+    }
+
+    if (peso < 2) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'El peso debe ser mayor a 2 kg',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
+      return;
+    }
+    
     if (!alto) {
-      alert('Debes ingresar el alto de tu caja');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Por favor ingrese el alto de la caja',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
       return;
     }
 
     if (!largo) {
-      alert('Debes ingresar el largo de tu caja');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Por favor ingrese el largo de la caja',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
       return;
     }
 
     if (!ancho) {
-      alert('Debes ingresar el ancho de tu caja');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Por favor ingrese el ancho de la caja',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
       return;
     }
 
     if (!declarado) {
-      alert('Debes ingresar el valor declarado de tu mercancía');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Por favor ingrese el valor declarado de la mercancía',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
       return;
     }
     
-    if (!cajas) {
-      alert('No indicasre el número de cajas del envío');
+    if (declarado < 25000) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'El valor declarado debe ser mayor a 25000.',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
       return;
     }
 
+    if (!cajas) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Por favor ingrese el número de cajas',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
+      return;
+    }
     setmostrarResultado(!mostrarResultado);
     mostrarMensaje();
   };
@@ -95,8 +156,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
 
         {pesoSeleccionado !== undefined && (
           <div>
-            <p>El costo por caja es de <br/> ${pesoSeleccionado.toFixed(0)}</p>
-            <p>El envío de la(s) {cajas} cajas cuesta <br/> ${pesoSeleccionado * cajas}</p>
+            <p>El costo por caja es: <br/> ${pesoSeleccionado.toFixed(0)}</p>
+            <p>El envío de la(s) {cajas} cajas cuesta:   <br/> ${pesoSeleccionado * cajas}</p>
           </div>
         )}
       </div>

@@ -1,31 +1,48 @@
-
-.resultadoCotizacion{
+  .resultadoCotizacion {
     Display: flex;
     flex-wrap: wrap;
     Justify-content:center;
-    Align-items:center; 
-    flex-direction: column;
-    /* background-color: rebeccapurple; */
-    text-align: center;
+    Align-items:center;
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+    /* border: 1px solid #ccc;
+    border-radius: 8px; */
+    /* background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   }
-
-  .botonCotizar{
-    width: 150px;
-    height: 50px;
-    border: none;
-    margin: 10px;
-    border-radius: 15px;
+  
+  .resultadoCotizacion button {
     background-color: #AED035;
     color: white;
-    font-weight:800;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
-
-  .resultado{
-    background-color: #AED035;
-    width: 300px;
-    height: 140px;
-    margin: 10px;
-    border-radius: 10px;
-    border: 1px solid #eae5e5;
-    text-align: center;
+  
+  .resultadoCotizacion button:hover {
+    background-color: #45a049;
   }
+  
+  .resultado {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .resultado h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .resultado p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  
