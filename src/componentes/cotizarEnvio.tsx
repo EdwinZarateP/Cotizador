@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';  
 import '../estilos/cotizarEnvio.css'
 
 interface GenerarCotizacionProps {
@@ -20,7 +20,45 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   ancho,
   cajas,
 }) => {
+  
   let pesoSeleccionado: number | undefined;
+  
+  const [mostrarResultado, setmostrarResultado] = useState(false);
+
+  const visualizarResultado = () => {
+    if (!peso) {
+      alert('Debes ingresar el peso en kg de tu caja');
+      return;
+    }
+
+    if (!alto) {
+      alert('Debes ingresar el alto de tu caja');
+      return;
+    }
+
+    if (!largo) {
+      alert('Debes ingresar el largo de tu caja');
+      return;
+    }
+
+    if (!ancho) {
+      alert('Debes ingresar el ancho de tu caja');
+      return;
+    }
+
+    if (!declarado) {
+      alert('Debes ingresar el valor declarado de tu mercancía');
+      return;
+    }
+    
+    if (!cajas) {
+      alert('No indicasre el número de cajas del envío');
+      return;
+    }
+
+    setmostrarResultado(!mostrarResultado);
+    mostrarMensaje();
+  };
 
   const mostrarMensaje = () => {
     const factorPeso = 400;
@@ -47,10 +85,11 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   return (
     <div className='resultadoCotizacion'>
 
-      <button className='botonCotizar' onClick={mostrarMensaje}>
-        Cotizar Envío
+      <button className='botonCotizar' onClick={visualizarResultado}>
+      {mostrarResultado ? 'Ocultar Cotización' : 'Cotizar Envío'}
       </button>
 
+      {mostrarResultado && (
       <div className='resultado'>
         <h2>Resultado cotización</h2>
 
@@ -61,6 +100,7 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
           </div>
         )}
       </div>
+      )}
     </div>
   );
 };

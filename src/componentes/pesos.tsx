@@ -57,13 +57,14 @@ const SelectorPesos: React.FC<SelectorMedidasProps>  = ({ onValorAltoChange, onV
         placeholder="Alto (cm)"
         className='ingresosPesos' 
         onChange={manejarAlto}
-         value={valorAlto === undefined ? '' : valorAlto}/>
+        value={valorAlto === undefined ? '' : valorAlto}/>
 
         <input type="number" min='0' 
-        placeholder="Largo (cm)"
+         placeholder="Largo (cm)"
          className='ingresosPesos'
          onChange={manejarLargo}
          value={valorLargo === undefined ? '' : valorLargo}/>
+         
         
         <input type="number" min='0'
         placeholder="Ancho (cm)"
