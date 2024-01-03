@@ -1,4 +1,5 @@
 import React from 'react';
+import '../estilos/cotizarEnvio.css'
 
 interface GenerarCotizacionProps {
   peso: number;
@@ -50,14 +51,16 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
         Cotizar Envío
       </button>
 
-      <h2>Resultado cotización</h2>
+      <div className='resultado'>
+        <h2>Resultado cotización</h2>
 
-      {pesoSeleccionado !== undefined && (
-        <div>
-          <p>El costo por caja es de <br/> ${pesoSeleccionado.toFixed(0)}</p>
-          <p>El envío de la(s) {cajas} cajas cuesta <br/> ${pesoSeleccionado * cajas}</p>
-        </div>
-      )}
+        {pesoSeleccionado !== undefined && (
+          <div>
+            <p>El costo por caja es de <br/> ${pesoSeleccionado.toFixed(0)}</p>
+            <p>El envío de la(s) {cajas} cajas cuesta <br/> ${pesoSeleccionado * cajas}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

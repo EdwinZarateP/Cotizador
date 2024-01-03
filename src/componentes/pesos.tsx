@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../estilos/pesos.css'
 
 interface SelectorMedidasProps {
   onValorAltoChange: (nuevoValor: number | undefined) => void;

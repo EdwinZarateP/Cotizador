@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../estilos/pesoMinyDeclarado.css'
 
 interface SelectorPesoMinyDecProps {
   onValorPesoMinChange: (nuevoValor: number | undefined) => void;

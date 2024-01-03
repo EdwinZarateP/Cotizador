@@ -78,19 +78,6 @@ function Calculadora() {
         cajas={Number(valorCajas)}
         />      
 
-        {/* <Resultado/> */}
-
-        {/* <div>
-            el peso minimo es {valorPesoMin  ?? 0},
-            el valor declarado es {valorDeclarado  ?? 0},
-            tiene un costo {ciudadDestinoCosto},  
-            El total cajas {valorCajas}, 
-            El alto es {valorAlto}, 
-            El Largo es {valorLargo}, 
-            El ancho es {valorAncho} 
-        </div> */}
-
-
       </div>
     )
   }

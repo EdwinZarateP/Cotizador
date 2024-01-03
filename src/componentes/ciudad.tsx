@@ -19,11 +19,13 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ onCiudadDestinoChange }
 
   const manejarCiudadOrigen = (opcionSeleccionada: any) => {
     setOrigenSeleccionado(opcionSeleccionada.value);
+    console.log(OrigenSeleccionado)
   };
 
   const manejarCiudadDestino = (opcionSeleccionada: any) => {
     setDestinoSeleccionado(opcionSeleccionada.value);
     onCiudadDestinoChange(opcionSeleccionada.value.costo);
+    console.log(DestinoSeleccionado)
   };
 
   return (
@@ -41,10 +43,10 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ onCiudadDestinoChange }
         placeholder="Ciudad Destino"
         options={ciudades.map(ciudad => ({ value: ciudad, label: ciudad.nombre }))}
         onChange={manejarCiudadDestino}
-      />    
+      />
 
-      <div className='ciudades-seleccionadas'>
-        {OrigenSeleccionado && ( 
+      {/* <div className='ciudades-seleccionadas'>
+        {OrigenSeleccionado && (
           <div className='ciudad-seleccionada'>
             <p><span className="negrita">Origen: <br /> </span>  {OrigenSeleccionado.nombre}</p>
           </div>
@@ -55,8 +57,10 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ onCiudadDestinoChange }
             <p><span className="negrita">Destino: <br /> </span> {DestinoSeleccionado.nombre}</p>
           </div>
         )}
-        
-      </div>
+
+      </div> */}
+      
+
     </div>
   );
 };

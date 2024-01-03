@@ -1,0 +1,15 @@
+.contenedorPesos{
+    Display: flex;
+    flex-wrap: wrap;
+    Justify-content:center;
+    Align-items:center;
+  }
+  
+  .ingresosPesos{
+    width: 80px;
+    height: 50px;
+    border: none;
+    margin: 10px;
+    border-radius: 15px;
+    border: 1px solid #eae5e5;
+  }
