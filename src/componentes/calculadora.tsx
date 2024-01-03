@@ -3,7 +3,7 @@ import SelectorCiudad from './ciudad.tsx';
 import SelectorPesos from './pesos.tsx';
 import SelectorPesoMinyDec from './pesoMinyDeclarado.tsx';
 import GenerarCotizacion from './cotizarEnvio.tsx';
-// import Resultado from './resultadoCotizacion.tsx';
+import Car from './carro.tsx'
 import { useState } from 'react';
 
 
@@ -52,7 +52,8 @@ function Calculadora() {
 
   return (
       <div className='contenedorCalculadora'>
-
+        
+        <Car/>
         <SelectorCiudad 
         onCiudadDestinoChange={manejarCambioDeCiudadDestino}/>
         
