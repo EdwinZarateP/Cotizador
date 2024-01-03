@@ -22,7 +22,7 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   cajas,
 }) => {
   
-  let pesoSeleccionado: number | undefined;
+  let calculoCotizacion: number | undefined;
   
   const [mostrarResultado, setmostrarResultado] = useState(false);
 
@@ -117,8 +117,14 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
       });
       return;
     }
+
+    
     setmostrarResultado(!mostrarResultado);
     mostrarMensaje();
+  };
+
+  const redondearMultiplo50 = (valor:number) => {
+    return Math.round(valor / 50) * 50;
   };
 
   const mostrarMensaje = () => {
@@ -128,15 +134,15 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
 
     if (pesoVolumetrico > peso) {
       if (declarado * 0.005 < costoManejo) {
-        pesoSeleccionado = pesoVolumetrico * costo + costoManejo;
+        calculoCotizacion = redondearMultiplo50 (pesoVolumetrico * costo + costoManejo);
       } else {
-        pesoSeleccionado = pesoVolumetrico * costo + declarado * 0.005;
+        calculoCotizacion = redondearMultiplo50(pesoVolumetrico * costo + declarado * 0.005);
       }
     } else {
       if (declarado * 0.005 < costoManejo) {
-        pesoSeleccionado = peso * costo + costoManejo;
+        calculoCotizacion = redondearMultiplo50(peso * costo + costoManejo);
       } else {
-        pesoSeleccionado = peso * costo + declarado * 0.005;
+        calculoCotizacion = redondearMultiplo50(peso * costo + declarado * 0.005);
       }
     }
   };
@@ -154,10 +160,10 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
       <div className='resultado'>
         <h2>Resultado cotización</h2>
 
-        {pesoSeleccionado !== undefined && (
+        {calculoCotizacion !== undefined && (
           <div>
-            <p>El costo por caja es: <br/> ${pesoSeleccionado.toFixed(0)}</p>
-            <p>El envío de la(s) {cajas} cajas cuesta:   <br/> ${pesoSeleccionado * cajas}</p>
+            <p>El costo por caja es: <br/> ${calculoCotizacion.toLocaleString('es-CO')} </p>
+            <p>El envío de la(s) {cajas} cajas cuesta:   <br/> ${(calculoCotizacion * cajas).toLocaleString('es-CO')}</p>
           </div>
         )}
       </div>
