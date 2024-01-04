@@ -37,7 +37,7 @@
   }
   
   .resultado h2 {
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 15px;
   }
   
@@ -47,8 +47,6 @@
     margin-bottom: 10px;
   }
   
-  /* Otros estilos */
-
 .resultado .negrita {
   font-weight: bold;
 }
