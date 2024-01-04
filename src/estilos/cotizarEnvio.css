@@ -3,13 +3,9 @@
     flex-wrap: wrap;
     Justify-content:center;
     Align-items:center;
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
-    /* border: 1px solid #ccc;
-    border-radius: 8px; */
-    /* background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   }
   
   .resultadoCotizacion button {
@@ -28,11 +24,16 @@
   }
   
   .resultado {
+    Display: flex;
+    flex-wrap: wrap;
+    Justify-content:center;
+    Align-items:center;
     margin-top: 20px;
     padding: 15px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
   }
   
   .resultado h2 {
@@ -46,3 +47,8 @@
     margin-bottom: 10px;
   }
   
+  /* Otros estilos */
+
+.resultado .negrita {
+  font-weight: bold;
+}

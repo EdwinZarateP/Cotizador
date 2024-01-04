@@ -11,3 +11,7 @@
     border: 1px solid #eae5e5;
   }
   
+
+.carroEmoji {
+  font-size: 20px; /* Tamaño del emoji */
+}

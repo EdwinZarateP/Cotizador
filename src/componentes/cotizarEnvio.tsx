@@ -158,12 +158,13 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
 
       {mostrarResultado && (
       <div className='resultado'>
+        <span className="carroEmoji" role="img" aria-label="carro">🚛</span>
         <h2>Resultado cotización</h2>
-
+        
         {calculoCotizacion !== undefined && (
           <div>
-            <p>El costo por caja es: <br/> ${calculoCotizacion.toLocaleString('es-CO')} </p>
-            <p>El envío de la(s) {cajas} cajas cuesta:   <br/> ${(calculoCotizacion * cajas).toLocaleString('es-CO')}</p>
+            <p>El costo por caja es: <br/> <span className="negrita">${calculoCotizacion.toLocaleString('es-CO')}</span> </p>
+            <p>El envío de la(s) {cajas} cajas cuesta:   <br/> <span className="negrita">${(calculoCotizacion * cajas).toLocaleString('es-CO')}</span>  </p>
           </div>
         )}
       </div>
