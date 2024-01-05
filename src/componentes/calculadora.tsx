@@ -3,7 +3,7 @@ import SelectorCiudad from './ciudad.tsx';
 import SelectorPesos from './pesos.tsx';
 import SelectorPesoMinyDec from './pesoMinyDeclarado.tsx';
 import GenerarCotizacion from './cotizarEnvio.tsx';
-// import Car from './carro.tsx'
+import ExportarCotizacion from './exportarPDF.tsx';
 import { useState } from 'react';
 
 
@@ -47,13 +47,10 @@ function Calculadora() {
   };
   const manejarCambioDeCiudadDestino = (nuevaCiudadDestino: string | undefined) => {
     setCiudadDestinoCosto(nuevaCiudadDestino);
-  };
-
+  };  
 
   return (
       <div className='contenedorCalculadora'>
-        
-        {/* <Car/> */}
         
         <SelectorCiudad 
         onCiudadDestinoChange={manejarCambioDeCiudadDestino}/>
@@ -80,6 +77,8 @@ function Calculadora() {
         cajas={Number(valorCajas)}
         />      
 
+        <ExportarCotizacion/>
+        
       </div>
     )
   }
