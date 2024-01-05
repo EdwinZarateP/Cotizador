@@ -50,12 +50,15 @@ export const estilosParaExportar = StyleSheet.create({
     fontSize: 10,
   },
   input: {
+    
     marginBottom: 10,
     padding: 5,
     fontSize: 12,
     width: '100%',
+    height:'35px',
     border: '1px solid #ccc',
-    borderRadius: 4,
+    borderRadius: '10px',
+    textAlign:'center'
   },
   paragraph: {
     marginBottom: 10,

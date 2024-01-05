@@ -156,9 +156,18 @@ const ExportarCotizacion: React.FC = () => {
           style={estilosParaExportar.input}
         />
       </div>
-      <div className='botonDescargar'>
+      <div className='inputDescargar'>
         {MyDocument && (
-          <PDFDownloadLink document={MyDocument} fileName={fileName}>
+          <PDFDownloadLink 
+            document={MyDocument}
+            fileName={fileName}
+            style={{
+              textDecoration: 'none', // Quita el subrayado del enlace
+              backgroundColor: '#AED035', // Aplica un fondo al enlace
+              padding: '10px', // Añade un espacio alrededor del enlace
+              color: 'white', // Cambia el color del texto del enlace              
+            }}
+            >
             {({ loading }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}
           </PDFDownloadLink>
         )}
