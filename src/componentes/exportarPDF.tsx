@@ -1,7 +1,12 @@
+// ExportarCotizacion.tsx
 import React, { useState } from 'react';
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
+import { Document, Page, Text, View, PDFDownloadLink, Image } from '@react-pdf/renderer';
 import { ciudades } from './data';
-import '../estilos/exportarPDF.css'
+import { estilosParaExportar } from './estilosExportar'; // Importa los estilos desde el nuevo archivo
+import '../estilos/exportarPDF.css';
+import logoImage from '../imagenes/logo.png'; // Importa la imagen desde tu carpeta local
+import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
+
 
 const ExportarCotizacion: React.FC = () => {
   const [descuentoInput, setDescuentoInput] = useState<number | ''>('');
@@ -13,106 +18,127 @@ const ExportarCotizacion: React.FC = () => {
     }
   };
 
-  const styles = StyleSheet.create({
-    page: {
-      flexDirection: 'row',
-      backgroundColor: '#E4E4E4',
-      padding: 20,
-    },
-    section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1,
-    },
-    title: {
-      fontSize: 24,
-      marginBottom: 10,
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    subtitle: {
-      fontSize: 16,
-      marginBottom: 10,
-      textAlign: 'center',
-    },
-    table: {
-      width: '100%',
-      border: '1px solid black',
-      borderCollapse: 'collapse',
-      marginTop: 10,
-    },
-    tableRow: {
-      flexDirection: 'row',
-      borderBottomWidth: 1,
-      borderBottomColor: '#000',
-      alignItems: 'center',
-    },
-    tableColHeader: {
-      width: '33.33%',
-      borderRight: '1px solid black',
-      padding: 5,
-      textAlign: 'center',
-      fontSize: 10,
-      fontWeight: 'bold',
-    },
-    tableCol: {
-      width: '33.33%',
-      borderRight: '1px solid black',
-      padding: 5,
-      textAlign: 'center',
-      fontSize: 10,
-    },
-    input: {
-      marginBottom: 10,
-      padding: 5,
-      fontSize: 12,
-      width: '100%',
-      border: '1px solid #ccc',
-      borderRadius: 4,
-    },
-    paragraph: {
-      marginBottom: 10,
-      fontSize: 12,
-    },
-  });
-
   const generateTable = (descuento: number) => (
     ciudades.map((ciudad, index) => (
-      <View key={index} style={styles.tableRow}>
-        <Text style={styles.tableCol}>{ciudad.nombre}</Text>
-        <Text style={styles.tableCol}>${ciudad.costo}</Text>
-        <Text style={styles.tableCol}>
+      <View key={index} style={estilosParaExportar.tableRow}>
+        <Text style={estilosParaExportar.tableCol}>{ciudad.nombre}</Text>
+        <Text style={estilosParaExportar.tableCol}>${ciudad.costo}</Text>
+        <Text style={estilosParaExportar.tableCol}>
           ${Math.ceil(ciudad.costo * (1 - (descuento / 100)))}
         </Text>
       </View>
     ))
   );
 
+
+  const pad = (num: number): string => {
+    return num < 10 ? '0' + num : num.toString();
+  };
+
   const today = new Date();
-  const formattedDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+
+  const formattedDate = `${pad(today.getDate())}-${pad(today.getMonth() + 1)}-${today.getFullYear()}`;
   const fileName = `Cotizacion_${formattedDate}.pdf`;
 
+  
+  
   let MyDocument = null;
 
   if (descuentoInput !== '') {
     MyDocument = (
       <Document>
-        <Page size="A4" style={styles.page}>
-          <View style={styles.section}>
-            <Text style={styles.title}>Cotización paqueteo integra</Text>
-            <Text style={styles.subtitle}>Fecha: {formattedDate}</Text>
-            <Text style={styles.paragraph}>
-              Estimado cliente, los costos con el porcentaje de descuento {descuentoInput}% indicado son:
-            </Text>
+        <Page size="A4" style={estilosParaExportar.page}>
+          <View style={estilosParaExportar.section}>
             
-            <View style={styles.table}>
-              <View style={styles.tableRow}>
-                <Text style={styles.tableColHeader}>Ciudad</Text>
-                <Text style={styles.tableColHeader}>Costo Original</Text>
-                <Text style={styles.tableColHeader}>Costo con Descuento</Text>
+          {/* Encabezado con imagen */}
+          <View style={estilosParaExportar.header}>
+            <Image src={logoImage} style={estilosParaExportar.logo} />
+          </View>
+
+
+            <Text style={estilosParaExportar.title}>Cotización paqueteo Integra</Text>
+            <Text style={estilosParaExportar.subtitle}>Fecha: {formattedDate}</Text>
+            
+            <Text style={estilosParaExportar.paragraph}>
+              Apreciado Cliente, {"\n"} {"\n"}
+              Esta oferta considera ser servicio de paqueteo, con los siguientes requisitos:{"\n"}{"\n"}
+              1. PAQUETEO URBANO COMERCIAL (PRECIO POR KILOGRAMO DE ACUERDO CON TABLA N.1 COSTOS) 
+              POR KG CON DESCUENTO DEL {descuentoInput}% {"\n"}{"\n"}
+              
+              1.1 Despachos de una (1) unidad {"\n"} {"\n"}
+
+              Se cobrará 20 Kg mínimos por caja.{"\n"} {"\n"}
+              
+              1.2 Despachos de dos o más unidades {"\n"}{"\n"}
+              Se cobrarán de acuerdo con el tipo de caja:{"\n"}{"\n"}
+              {`\u2022`} Tipo A 16 Kg por cada caja{"\n"}
+              {`\u2022`} Tipo B 20 Kg por cada caja{"\n"}{"\n"}
+
+              Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
+              tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.{"\n"}{"\n"}
+
+              TABLA N.1 COSTOS POR Kg CON DESCUENTO DEL {descuentoInput}% 
+
+            </Text>
+           
+            <View style={estilosParaExportar.table}>
+              <View style={estilosParaExportar.tableRow}>
+                <Text style={estilosParaExportar.tableColHeader}>Ciudad</Text>
+                <Text style={estilosParaExportar.tableColHeader}>Costo Original</Text>
+                <Text style={estilosParaExportar.tableColHeader}>Costo con Descuento</Text>
               </View>
               {generateTable(Number(descuentoInput))}
             </View>
+
+            <Text style={estilosParaExportar.paragraph}>
+              {"\n"}
+              1.3 Costo de manejo paqueteo urbano y nacional {"\n"} {"\n"}
+              
+              Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a:{"\n"}{"\n"}
+             
+              {`\u2022`} $ 1.878 por caja para el Servicio Nacional{"\n"}
+              {`\u2022`} $ 1.489 por caja para el Servicio Urbano{"\n"}{"\n"}{"\n"}{"\n"}
+
+              2.   RECOGIDAS EN DESTINATARIO URBANO Y NACIONAL{"\n"}{"\n"}
+              
+              Se cobrará 30 Kg mínimo por despacho (hasta 1 unidad), y a partir de este 25 Kg mínimo por
+              unidad.{"\n"}{"\n"}
+
+              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  20  kg  mínimos  por  despacho  
+              (hasta  1 unidad),  a  partir  del  segundo  intento  fallido,  en  los  casos  de  que  no  se  efectúe
+              la  recogida  por responsabilidades ajenas a la operación de INTEGRA.{"\n"}{"\n"}
+        
+              3.   DEVOLUCIONES {"\n"}{"\n"}
+              En caso de que se presenten devoluciones de pedidos, por causas ajenas a nosotros (Ej.: pedido
+              no solicitado, pedido repetido, orden de compra vencida, etc.) las mismas se cobrarán de acuerdo
+              con los siguientes parámetros: Si el destinatario que originó la devolución se halla en una 
+              ciudad, el flete de la devolución se asimilará con el flete urbano de dicha ciudad, pero si el
+              destinatario se halla en una población distante de la ciudad de origen del despacho,
+              el valor del flete se asimilará con el flete establecido para dicho servicio entre
+              aquellas (ciudad-población), para poder realizar la entrega nuevamente{"\n"}{"\n"}
+              
+              3.1 NOTAS:{"\n"}{"\n"}
+
+              Una vez tramitada y solucionada la novedad de la devolución o recogida el tiempo máximo que 
+              Solistica almacenara sus productos en nuestra bodega de devoluciones es de 72 horas. A partir 
+              de la siguiente hora se procederá a almacenar la mercancía al área de almacenamiento temporal el
+              cual tendrá un costo de: 4 días a 15 días a razón de $ 36.858 por estiba ocupada.A partir del día
+              16 se cobrara $73.717 mensual por estiba ocupada.{"\n"}{"\n"}
+
+              4.   REEXPEDICIONES {"\n"}{"\n"}
+
+              Se cobrará a razón de 30 Kg mínimo por unidad, y el 1% adicional por Costo de Manejo, del valor
+              declarado de sus mercancías con un mínimo por caja de $6.593.oo valor por kg $ 2.397 
+              (Correspondientes a las entregas en ciudades o poblaciones no indicadas en la tabla de tarifas
+              origen/destino).{"\n"}{"\n"}{"\n"}{"\n"}
+
+            </Text>
+            
+            {/* imagen de la firma */}
+          <View style={estilosParaExportar.footerImage}>
+            <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+          </View>
+
           </View>
         </Page>
       </Document>
@@ -124,10 +150,10 @@ const ExportarCotizacion: React.FC = () => {
       <div>
         <input
           type="text"
-          placeholder="Ingrese porcentaje de descuento"
+          placeholder="Ingrese % de descuento"
           value={descuentoInput}
           onChange={handleDescuentoChange}
-          style={styles.input}
+          style={estilosParaExportar.input}
         />
       </div>
       <div className='botonDescargar'>

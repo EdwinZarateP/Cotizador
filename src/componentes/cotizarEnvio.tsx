@@ -130,7 +130,7 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   const mostrarMensaje = () => {
     const factorPeso = 400;
     const pesoVolumetrico = (alto / 100) * (largo / 100) * (ancho / 100) * factorPeso;
-    let costoManejo = 1878;
+    let costoManejo = 1489;
 
     if (pesoVolumetrico > peso) {
       if (declarado * 0.005 < costoManejo) {
