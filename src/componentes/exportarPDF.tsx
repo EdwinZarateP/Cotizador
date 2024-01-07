@@ -62,8 +62,8 @@ const ExportarCotizacion: React.FC = () => {
             <Text style={estilosParaExportar.paragraph}>
               Apreciado Cliente, {"\n"} {"\n"}
               Esta oferta considera ser servicio de paqueteo, con los siguientes requisitos:{"\n"}{"\n"}
-              1. PAQUETEO URBANO COMERCIAL (PRECIO POR KILOGRAMO DE ACUERDO CON TABLA N.1 COSTOS) 
-              POR KG CON DESCUENTO DEL {descuentoInput}% {"\n"}{"\n"}
+              1. PAQUETEO URBANO COMERCIAL (DE ACUERDO CON TABLA N.1 COSTOS 
+              POR KG CON DESCUENTO DEL {descuentoInput}%) {"\n"}{"\n"}
               
               1.1 Despachos de una (1) unidad {"\n"} {"\n"}
 
@@ -83,9 +83,9 @@ const ExportarCotizacion: React.FC = () => {
            
             <View style={estilosParaExportar.table}>
               <View style={estilosParaExportar.tableRow}>
-                <Text style={estilosParaExportar.tableColHeader}>Ciudad</Text>
-                <Text style={estilosParaExportar.tableColHeader}>Costo Original</Text>
-                <Text style={estilosParaExportar.tableColHeader}>Costo con Descuento</Text>
+                <Text style={estilosParaExportar.tableColHeader}> Ciudad </Text>
+                <Text style={estilosParaExportar.tableColHeader}> Costo Original </Text>
+                <Text style={estilosParaExportar.tableColHeader}> Costo con Descuento </Text>
               </View>
               {generateTable(Number(descuentoInput))}
             </View>
@@ -146,7 +146,7 @@ const ExportarCotizacion: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className='contenedorDescuento'>
       <div>
         <input
           type="text"
@@ -155,6 +155,7 @@ const ExportarCotizacion: React.FC = () => {
           onChange={handleDescuentoChange}
           style={estilosParaExportar.input}
         />
+        <p>Aqui podrá descargar el PDF con su descuento</p>        
       </div>
       <div className='inputDescargar'>
         {MyDocument && (

@@ -1,13 +1,40 @@
-.inputDescargar{
-    width: 220px;
-    height: 20px;
-    margin: 10px;
-    text-align: center;
-    color: white;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 10px;
-    transition: background-color 0.3s ease;
+.contenedorDescuento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    padding: 20px;
+    border-radius: 5px;
+    width: 260px;
+    margin: 0px;
+    background-color: #f9f9f9; /* Color de fondo más claro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sutil sombra */
 
-}
+  }
+
+  .contenedorDescuento p {
+   margin: 0;
+  }
+  
+  .inputDescargar {
+    width: 100%;
+    max-width: 220px; /* Ancho máximo para el botón de descarga */
+    margin-top: 20px; /* Espaciado desde el contenedor anterior */
+    text-align: center;
+  }
+  
+  .inputDescargar button {
+    width: 100%;
+    height: 40px;
+    background-color: #AED035;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+
+  

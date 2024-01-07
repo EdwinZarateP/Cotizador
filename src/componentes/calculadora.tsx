@@ -51,6 +51,7 @@ function Calculadora() {
 
   return (
       <div className='contenedorCalculadora'>
+        <ExportarCotizacion/>
         
         <SelectorCiudad 
         onCiudadDestinoChange={manejarCambioDeCiudadDestino}/>
@@ -76,8 +77,6 @@ function Calculadora() {
         ancho={Number(valorAncho)} 
         cajas={Number(valorCajas)}
         />      
-
-        <ExportarCotizacion/>
         
       </div>
     )

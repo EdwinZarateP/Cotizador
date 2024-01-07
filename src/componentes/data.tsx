@@ -5,7 +5,7 @@ interface Ciudad {
 }
 
 const ciudades: Ciudad[] = [
-  
+{nombre:'BOGOTA, D.C. - BOGOTA, D.C. ', costo:169},  
 {nombre:'CHIA - CUNDINAMARCA ', costo:267},
 {nombre:'COTA - CUNDINAMARCA ', costo:455},
 {nombre:'FACATATIVA - CUNDINAMARCA ', costo:722},

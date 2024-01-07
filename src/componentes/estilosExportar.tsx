@@ -51,13 +51,13 @@ export const estilosParaExportar = StyleSheet.create({
   },
   input: {
     
-    marginBottom: 10,
+    marginBottom: 8,
     padding: 5,
     fontSize: 12,
     width: '100%',
-    height:'35px',
+    height:'25px',
     border: '1px solid #ccc',
-    borderRadius: '10px',
+    borderRadius: '5px',
     textAlign:'center'
   },
   paragraph: {

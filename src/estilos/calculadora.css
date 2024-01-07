@@ -1,17 +1,19 @@
-.contenedorCalculadora{
-    Display: flex;
-    flex-direction: column;
-    Justify-content:center;
-    Align-items:center;
-    background-color:whitesmoke;
-    width: 350px;
-    height: 800px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #eae5e5;
-  }
-  
+.contenedorCalculadora {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  width: 350px;
+  height: 1200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eae5e5;
+  padding: 20px;
+  margin: 20px auto; /* Centra el contenedor horizontalmente */
+}
 
-.carroEmoji {
-  font-size: 18px; /* Tamaño del emoji */
+/* Añade márgenes para separar los elementos internos */
+.contenedorCalculadora > * {
+  margin-bottom: 5px;
 }
