@@ -151,11 +151,11 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
     <div className='contenedorDescuento'>
       <div>
         <input
-          type="number"
+          type="number" min='0' 
           placeholder="Ingrese % de descuento"
-          value={descuentoInput}
           onChange={handleDescuentoChange}
           style={estilosParaExportar.input}
+          value={descuentoInput}
         />
         <p>Aqui podrá descargar la cotización en PDF con su descuento por Kg</p>        
       </div>
