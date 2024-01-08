@@ -7,7 +7,11 @@
     margin: 0 auto;
     padding: 10px;
   }
-  
+ 
+  .carroEmoji{
+    font-size: 16px;
+  }
+
   .resultadoCotizacion button {
     background-color: #AED035;
     color: white;
@@ -37,12 +41,12 @@
   }
   
   .resultado h2 {
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 15px;
   }
   
   .resultado p {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
     margin-bottom: 10px;
   }

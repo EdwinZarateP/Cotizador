@@ -8,13 +8,15 @@ import logoImage from '../imagenes/logo.png'; // Importa la imagen desde tu carp
 import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
 
 
-const ExportarCotizacion: React.FC = () => {
+const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: number) => void }> = ({ onDescuentoInputChange }) => {
   const [descuentoInput, setDescuentoInput] = useState<number | ''>('');
 
   const handleDescuentoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (!isNaN(Number(value))) {
-      setDescuentoInput(Number(value));
+      const newDescuento = Number(value);
+      setDescuentoInput(newDescuento);
+      onDescuentoInputChange(newDescuento)
     }
   };
 
@@ -155,7 +157,7 @@ const ExportarCotizacion: React.FC = () => {
           onChange={handleDescuentoChange}
           style={estilosParaExportar.input}
         />
-        <p>Aqui podrá descargar el PDF con su descuento</p>        
+        <p>Aqui podrá descargar la cotización en PDF con su descuento por Kg</p>        
       </div>
       <div className='inputDescargar'>
         {MyDocument && (
@@ -166,7 +168,8 @@ const ExportarCotizacion: React.FC = () => {
               textDecoration: 'none', // Quita el subrayado del enlace
               backgroundColor: '#AED035', // Aplica un fondo al enlace
               padding: '10px', // Añade un espacio alrededor del enlace
-              color: 'white', // Cambia el color del texto del enlace              
+              color: 'white', // Cambia el color del texto del enlace 
+                           
             }}
             >
             {({ loading }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}

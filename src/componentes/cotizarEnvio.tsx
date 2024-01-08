@@ -10,6 +10,7 @@ interface GenerarCotizacionProps {
   largo: number;
   ancho: number;
   cajas: number;
+  descuento: number;
 }
 
 const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
@@ -19,10 +20,12 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   alto,
   largo,
   ancho,
-  cajas,
+  cajas,  
+  descuento
 }) => {
   
   let calculoCotizacion: number | undefined;
+  let calculoCotizacionDescuento: number | undefined;
   
   const [mostrarResultado, setmostrarResultado] = useState(false);
 
@@ -123,9 +126,10 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     mostrarMensaje();
   };
 
-  const redondearMultiplo50 = (valor:number) => {
-    return Math.round(valor / 50) * 50;
+  const redondearMultiplo50 = (valor: number) => {
+    return Math.ceil(valor / 50) * 50;
   };
+
 
   const mostrarMensaje = () => {
     const factorPeso = 400;
@@ -135,14 +139,18 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     if (pesoVolumetrico > peso) {
       if (declarado * 0.005 < costoManejo) {
         calculoCotizacion = redondearMultiplo50 (pesoVolumetrico * costo + costoManejo);
+        calculoCotizacionDescuento= redondearMultiplo50 ((pesoVolumetrico * costo + costoManejo) * ((100-descuento)/100));
       } else {
         calculoCotizacion = redondearMultiplo50(pesoVolumetrico * costo + declarado * 0.005);
+        calculoCotizacionDescuento = redondearMultiplo50((pesoVolumetrico * costo + declarado * 0.005)*((100-descuento)/100));
       }
     } else {
       if (declarado * 0.005 < costoManejo) {
         calculoCotizacion = redondearMultiplo50(peso * costo + costoManejo);
+        calculoCotizacionDescuento = redondearMultiplo50((peso * costo + costoManejo)*((100-descuento)/100));
       } else {
         calculoCotizacion = redondearMultiplo50(peso * costo + declarado * 0.005);
+        calculoCotizacionDescuento = redondearMultiplo50((peso * costo + declarado * 0.005)*((100-descuento)/100));
       }
     }
   };
@@ -161,10 +169,11 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
         <span className="carroEmoji" role="img" aria-label="carro">🚛</span>
         <h2>Resultado cotización</h2>
         
-        {calculoCotizacion !== undefined && (
+        {calculoCotizacion && calculoCotizacionDescuento !== undefined && (
           <div>
             <p>El costo por caja es: <br/> <span className="negrita">${calculoCotizacion.toLocaleString('es-CO')}</span> </p>
             <p>El envío de la(s) {cajas} cajas cuesta:   <br/> <span className="negrita">${(calculoCotizacion * cajas).toLocaleString('es-CO')}</span>  </p>
+            <p>El envío de la(s) {cajas} cajas cuesta con descuento:   <br/> <span className="negrita">${(calculoCotizacionDescuento * cajas).toLocaleString('es-CO')}</span>  </p>
           </div>
         )}
       </div>

@@ -30,7 +30,7 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ onCiudadDestinoChange }
 
   return (
     <div>
-
+      
       <Select
         className="ciudad"
         placeholder="Ciudad Origen"
