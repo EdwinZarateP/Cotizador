@@ -151,7 +151,7 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
     <div className='contenedorDescuento'>
       <div>
         <input
-          type="text"
+          type="number"
           placeholder="Ingrese % de descuento"
           value={descuentoInput}
           onChange={handleDescuentoChange}
