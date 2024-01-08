@@ -9,9 +9,9 @@ import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desd
 
 
 const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: number) => void }> = ({ onDescuentoInputChange }) => {
-  const [descuentoInput, setDescuentoInput] = useState<number | ''>('');
-
-  const handleDescuentoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  
+  const [descuentoInput, setDescuentoInput] = useState<number | 0>(0);
+  const ManejarDescuentoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (!isNaN(Number(value))) {
       const newDescuento = Number(value);
@@ -46,7 +46,7 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
   
   let MyDocument = null;
 
-  if (descuentoInput !== '') {
+  if (descuentoInput !== 0) {
     MyDocument = (
       <Document>
         <Page size="A4" style={estilosParaExportar.page}>
@@ -153,7 +153,7 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
         <input
           type="number" min='0' 
           placeholder="Ingrese % de descuento"
-          onChange={handleDescuentoChange}
+          onChange={ManejarDescuentoChange}
           style={estilosParaExportar.input}
           value={descuentoInput}
         />
