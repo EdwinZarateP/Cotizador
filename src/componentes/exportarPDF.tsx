@@ -150,6 +150,7 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
   return (
     <div className='contenedorDescuento'>
       <div>
+      <h3>Aplique el % descuento que desea:</h3>
         <input
           type="number" min='0' 
           placeholder="Ingrese % de descuento"

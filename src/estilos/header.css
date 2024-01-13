@@ -20,3 +20,9 @@
     align-items: center;
     padding: 15px;
 }
+
+@media (max-width: 550px) {
+.centrar-titulo {
+    align-items: right;
+    justify-content: right;
+}}

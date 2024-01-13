@@ -3,14 +3,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100px;
-    padding: 20px;
+    height: 150px;
+    padding: 0 20px 20px 20px;
     border-radius: 5px;
     width: 260px;
     margin: 0px;
     background-color: #f9f9f9; /* Color de fondo más claro */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sutil sombra */
-
+    margin-top: 10px;
   }
 
   .contenedorDescuento p {

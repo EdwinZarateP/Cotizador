@@ -5,9 +5,10 @@ import SelectorPesoMinyDec from './pesoMinyDeclarado.tsx';
 import GenerarCotizacion from './cotizarEnvio.tsx';
 import ExportarCotizacion from './exportarPDF.tsx';
 import { useState } from 'react';
+import { Claves } from './claves';
 
 
-function Calculadora() {
+function Calculadora({ clave }: { clave: string }) {
   const [Descuento, setDescuento] = useState<number>(10);
  
   //medidas alto largo y ancho
@@ -26,6 +27,7 @@ function Calculadora() {
 
   const handleDescuentoInputChange = (newDescuento: number) => {
     setDescuento(newDescuento);
+    console.log(clave)
   };
 
   const manejarCambioDeValorAlto = (nuevoValorAlto: number | undefined) => {
@@ -55,15 +57,20 @@ function Calculadora() {
     setCiudadDestinoCosto(nuevaCiudadDestino);
   };  
 
+  // Verificar si la clave está en el array de Claves
+    const claveEncontrada = Claves.find((item) => item.clave === clave);
+
   return (
       <div className='contenedorCalculadora'>
         
-        <h3>Aplique su descuento</h3>
+      
 
-        <ExportarCotizacion
-        onDescuentoInputChange={handleDescuentoInputChange}/>
+        {/* Mostrar ExportarCotizacion solo si la clave coincide */}
+      {claveEncontrada && (
+        <ExportarCotizacion onDescuentoInputChange={handleDescuentoInputChange} />
+      )}
 
-        <h3>Cotice el costo por caja aplicando el % descuento</h3>
+       
         
         <SelectorCiudad 
         onCiudadDestinoChange={manejarCambioDeCiudadDestino}/>

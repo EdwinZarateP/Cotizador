@@ -2,12 +2,13 @@ import { useState } from 'react';
 import '../estilos/header.css'
 import InputClave from './clave.tsx';
 
-const Header = () => {
+const Header = ({ onInputChange }: { onInputChange: (value: string) => void }) => {
 
   const [inputValorClave, setInputValorClave] = useState('');
 
   const manejarCambioClave = (value: string) => {
     setInputValorClave(value);
+    onInputChange(value); // Llama a la función del padre
     console.log(inputValorClave);
   };
 

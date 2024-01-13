@@ -17,7 +17,7 @@ const InputClave: React.FC<{ onInputChange: (value: string) => void }> = ({ onIn
   return (
     <input
       className='inputClave'
-      type="text"
+      type="password"
       value={inputValorClave}
       onChange={manejarCambioClave}
       maxLength={4}
