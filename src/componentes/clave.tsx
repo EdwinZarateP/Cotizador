@@ -8,7 +8,7 @@ const InputClave: React.FC<{ onInputChange: (value: string) => void }> = ({ onIn
     const value = e.target.value;
 
     // Verificar si la longitud es 4 antes de actualizar el estado
-    if (value.length <= 4) {
+    if (value.length <= 6) {
     setInputValorClave(value);
       onInputChange(value);
     }
@@ -20,7 +20,7 @@ const InputClave: React.FC<{ onInputChange: (value: string) => void }> = ({ onIn
       type="password"
       value={inputValorClave}
       onChange={manejarCambioClave}
-      maxLength={4}
+      maxLength={6}
       placeholder="Token"
     />
   );

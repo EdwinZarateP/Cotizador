@@ -6,7 +6,8 @@ interface Clave {
 
 const Claves: Clave[] = [
   {usuario:'edwinzarate', clave:'eeee'},
-  {usuario:'carloscardona', clave:'cccc'}, 
+  {usuario:'carloscardona', clave:'carlos'}, 
+  {usuario:'nestorvela', clave:'nestor'},
 ];
 
 export { Claves};
