@@ -136,21 +136,28 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     const pesoVolumetrico = (alto / 100) * (largo / 100) * (ancho / 100) * factorPeso;
     let costoManejo = 1489;
 
-    if (pesoVolumetrico > peso) {
+    // Corregir el peso por 20 si es menor a 20
+    const pesoCorregido = Math.max(peso, 20);
+
+    if (pesoVolumetrico > pesoCorregido) {
       if (declarado * 0.005 < costoManejo) {
         calculoCotizacion = redondearMultiplo50 (pesoVolumetrico * costo + costoManejo);
-        calculoCotizacionDescuento= redondearMultiplo50 ((pesoVolumetrico * costo + costoManejo) * ((100-descuento)/100));
+        calculoCotizacionDescuento= redondearMultiplo50 ((pesoVolumetrico * (costo* ((100-descuento)/100)) + costoManejo));
+
       } else {
         calculoCotizacion = redondearMultiplo50(pesoVolumetrico * costo + declarado * 0.005);
-        calculoCotizacionDescuento = redondearMultiplo50((pesoVolumetrico * costo + declarado * 0.005)*((100-descuento)/100));
+        calculoCotizacionDescuento = redondearMultiplo50((pesoVolumetrico * (costo* ((100-descuento)/100)) + declarado * 0.005));
+
       }
     } else {
       if (declarado * 0.005 < costoManejo) {
-        calculoCotizacion = redondearMultiplo50(peso * costo + costoManejo);
-        calculoCotizacionDescuento = redondearMultiplo50((peso * costo + costoManejo)*((100-descuento)/100));
+        calculoCotizacion = redondearMultiplo50(pesoCorregido * costo + costoManejo);
+        calculoCotizacionDescuento = redondearMultiplo50((pesoCorregido * (costo* ((100-descuento)/100)) + costoManejo));
+        
       } else {
-        calculoCotizacion = redondearMultiplo50(peso * costo + declarado * 0.005);
-        calculoCotizacionDescuento = redondearMultiplo50((peso * costo + declarado * 0.005)*((100-descuento)/100));
+        calculoCotizacion = redondearMultiplo50(pesoCorregido * costo + declarado * 0.005);
+        calculoCotizacionDescuento = redondearMultiplo50((pesoCorregido * (costo* ((100-descuento)/100)) + declarado * 0.005));
+       
       }
     }
   };

@@ -9,7 +9,7 @@ import { Claves } from './claves';
 
 
 function Calculadora({ clave }: { clave: string }) {
-  const [Descuento, setDescuento] = useState<number>(10);
+  const [Descuento, setDescuento] = useState<number>(0);
  
   //medidas alto largo y ancho
   const [valorAlto, setvalorAlto] = useState<number | undefined>(undefined);
@@ -70,7 +70,6 @@ function Calculadora({ clave }: { clave: string }) {
         <ExportarCotizacion onDescuentoInputChange={handleDescuentoInputChange} />
       )}
 
-       
         
         <SelectorCiudad 
         onCiudadDestinoChange={manejarCambioDeCiudadDestino}/>
