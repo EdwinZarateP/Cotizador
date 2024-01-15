@@ -71,11 +71,6 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
 
               Se cobrará 20 Kg mínimos por caja.{"\n"} {"\n"}
               
-              1.2 Despachos de dos o más unidades {"\n"}{"\n"}
-              Se cobrarán de acuerdo con el tipo de caja:{"\n"}{"\n"}
-              {`\u2022`} Tipo A 16 Kg por cada caja{"\n"}
-              {`\u2022`} Tipo B 20 Kg por cada caja{"\n"}{"\n"}
-
               Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
               tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.{"\n"}{"\n"}
 
