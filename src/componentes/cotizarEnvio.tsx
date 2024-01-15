@@ -101,7 +101,7 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
       return;
     }
     
-    if (declarado < 25000) {
+    if (declarado < 500000) {
       Swal.fire({
         icon: 'warning',
         title: 'El valor declarado debe ser mayor a 25000.',
@@ -134,10 +134,10 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   const mostrarMensaje = () => {
     const factorPeso = 400;
     const pesoVolumetrico = (alto / 100) * (largo / 100) * (ancho / 100) * factorPeso;
-    let costoManejo = 1489;
+    let costoManejo = 2500;
 
     // Corregir el peso por 20 si es menor a 20
-    const pesoCorregido = Math.max(peso, 20);
+    const pesoCorregido = Math.max(peso, 30);
 
     if (pesoVolumetrico > pesoCorregido) {
       if (declarado * 0.005 < costoManejo) {

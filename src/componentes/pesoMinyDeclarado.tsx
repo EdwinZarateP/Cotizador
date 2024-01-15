@@ -61,7 +61,7 @@ const SelectorPesoMinyDec: React.FC <SelectorPesoMinyDecProps> = ({ onValorPesoM
          value={valorPesoMin === undefined ? '' : valorPesoMin}/>
 
         <input type="number" min='0' 
-         placeholder="Valor declarado mínimo $25.000"
+         placeholder="Valor declarado mínimo $500.000"
          className='ingresosDatos' 
          onChange={manejarvalorDeclarado}
          value={valorDeclarado === undefined ? '' : valorDeclarado}/>

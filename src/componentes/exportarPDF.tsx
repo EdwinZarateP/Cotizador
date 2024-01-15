@@ -92,9 +92,8 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
               1.3 Costo de manejo paqueteo urbano y nacional {"\n"} {"\n"}
               
               Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a:{"\n"}{"\n"}
-             
-              {`\u2022`} $ 1.878 por caja para el Servicio Nacional{"\n"}
-              {`\u2022`} $ 1.489 por caja para el Servicio Urbano{"\n"}{"\n"}{"\n"}{"\n"}
+
+              {`\u2022`} $ 2.500 por caja para el Servicio Urbano{"\n"}{"\n"}{"\n"}{"\n"}
 
               2.   RECOGIDAS EN DESTINATARIO URBANO Y NACIONAL{"\n"}{"\n"}
               
