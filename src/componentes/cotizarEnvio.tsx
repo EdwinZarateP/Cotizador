@@ -30,11 +30,12 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   const [mostrarResultado, setmostrarResultado] = useState(false);
 
   const visualizarResultado = () => {
-    
+
     if (!costo) {
       Swal.fire({
         icon: 'warning',
-        title: 'Por favor el destino',
+        title: 'Información incompleta de origen u destino',
+        text:'Por favor ingrese completos los datos de origen y destino',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
@@ -44,17 +45,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     if (!peso) {
       Swal.fire({
         icon: 'warning',
-        title: 'Por favor ingrese el peso',
-        allowOutsideClick: true,
-        allowEscapeKey: true,
-      });
-      return;
-    }
-
-    if (peso < 2) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'El peso debe ser mayor a 2 kg',
+        title: 'Falta tu peso',
+        text:'Por favor ingrese el peso',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
@@ -64,7 +56,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     if (!alto) {
       Swal.fire({
         icon: 'warning',
-        title: 'Por favor ingrese el alto de la caja',
+        title: 'Falta la altura',
+        text:'Por favor ingrese el alto de la caja',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
@@ -74,7 +67,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     if (!largo) {
       Swal.fire({
         icon: 'warning',
-        title: 'Por favor ingrese el largo de la caja',
+        title: 'Falta el largo',
+        text:'Por favor ingrese el largo de la caja',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
@@ -84,7 +78,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     if (!ancho) {
       Swal.fire({
         icon: 'warning',
-        title: 'Por favor ingrese el ancho de la caja',
+        title: 'Falta el ancho',
+        text:'Por favor ingrese el ancho de la caja',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
@@ -94,7 +89,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     if (!declarado) {
       Swal.fire({
         icon: 'warning',
-        title: 'Por favor ingrese el valor declarado de la mercancía',
+        title: 'Falta el valor declarado',
+        text:'Por favor ingrese el valor declarado de la mercancía, mínimo $500.000',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
@@ -104,7 +100,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     if (declarado < 500000) {
       Swal.fire({
         icon: 'warning',
-        title: 'El valor declarado debe ser mayor a 25000.',
+        title: 'Valor declarado muy bajo',
+        text:'El valor declarado debe ser mayor a $500.000',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
@@ -114,16 +111,28 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     if (!cajas) {
       Swal.fire({
         icon: 'warning',
-        title: 'Por favor ingrese el número de cajas',
+        title: 'Falta cantidad de cajas',
+        text:'Por favor ingrese el número de cajas de tu envío',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
       return;
     }
 
+    if (costo===3000) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Ruta es Re-expedición',
+        text: 'Lo sentimos, no tenemos disponible esa ruta en este momento, debemos generar una Re expedición para este destino',
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
+      // return;
+    }
     
     setmostrarResultado(!mostrarResultado);
     mostrarMensaje();
+    
   };
 
   const redondearMultiplo50 = (valor: number) => {

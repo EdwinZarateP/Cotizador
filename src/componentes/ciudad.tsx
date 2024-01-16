@@ -1,66 +1,73 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { ciudades } from './data';
+import { ciudadesCombinadas } from './CombinacionesCiudades';
 import '../estilos/ciudad.css'
 
-interface Ciudad {
-  nombre: string;
-  costo: number;
-}
 
 interface SelectorCiudadProps {
-  onCiudadDestinoChange: (ciudad: string) => void;
+  guardarCosto: (costo: number) => void;
 }
 
-const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ onCiudadDestinoChange }) => {
+const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto }) => {
+  const [ciudadOrigen, setCiudadOrigen] = useState<{ label: string; value: string } | null>(null);
+  const [ciudadDestino, setCiudadDestino] = useState<{ label: string; value: string } | null>(null);
+  const [costoCombinacion, setCostoCombinacion] = useState(0);
 
-  const [OrigenSeleccionado, setOrigenSeleccionado] = useState<Ciudad | null>(null);
-  const [DestinoSeleccionado, setDestinoSeleccionado] = useState<Ciudad | null>(null);
+  const opcionesCiudades = ciudades.map((ciudad) => ({
+    label: ciudad.nombre,
+    value: ciudad.nombre,
+  }));
 
-  const manejarCiudadOrigen = (opcionSeleccionada: any) => {
-    setOrigenSeleccionado(opcionSeleccionada.value);
-    console.log(OrigenSeleccionado)
+  useEffect(() => {
+    obtenerCostoCombinacion();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ciudadOrigen, ciudadDestino]); // Se ejecuta cuando cambian ciudadOrigen o ciudadDestino
+
+  const handleCiudadOrigenChange = (selectedOption: { label: string; value: string } | null) => {
+    setCiudadOrigen(selectedOption);
+    console.log(costoCombinacion)
   };
 
-  const manejarCiudadDestino = (opcionSeleccionada: any) => {
-    setDestinoSeleccionado(opcionSeleccionada.value);
-    onCiudadDestinoChange(opcionSeleccionada.value.costo);
-    console.log(DestinoSeleccionado)
+  const handleCiudadDestinoChange = (selectedOption: { label: string; value: string } | null) => {
+    setCiudadDestino(selectedOption);
+  };
+
+  const obtenerCostoCombinacion = () => {
+    if (ciudadOrigen && ciudadDestino) {
+      const combinacion = `${ciudadOrigen.value} / ${ciudadDestino.value}`;
+
+      const combinacionEncontrada = ciudadesCombinadas.find(
+        (c) => c.combinacion === combinacion
+      );
+
+      if (combinacionEncontrada) {
+        setCostoCombinacion(combinacionEncontrada.costo);
+        guardarCosto(combinacionEncontrada.costo);
+      } else {
+        setCostoCombinacion(3000);
+        guardarCosto(3000);
+      }
+    }
   };
 
   return (
     <div>
-      
       <Select
         className="ciudad"
+        value={ciudadOrigen}
+        onChange={handleCiudadOrigenChange}
+        options={opcionesCiudades}
         placeholder="Ciudad Origen"
-        options={ciudades.map(ciudad => ({ value: ciudad, label: ciudad.nombre }))}
-        onChange={manejarCiudadOrigen}
       />
-
       <Select
         className="ciudad"
+        value={ciudadDestino}
+        onChange={handleCiudadDestinoChange}
+        options={opcionesCiudades}
         placeholder="Ciudad Destino"
-        options={ciudades.map(ciudad => ({ value: ciudad, label: ciudad.nombre }))}
-        onChange={manejarCiudadDestino}
       />
-
-      {/* <div className='ciudades-seleccionadas'>
-        {OrigenSeleccionado && (
-          <div className='ciudad-seleccionada'>
-            <p><span className="negrita">Origen: <br /> </span>  {OrigenSeleccionado.nombre}</p>
-          </div>
-        )}
-
-        {DestinoSeleccionado && (
-          <div className='ciudad-seleccionada ciudad-seleccionada-destino'>
-            <p><span className="negrita">Destino: <br /> </span> {DestinoSeleccionado.nombre}</p>
-          </div>
-        )}
-
-      </div> */}
-      
-
+      <p>Costo Combinación: {costoCombinacion}</p>
     </div>
   );
 };

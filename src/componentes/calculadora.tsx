@@ -21,8 +21,9 @@ function Calculadora({ clave }: { clave: string }) {
   const [valorCajas, setvalorCajas] = useState<number | undefined>(undefined);
   
   //ciudad destino
-  const [ciudadDestinoCosto, setCiudadDestinoCosto] = useState<string | undefined>(undefined);
-
+  const [ciudadDestinoCosto, setCiudadDestinoCosto] = useState<number>(0);
+  
+  
   //Funciones de cambios de estado
 
   const handleDescuentoInputChange = (newDescuento: number) => {
@@ -53,9 +54,15 @@ function Calculadora({ clave }: { clave: string }) {
   const manejarCambioDeValorCajas = (nuevoValorCajas: number | undefined) => {
     setvalorCajas(nuevoValorCajas); // Actualiza el estado en el padre con el valor declarado
   };
-  const manejarCambioDeCiudadDestino = (nuevaCiudadDestino: string | undefined) => {
-    setCiudadDestinoCosto(nuevaCiudadDestino);
-  };  
+
+  // const manejarCambioDeCiudadDestino = (nuevaCiudadDestino: string | undefined) => {
+  //   setCiudadDestinoCosto(nuevaCiudadDestino);
+  // };  
+
+  const guardarCostoEnVariable = (costo: number) => {
+    setCiudadDestinoCosto(costo);
+  };
+
 
   // Verificar si la clave está en el array de Claves
     const claveEncontrada = Claves.find((item) => item.clave === clave);
@@ -63,8 +70,6 @@ function Calculadora({ clave }: { clave: string }) {
   return (
       <div className='contenedorCalculadora'>
         
-      
-
         {/* Mostrar ExportarCotizacion solo si la clave coincide */}
       {claveEncontrada && (
         <ExportarCotizacion onDescuentoInputChange={handleDescuentoInputChange} />
@@ -72,7 +77,7 @@ function Calculadora({ clave }: { clave: string }) {
 
         
         <SelectorCiudad 
-        onCiudadDestinoChange={manejarCambioDeCiudadDestino}/>
+        guardarCosto={guardarCostoEnVariable}/>
         
         <SelectorPesos
         onValorAltoChange={manejarCambioDeValorAlto}
