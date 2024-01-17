@@ -16,7 +16,6 @@
     "jspdf-autotable": "^3.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-html-table-to-excel": "^2.0.0",
     "react-select": "^5.8.0",
     "sweetalert2": "^11.10.2"
   },
