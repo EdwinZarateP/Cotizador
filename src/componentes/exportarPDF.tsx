@@ -1,13 +1,11 @@
 // ExportarCotizacion.tsx
 import React, { useState } from 'react';
 import { Document, Page, Text, View, PDFDownloadLink, Image } from '@react-pdf/renderer';
-// import { ciudades } from './data';
 import { estilosParaExportar } from './estilosExportar'; // Importa los estilos desde el nuevo archivo
 import '../estilos/exportarPDF.css';
 import logoImage from '../imagenes/logo.png'; // Importa la imagen desde tu carpeta local
 import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
 import { ciudadesCombinadas } from './CombinacionesCiudades';
-
 
 const ExportarCotizacion: React.FC <{
    onDescuentoInputChange: (newDescuento: number) => void,
@@ -240,6 +238,7 @@ const ExportarCotizacion: React.FC <{
     );
   }
 
+
   return (
     <div className='contenedorDescuento'>
       <div>
@@ -251,7 +250,7 @@ const ExportarCotizacion: React.FC <{
           style={estilosParaExportar.input}
           value={descuentoInput}
         />
-        <h3>Ingrese la cantidad de Kg mínimos a cobrar por caja</h3>
+        <h3>Ingrese la cantidad de Kg mínimos a cobrar por caja (mínimo 15 Kg)</h3>
          <input
           type="number" min='0'
           placeholder="Ingrese mínimo de Kg"
@@ -263,18 +262,18 @@ const ExportarCotizacion: React.FC <{
         <p>Aqui podrá descargar la cotización en PDF con su descuento por Kg</p>        
       </div>
       <div className='inputDescargar'>
-        {MyDocument && (
-          <PDFDownloadLink 
+        
+      {minimoKgInput >= 15 && MyDocument && (
+          <PDFDownloadLink
             document={MyDocument}
             fileName={fileName}
             style={{
-              textDecoration: 'none', // Quita el subrayado del enlace
-              backgroundColor: '#AED035', // Aplica un fondo al enlace
-              padding: '10px', // Añade un espacio alrededor del enlace
-              color: 'white', // Cambia el color del texto del enlace 
-                           
+              textDecoration: 'none',
+              backgroundColor: '#AED035',
+              padding: '10px',
+              color: 'white',
             }}
-            >
+          >
             {({ loading }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}
           </PDFDownloadLink>
         )}
