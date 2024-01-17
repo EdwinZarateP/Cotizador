@@ -138,7 +138,7 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     let costoManejo = 2500;
 
     // Corregir el peso por minKg si es menor a este
-    const pesoCorregido = Math.max(peso, minKg);
+    const pesoCorregido = cajas === 1 || minKg === 0 ? 30 : Math.max(peso, minKg);
 
     if (pesoVolumetrico > pesoCorregido) {
       if (declarado * 0.005 < costoManejo) {
