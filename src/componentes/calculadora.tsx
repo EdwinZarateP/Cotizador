@@ -9,8 +9,10 @@ import { Claves } from './claves';
 
 
 function Calculadora({ clave }: { clave: string }) {
+  
   const [Descuento, setDescuento] = useState<number>(0);
- 
+  const [minimoKgInput, setMinimoKgInput] = useState<number | 0>(0);
+
   //medidas alto largo y ancho
   const [valorAlto, setvalorAlto] = useState<number | undefined>(undefined);
   const [valorLargo, setvalorLargo] = useState<number | undefined>(undefined);
@@ -19,16 +21,20 @@ function Calculadora({ clave }: { clave: string }) {
   const [valorPesoMin, setValorPesoMin] = useState<number | undefined>(undefined);
   const [valorDeclarado, setvalorDeclarado] = useState<number | undefined>(undefined);
   const [valorCajas, setvalorCajas] = useState<number | undefined>(undefined);
-  
+
   //ciudad destino
   const [ciudadDestinoCosto, setCiudadDestinoCosto] = useState<number>(0);
-  
-  
+
+
   //Funciones de cambios de estado
 
   const handleDescuentoInputChange = (newDescuento: number) => {
     setDescuento(newDescuento);
-    console.log(clave)
+    console.log(clave, minimoKgInput)
+  };
+
+  const manejarCambioDeMinimoKg = (nuevoMinimoKg: number | undefined) => {
+    setMinimoKgInput(nuevoMinimoKg || 0);
   };
 
   const manejarCambioDeValorAlto = (nuevoValorAlto: number | undefined) => {
@@ -55,9 +61,6 @@ function Calculadora({ clave }: { clave: string }) {
     setvalorCajas(nuevoValorCajas); // Actualiza el estado en el padre con el valor declarado
   };
 
-  // const manejarCambioDeCiudadDestino = (nuevaCiudadDestino: string | undefined) => {
-  //   setCiudadDestinoCosto(nuevaCiudadDestino);
-  // };  
 
   const guardarCostoEnVariable = (costo: number) => {
     setCiudadDestinoCosto(costo);
@@ -69,16 +72,18 @@ function Calculadora({ clave }: { clave: string }) {
 
   return (
       <div className='contenedorCalculadora'>
-        
+
         {/* Mostrar ExportarCotizacion solo si la clave coincide */}
       {claveEncontrada && (
-        <ExportarCotizacion onDescuentoInputChange={handleDescuentoInputChange} />
+        <ExportarCotizacion 
+        onDescuentoInputChange={handleDescuentoInputChange}
+        onMinimoKgInputChange={manejarCambioDeMinimoKg} />
       )}
 
-        
-        <SelectorCiudad 
+
+        <SelectorCiudad
         guardarCosto={guardarCostoEnVariable}/>
-        
+
         <SelectorPesos
         onValorAltoChange={manejarCambioDeValorAlto}
         onValorLargoChange={manejarCambioDeValorLargo}
@@ -93,19 +98,19 @@ function Calculadora({ clave }: { clave: string }) {
 
         <GenerarCotizacion
         peso={valorPesoMin ?? 0 }
-        declarado={valorDeclarado ?? 0} 
+        declarado={valorDeclarado ?? 0}
         costo={Number(ciudadDestinoCosto)}
         alto={Number(valorAlto)}
         largo={Number(valorLargo)}
-        ancho={Number(valorAncho)} 
+        ancho={Number(valorAncho)}
         cajas={Number(valorCajas)}
         descuento={Descuento}
-    
-        />      
-        
+        minKg={minimoKgInput}
+
+        />
+
       </div>
     )
   }
-  
+
   export default Calculadora
-  

@@ -1,16 +1,23 @@
 // ExportarCotizacion.tsx
 import React, { useState } from 'react';
 import { Document, Page, Text, View, PDFDownloadLink, Image } from '@react-pdf/renderer';
-import { ciudades } from './data';
+// import { ciudades } from './data';
 import { estilosParaExportar } from './estilosExportar'; // Importa los estilos desde el nuevo archivo
 import '../estilos/exportarPDF.css';
 import logoImage from '../imagenes/logo.png'; // Importa la imagen desde tu carpeta local
 import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
+import { ciudadesCombinadas } from './CombinacionesCiudades';
 
 
-const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: number) => void }> = ({ onDescuentoInputChange }) => {
+const ExportarCotizacion: React.FC <{
+   onDescuentoInputChange: (newDescuento: number) => void,
+   onMinimoKgInputChange: (newMinimoKg: number) => void
+  }> = ({ onDescuentoInputChange, onMinimoKgInputChange }) => {
   
   const [descuentoInput, setDescuentoInput] = useState<number | 0>(0);
+  const [minimoKgInput, setMinimoKgInput] = useState<number | 0>(0); // Nuevo estado para el mínimo de Kg
+
+
   const ManejarDescuentoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (!isNaN(Number(value))) {
@@ -20,17 +27,90 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
     }
   };
 
-  const generateTable = (descuento: number) => (
-    ciudades.map((ciudad, index) => (
-      <View key={index} style={estilosParaExportar.tableRow}>
-        <Text style={estilosParaExportar.tableCol}>{ciudad.nombre}</Text>
-        <Text style={estilosParaExportar.tableCol}>${ciudad.costo}</Text>
-        <Text style={estilosParaExportar.tableCol}>
-          ${Math.ceil(ciudad.costo * (1 - (descuento / 100)))}
-        </Text>
-      </View>
-    ))
-  );
+  const ManejarMinimoKgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (!isNaN(Number(value))) {
+      const newMinimoKg = Number(value);
+      setMinimoKgInput(newMinimoKg);
+      onMinimoKgInputChange(newMinimoKg);
+    }
+  };
+
+  const generateTable = (descuento: number) => {
+    const ciudadesUnicas = [...new Set(ciudadesCombinadas.map(ciudad => ciudad.destino))].sort();
+  
+    const tableRows = ciudadesUnicas.map((ciudad, index) => {
+      
+      const indexOfDash = ciudad.indexOf('-');
+      const truncatedDestino = indexOfDash !== -1 ? ciudad.slice(0, indexOfDash + 5) : ciudad;
+      const bogotaData = ciudadesCombinadas.find(c => c.destino === ciudad && c.origen === 'BOGOTA, D.C. - BOGOTA, D.C.');
+      const medellinData = ciudadesCombinadas.find(c => c.destino === ciudad && c.origen === 'MEDELLIN - ANTIOQUIA');
+      const barranquillaData = ciudadesCombinadas.find(c => c.destino === ciudad && c.origen === 'BARRANQUILLA - ATLANTICO');
+      const caliData = ciudadesCombinadas.find(c => c.destino === ciudad && c.origen === 'CALI - VALLE DEL CAUCA');
+      const bucaramangaData = ciudadesCombinadas.find(c => c.destino === ciudad && c.origen === 'BUCARAMANGA - SANTANDER');
+
+      return (
+        <View key={index} style={estilosParaExportar.tableRow}>
+          <Text style={estilosParaExportar.tableCol}>{truncatedDestino}</Text>
+  
+          {bogotaData ? (
+            <>
+              <Text style={estilosParaExportar.tableCol}>
+                ${Math.ceil(bogotaData.costo * (1 - (descuento / 100)))}
+              </Text>
+            </>
+          ) : (
+            <Text style={estilosParaExportar.tableCol}>-</Text>
+          )}
+  
+          {medellinData ? (
+            <>
+              <Text style={estilosParaExportar.tableCol}>
+                ${Math.ceil(medellinData.costo * (1 - (descuento / 100)))}
+              </Text>
+            </>
+          ) : (
+            <Text style={estilosParaExportar.tableCol}>-</Text>
+          )}
+
+          {caliData ? (
+            <>
+              <Text style={estilosParaExportar.tableCol}>
+                ${Math.ceil(caliData.costo * (1 - (descuento / 100)))}
+              </Text>
+            </>
+          ) : (
+            <Text style={estilosParaExportar.tableCol}>-</Text>
+          )}
+
+          
+          {barranquillaData ? (
+            <>
+              <Text style={estilosParaExportar.tableCol}>
+                ${Math.ceil(barranquillaData.costo * (1 - (descuento / 100)))}
+              </Text>
+            </>
+          ) : (
+            <Text style={estilosParaExportar.tableCol}>-</Text>
+          )}
+
+          {bucaramangaData ? (
+            <>
+              <Text style={estilosParaExportar.tableCol}>
+                ${Math.ceil(bucaramangaData.costo * (1 - (descuento / 100)))}
+              </Text>
+            </>
+          ) : (
+            <Text style={estilosParaExportar.tableCol}>-</Text>
+          )}
+
+        </View>
+      );
+    });
+  
+    return tableRows;
+  };
+
 
 
   const pad = (num: number): string => {
@@ -69,23 +149,44 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
               
               1.1 Despachos de una (1) unidad {"\n"} {"\n"}
 
-              Se cobrará 20 Kg mínimos por caja.{"\n"} {"\n"}
-              
+              Se tomarán {minimoKgInput} Kg mínimos por caja.              
               Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
-              tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.{"\n"}{"\n"}
-
-              TABLA N.1 COSTOS POR Kg CON DESCUENTO DEL {descuentoInput}% 
+              tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.
 
             </Text>
-           
+                       
             <View style={estilosParaExportar.table}>
+            <Text style={estilosParaExportar.tableTitle}>TABLA N.1 COSTOS POR Kg CON DESCUENTO DEL {descuentoInput}%</Text>
               <View style={estilosParaExportar.tableRow}>
-                <Text style={estilosParaExportar.tableColHeader}> Ciudad </Text>
-                <Text style={estilosParaExportar.tableColHeader}> Costo Original </Text>
-                <Text style={estilosParaExportar.tableColHeader}> Costo con Descuento </Text>
+                <Text style={estilosParaExportar.tableColHeader}> Destino / Origen  </Text>
+                <Text style={estilosParaExportar.tableColHeader}> BOGOTA, D.C </Text>
+                <Text style={estilosParaExportar.tableColHeader}> MEDELLIN </Text>
+                <Text style={estilosParaExportar.tableColHeader}> CALI </Text>
+                <Text style={estilosParaExportar.tableColHeader}> BARRANQUILLA </Text>
+                <Text style={estilosParaExportar.tableColHeader}> BUCARAMANGA </Text>
               </View>
               {generateTable(Number(descuentoInput))}
             </View>
+            <Text style={estilosParaExportar.tableTitleAdicionales}>ZONAS METROPOLITANAS</Text>
+            <Text style={estilosParaExportar.tableAdicionales}>
+
+            Para estos Municipios se cobrara la tarifa de la ciudad capital de la zona metropolitana 
+            a la cual corresponden.{"\n"}{"\n"}
+
+            BOGOTA: CAJICA, CHIA, COTA, FACATATIVA, FUNZA, LA CALERA
+            MADRID, MOSQUERA, SIBATE, SOACHA, SOPO, TENJO, TOCANCIPA, GACHANCIPA, ZIPAQUIRA{"\n"}{"\n"}
+
+            MEDELLIN: BELLO, COPACABANA, ENVIGADO, ITAGUI, LA ESTRELLA, SABANETA, RIONEGRO {"\n"}{"\n"} 
+            
+            CALI: PALMIRA, JAMUNDI, YUMBO {"\n"}{"\n"}
+                
+            BARRANQUILLA: SOLEDAD, PUERTO COLOMBIA, SABANALARGA {"\n"}{"\n"}
+
+            BUCARAMANGA: FLORIDABLANCA, GIRON, PIEDECUESTA {"\n"}{"\n"}
+
+            </Text>
+
+
 
             <Text style={estilosParaExportar.paragraph}>
               {"\n"}
@@ -93,14 +194,14 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
               
               Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a:{"\n"}{"\n"}
 
-              {`\u2022`} $ 2.500 por caja para el Servicio Urbano{"\n"}{"\n"}{"\n"}{"\n"}
+              {`\u2022`} $ 2.500 por caja{"\n"}{"\n"}{"\n"}
 
               2.   RECOGIDAS EN DESTINATARIO URBANO Y NACIONAL{"\n"}{"\n"}
               
-              Se cobrará 30 Kg mínimo por despacho (hasta 1 unidad), y a partir de este 25 Kg mínimo por
-              unidad.{"\n"}{"\n"}
+              Cuando se despache una sola caja se tomará un peso mínimo de 30 Kg, a partir de la segunda caja se tomará {minimoKgInput} Kg mínimo por
+              caja.{"\n"}{"\n"}
 
-              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  20  kg  mínimos  por  despacho  
+              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  {minimoKgInput}  kg  mínimos  por  despacho  
               (hasta  1 unidad),  a  partir  del  segundo  intento  fallido,  en  los  casos  de  que  no  se  efectúe
               la  recogida  por responsabilidades ajenas a la operación de INTEGRA.{"\n"}{"\n"}
         
@@ -123,10 +224,8 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
 
               4.   REEXPEDICIONES {"\n"}{"\n"}
 
-              Se cobrará a razón de 30 Kg mínimo por unidad, y el 1% adicional por Costo de Manejo, del valor
-              declarado de sus mercancías con un mínimo por caja de $6.593.oo valor por kg $ 2.397 
-              (Correspondientes a las entregas en ciudades o poblaciones no indicadas en la tabla de tarifas
-              origen/destino).{"\n"}{"\n"}{"\n"}{"\n"}
+              Se cobrará $3.000 por kg (Correspondientes a las entregas en ciudades o poblaciones no indicadas en la tabla de tarifas
+              origen/destino).{"\n"}{"\n"}
 
             </Text>
             
@@ -152,6 +251,15 @@ const ExportarCotizacion: React.FC <{ onDescuentoInputChange: (newDescuento: num
           style={estilosParaExportar.input}
           value={descuentoInput}
         />
+        <h3>Ingrese la cantidad de Kg mínimos a cobrar por caja</h3>
+         <input
+          type="number" min='0'
+          placeholder="Ingrese mínimo de Kg"
+          onChange={ManejarMinimoKgChange}
+          style={estilosParaExportar.input}
+          value={minimoKgInput}
+        />
+
         <p>Aqui podrá descargar la cotización en PDF con su descuento por Kg</p>        
       </div>
       <div className='inputDescargar'>

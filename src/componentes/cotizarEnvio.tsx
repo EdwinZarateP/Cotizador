@@ -11,6 +11,7 @@ interface GenerarCotizacionProps {
   ancho: number;
   cajas: number;
   descuento: number;
+  minKg: number;
 }
 
 const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
@@ -21,7 +22,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   largo,
   ancho,
   cajas,  
-  descuento
+  descuento,
+  minKg
 }) => {
   
   let calculoCotizacion: number | undefined;
@@ -90,23 +92,13 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
       Swal.fire({
         icon: 'warning',
         title: 'Falta el valor declarado',
-        text:'Por favor ingrese el valor declarado de la mercancía, mínimo $500.000',
+        text:'Por favor ingrese el valor declarado de la mercancía',
         allowOutsideClick: true,
         allowEscapeKey: true,
       });
       return;
     }
-    
-    if (declarado < 500000) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Valor declarado muy bajo',
-        text:'El valor declarado debe ser mayor a $500.000',
-        allowOutsideClick: true,
-        allowEscapeKey: true,
-      });
-      return;
-    }
+
 
     if (!cajas) {
       Swal.fire({
@@ -145,8 +137,8 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     const pesoVolumetrico = (alto / 100) * (largo / 100) * (ancho / 100) * factorPeso;
     let costoManejo = 2500;
 
-    // Corregir el peso por 20 si es menor a 20
-    const pesoCorregido = Math.max(peso, 30);
+    // Corregir el peso por minKg si es menor a este
+    const pesoCorregido = Math.max(peso, minKg);
 
     if (pesoVolumetrico > pesoCorregido) {
       if (declarado * 0.005 < costoManejo) {

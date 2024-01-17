@@ -67,7 +67,7 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto }) => {
         options={opcionesCiudades}
         placeholder="Ciudad Destino"
       />
-      <p>Costo Combinación: {costoCombinacion}</p>
+      {/* <p>Costo Combinación: {costoCombinacion}</p> */}
     </div>
   );
 };
