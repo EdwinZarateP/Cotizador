@@ -13,19 +13,51 @@
   }
 
   .resultadoCotizacion button {
-    background-color: #AED035;
-    color: white;
-    padding: 10px 20px;
-    font-size: 14px;
+    width: 9em;
+    height: 3em;
+    border-radius: 30rem;
+    font-size: 12px;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-weight: 700;
+    z-index: 1;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
   }
+
+  .resultadoCotizacion button::before {
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #AED035 0%, #f9f047 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+   }
+
+   .resultadoCotizacion button:hover::before {
+    width: 9em;
+   }
   
-  .resultadoCotizacion button:hover {
+  /* .resultadoCotizacion button:hover {
     background-color: #45a049;
-  }
+  } */
+
+
+
+
+
+
+
+
+
+
+
   
   .resultado {
     Display: flex;
