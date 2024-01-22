@@ -1,38 +1,17 @@
 // ExportarCotizacion.tsx
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import { Document, Page, Text, View, PDFDownloadLink, Image } from '@react-pdf/renderer';
 import { estilosParaExportar } from './estilosExportar'; // Importa los estilos desde el nuevo archivo
 import '../estilos/exportarPDF.css';
 import logoImage from '../imagenes/logo.png'; // Importa la imagen desde tu carpeta local
 import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
 import { ciudadesCombinadas } from './CombinacionesCiudades';
+import { useFormularioContext } from '../contexto/Contexto.tsx';
 
-const ExportarCotizacion: React.FC <{
-   onDescuentoInputChange: (newDescuento: number) => void,
-   onMinimoKgInputChange: (newMinimoKg: number) => void
-  }> = ({ onDescuentoInputChange, onMinimoKgInputChange }) => {
+const ExportarCotizacion: React.FC  = () => {
   
-  const [descuentoInput, setDescuentoInput] = useState<number | 0>(0);
-  const [minimoKgInput, setMinimoKgInput] = useState<number | 0>(0); // Nuevo estado para el mínimo de Kg
-
-
-  const ManejarDescuentoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (!isNaN(Number(value))) {
-      const newDescuento = Number(value);
-      setDescuentoInput(newDescuento);
-      onDescuentoInputChange(newDescuento)
-    }
-  };
-
-  const ManejarMinimoKgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (!isNaN(Number(value))) {
-      const newMinimoKg = Number(value);
-      setMinimoKgInput(newMinimoKg);
-      onMinimoKgInputChange(newMinimoKg);
-    }
-  };
+  // Usar el hook para obtener el contexto
+  const { minimoKgUrbano, minimoKgNacional, descuento, nombreComercial, cliente, nitCliente, anoVigencia } = useFormularioContext();
 
   const generateTable = (descuento: number) => {
     const ciudadesUnicas = [...new Set(ciudadesCombinadas.map(ciudad => ciudad.destino))].sort();
@@ -124,7 +103,7 @@ const ExportarCotizacion: React.FC <{
   
   let MyDocument = null;
 
-  if (descuentoInput !== 0) {
+  if (descuento >= 0) {
     MyDocument = (
       <Document>
         <Page size="A4" style={estilosParaExportar.page}>
@@ -141,20 +120,34 @@ const ExportarCotizacion: React.FC <{
             
             <Text style={estilosParaExportar.paragraph}>
               Apreciado Cliente, {"\n"} {"\n"}
+
+              {cliente}{"\n"} {"\n"}
+              NIT {nitCliente}
+              {"\n"} {"\n"}
+              Vigencia oferta del 1 enero al 31 de diciemnre de {anoVigencia}
+
+              {nombreComercial}
               Esta oferta considera ser servicio de paqueteo, con los siguientes requisitos:{"\n"}{"\n"}
               1. PAQUETEO URBANO COMERCIAL (DE ACUERDO CON TABLA N.1 COSTOS 
-              POR KG CON DESCUENTO DEL {descuentoInput}%) {"\n"}{"\n"}
+              POR KG CON DESCUENTO DEL {descuento}%) {"\n"}{"\n"}
               
               1.1 Despachos de una (1) unidad {"\n"} {"\n"}
 
-              Se tomarán {minimoKgInput} Kg mínimos por caja.              
+              Se tomarán 30 Kg mínimos por caja.              
+              Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
+              tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.{"\n"} {"\n"}
+
+              1.2 Despachos de dos unidades en adelante {"\n"} {"\n"}
+
+              Se tomarán {minimoKgUrbano} Kg mínimos por caja para urbanos y {minimoKgNacional} para nacionales.              
               Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
               tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.
+
 
             </Text>
                        
             <View style={estilosParaExportar.table}>
-            <Text style={estilosParaExportar.tableTitle}>TABLA N.1 COSTOS POR Kg CON DESCUENTO DEL {descuentoInput}%</Text>
+            <Text style={estilosParaExportar.tableTitle}>TABLA N.1 COSTOS POR Kg CON DESCUENTO DEL {descuento}%</Text>
               <View style={estilosParaExportar.tableRow}>
                 <Text style={estilosParaExportar.tableColHeader}> Destino / Origen  </Text>
                 <Text style={estilosParaExportar.tableColHeader}> BOGOTA, D.C </Text>
@@ -163,7 +156,7 @@ const ExportarCotizacion: React.FC <{
                 <Text style={estilosParaExportar.tableColHeader}> BARRANQUILLA </Text>
                 <Text style={estilosParaExportar.tableColHeader}> BUCARAMANGA </Text>
               </View>
-              {generateTable(Number(descuentoInput))}
+              {generateTable(Number(descuento))}
             </View>
             <Text style={estilosParaExportar.tableTitleAdicionales}>ZONAS METROPOLITANAS</Text>
             <Text style={estilosParaExportar.tableAdicionales}>
@@ -196,10 +189,10 @@ const ExportarCotizacion: React.FC <{
 
               2.   RECOGIDAS EN DESTINATARIO URBANO Y NACIONAL{"\n"}{"\n"}
               
-              Cuando se despache una sola caja se tomará un peso mínimo de 30 Kg, a partir de la segunda caja se tomará {minimoKgInput} Kg mínimo por
+              Cuando se despache una sola caja se tomará un peso mínimo de 30 Kg, a partir de la segunda caja se tomará {minimoKgUrbano} Kg mínimo por
               caja.{"\n"}{"\n"}
 
-              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  {minimoKgInput}  kg  mínimos  por  despacho  
+              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  {minimoKgUrbano}  kg  mínimos  por  despacho  
               (hasta  1 unidad),  a  partir  del  segundo  intento  fallido,  en  los  casos  de  que  no  se  efectúe
               la  recogida  por responsabilidades ajenas a la operación de INTEGRA.{"\n"}{"\n"}
         
@@ -242,36 +235,18 @@ const ExportarCotizacion: React.FC <{
   return (
     <div className='contenedorDescuento'>
       <div>
-      <h3>Aplique el % descuento que desea:</h3>
-        <input
-          type="number" min='0' 
-          placeholder="Ingrese % de descuento"
-          onChange={ManejarDescuentoChange}
-          style={estilosParaExportar.input}
-          value={descuentoInput}
-        />
-        <h3>Ingrese la cantidad de Kg mínimos a cobrar por caja (mínimo 15 Kg)</h3>
-         <input
-          type="number" min='0'
-          placeholder="Ingrese mínimo de Kg"
-          onChange={ManejarMinimoKgChange}
-          style={estilosParaExportar.input}
-          value={minimoKgInput}
-        />
 
-        <p>Aqui podrá descargar la cotización en PDF con su descuento por Kg</p>        
       </div>
       <div className='inputDescargar'>
         
-      {minimoKgInput >= 15 && MyDocument && (
+      {minimoKgUrbano >= 15 && MyDocument && (
           <PDFDownloadLink
             document={MyDocument}
             fileName={fileName}
             style={{
-              textDecoration: 'none',
-              backgroundColor: '#AED035',
               padding: '10px',
-              color: 'white',
+              color: 'blue',
+              fontSize:'14px',
             }}
           >
             {({ loading }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}

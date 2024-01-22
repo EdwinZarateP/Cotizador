@@ -3,19 +3,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 280px;
     padding: 0 20px 20px 20px;
     border-radius: 5px;
     width: 260px;
     margin: 0px;
-    background-color: #f9f9f9; /* Color de fondo más claro */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sutil sombra */
-    margin-top: 10px;
   }
 
-  .contenedorDescuento p {
-   margin: 0;
-  }
+
   
   .inputDescargar {
     width: 100%;
@@ -24,17 +18,6 @@
     text-align: center;
   }
   
-  .inputDescargar button {
-    width: 100%;
-    height: 40px;
-    background-color: #AED035;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
+
 
   

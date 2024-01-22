@@ -1,0 +1,92 @@
+.contenedor-formulario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eae5e5;
+    padding: 20px 10px 20px 10px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .cajas_informacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+  }
+
+  .cajas_informacion label{
+    width: 100%;
+    font-weight: 700;
+    align-items: left;
+  }
+  
+  .cajas_informacion input {
+    text-align: center;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    font-size: 14px;
+    color: black;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: solid 0.5px gray;
+  }
+
+  .cajas_informacion label {
+    margin-bottom: 5px;
+  }
+  
+  .boton-exportar {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    color: black;
+    font-size: 16px;
+    transition: .5s;
+    background-color: white;
+    overflow: hidden;
+    font-weight: 700;
+  }
+  
+  .boton-exportar:hover {
+    background: #AED035;
+    color: black;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #AED035,
+                0 0 10px #AED035,
+                0 0 10px #AED035,
+                0 0 10px #AED035;
+  }
+  
+  .boton-exportar span {
+    position: absolute;
+    display: block;
+  }
+  
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+  
+    50%,100% {
+      left: 100%;
+    }
+  }
+  
+  .boton-exportar span:nth-child(1) {
+    bottom: 2px;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #AED035);
+    animation: btn-anim1 2s linear infinite;
+  }

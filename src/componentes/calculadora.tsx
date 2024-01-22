@@ -3,15 +3,15 @@ import SelectorCiudad from './ciudad.tsx';
 import SelectorPesos from './pesos.tsx';
 import SelectorPesoMinyDec from './pesoMinyDeclarado.tsx';
 import GenerarCotizacion from './cotizarEnvio.tsx';
-import ExportarCotizacion from './exportarPDF.tsx';
 import { useState } from 'react';
-import { Claves } from './claves';
+import { useFormularioContext } from '../contexto/Contexto';
 
 
-function Calculadora({ clave }: { clave: string }) {
+function Calculadora() {
   
-  const [Descuento, setDescuento] = useState<number>(0);
-  const [minimoKgInput, setMinimoKgInput] = useState<number | 0>(0);
+  // Usar el hook para obtener el contexto
+  const { minimoKgUrbano, descuento } = useFormularioContext();
+
 
   //medidas alto largo y ancho
   const [valorAlto, setvalorAlto] = useState<number | undefined>(undefined);
@@ -25,17 +25,7 @@ function Calculadora({ clave }: { clave: string }) {
   //ciudad destino
   const [ciudadDestinoCosto, setCiudadDestinoCosto] = useState<number>(0);
 
-
   //Funciones de cambios de estado
-
-  const handleDescuentoInputChange = (newDescuento: number) => {
-    setDescuento(newDescuento);
-    console.log(clave, minimoKgInput)
-  };
-
-  const manejarCambioDeMinimoKg = (nuevoMinimoKg: number | undefined) => {
-    setMinimoKgInput(nuevoMinimoKg || 0);
-  };
 
   const manejarCambioDeValorAlto = (nuevoValorAlto: number | undefined) => {
     setvalorAlto(nuevoValorAlto); // Actualiza el estado en el padre con el valor del hijo
@@ -67,20 +57,9 @@ function Calculadora({ clave }: { clave: string }) {
   };
 
 
-  // Verificar si la clave está en el array de Claves
-    const claveEncontrada = Claves.find((item) => item.clave === clave);
-
   return (
       <div className='contenedorCalculadora'>
-
-        {/* Mostrar ExportarCotizacion solo si la clave coincide */}
-      {claveEncontrada && (
-        <ExportarCotizacion 
-        onDescuentoInputChange={handleDescuentoInputChange}
-        onMinimoKgInputChange={manejarCambioDeMinimoKg} />
-      )}
-
-
+        
         <SelectorCiudad
         guardarCosto={guardarCostoEnVariable}/>
 
@@ -104,8 +83,8 @@ function Calculadora({ clave }: { clave: string }) {
         largo={Number(valorLargo)}
         ancho={Number(valorAncho)}
         cajas={Number(valorCajas)}
-        descuento={Descuento}
-        minKg={minimoKgInput}
+        descuento={descuento}
+        minKg={minimoKgUrbano}
 
         />
 
