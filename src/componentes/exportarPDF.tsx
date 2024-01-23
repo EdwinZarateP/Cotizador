@@ -166,8 +166,8 @@ const ExportarCotizacion: React.FC  = () => {
               Cuando se despache una sola caja se tomará un peso mínimo de 30 Kg, a partir de la segunda caja se tomará {minimoKgUrbano} Kg mínimo por
               caja.{"\n"}{"\n"}
 
-              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  {minimoKgUrbano}  kg  mínimos  por  despacho  
-              (hasta  1 unidad),  a  partir  del  segundo  intento  fallido,  en  los  casos  de  que  no  se  efectúe
+              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  ({minimoKgUrbano} Kg URBANOS / {minimoKgNacional} Kg NACIONALES)  mínimos  por  despacho  
+              (hasta  1 Caja),  a  partir  del  segundo  intento  fallido,  en  los  casos  de  que  no  se  efectúe
               la  recogida  por responsabilidades ajenas a la operación de INTEGRA.{"\n"}{"\n"}
         
               <Text style={estilosParaExportar.subtitle}>3. DEVOLUCIONES</Text>{"\n"} {"\n"}
