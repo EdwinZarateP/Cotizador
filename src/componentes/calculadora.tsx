@@ -10,13 +10,14 @@ import { useFormularioContext } from '../contexto/Contexto';
 function Calculadora() {
   
   // Usar el hook para obtener el contexto
-  const { minimoKgUrbano, descuento } = useFormularioContext();
+  const { minimoKgUrbano, minimoKgNacional, descuento } = useFormularioContext();
 
 
   //medidas alto largo y ancho
   const [valorAlto, setvalorAlto] = useState<number | undefined>(undefined);
   const [valorLargo, setvalorLargo] = useState<number | undefined>(undefined);
   const [valorAncho, setvalorAncho] = useState<number | undefined>(undefined);
+  
   //Peso minimo, valor declarado y cantidad de cajas
   const [valorPesoMin, setValorPesoMin] = useState<number | undefined>(undefined);
   const [valorDeclarado, setvalorDeclarado] = useState<number | undefined>(undefined);
@@ -24,7 +25,8 @@ function Calculadora() {
 
   //ciudad destino
   const [ciudadDestinoCosto, setCiudadDestinoCosto] = useState<number>(0);
-
+  const [tipo, setTipo] = useState<string>('Nacional');
+  
   //Funciones de cambios de estado
 
   const manejarCambioDeValorAlto = (nuevoValorAlto: number | undefined) => {
@@ -40,28 +42,32 @@ function Calculadora() {
   };
 
   const manejarCambioDeValorPesoMin = (nuevoValorPesoMin: number | undefined) => {
-    setValorPesoMin(nuevoValorPesoMin); // Actualiza el estado en el padre con el valor del hijo
+    setValorPesoMin(nuevoValorPesoMin); 
   };
 
   const manejarCambioDeValorDeclarado = (nuevoValorDeclarado: number | undefined) => {
-    setvalorDeclarado(nuevoValorDeclarado); // Actualiza el estado en el padre con el valor declarado
+    setvalorDeclarado(nuevoValorDeclarado); 
   };
 
   const manejarCambioDeValorCajas = (nuevoValorCajas: number | undefined) => {
-    setvalorCajas(nuevoValorCajas); // Actualiza el estado en el padre con el valor declarado
+    setvalorCajas(nuevoValorCajas); 
   };
-
 
   const guardarCostoEnVariable = (costo: number) => {
     setCiudadDestinoCosto(costo);
   };
 
+  // Función de manejo para el tipo
+  const handleGuardarTipo = (nuevoTipo: string) => {
+    setTipo(nuevoTipo);
+  };
 
   return (
       <div className='contenedorCalculadora'>
         
         <SelectorCiudad
-        guardarCosto={guardarCostoEnVariable}/>
+        guardarCosto={guardarCostoEnVariable}
+        guardarTipo={handleGuardarTipo}/>
 
         <SelectorPesos
         onValorAltoChange={manejarCambioDeValorAlto}
@@ -84,7 +90,8 @@ function Calculadora() {
         ancho={Number(valorAncho)}
         cajas={Number(valorCajas)}
         descuento={descuento}
-        minKg={minimoKgUrbano}
+        minKg={tipo === 'URBANO' || tipo === 'CIUDAD INTERMEDIA' ? minimoKgUrbano : minimoKgNacional}
+        Tipo={tipo}
 
         />
 

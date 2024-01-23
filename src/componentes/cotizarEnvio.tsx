@@ -12,6 +12,7 @@ interface GenerarCotizacionProps {
   cajas: number;
   descuento: number;
   minKg: number;
+  Tipo: string;
 }
 
 const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
@@ -23,7 +24,9 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
   ancho,
   cajas,  
   descuento,
-  minKg
+  minKg,
+  Tipo
+
 }) => {
   
   let calculoCotizacion: number | undefined;
@@ -138,7 +141,9 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     let costoManejo = 2500;
 
     // Corregir el peso por minKg si es menor a este
-    const pesoCorregido = cajas === 1 || minKg === 0 ? 30 : Math.max(peso, minKg);
+    // const pesoCorregido = cajas === 1 ? Math.max(peso, minKg) : minKg === 0 ? 30 : Math.max(peso, minKg);
+    const pesoCorregido = minKg === 0 ? 30 : cajas === 1 && Math.max(peso, minKg) < 30 ? 30 : Math.max(peso, minKg);
+
 
     if (pesoVolumetrico > pesoCorregido) {
       if (declarado * 0.005 < costoManejo) {
@@ -182,6 +187,7 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
             <p>El costo por caja es: <br/> <span className="negrita">${calculoCotizacion.toLocaleString('es-CO')}</span> </p>
             <p>El envío de la(s) {cajas} cajas cuesta:   <br/> <span className="negrita">${(calculoCotizacion * cajas).toLocaleString('es-CO')}</span>  </p>
             <p>El envío de la(s) {cajas} cajas cuesta con descuento:   <br/> <span className="negrita">${(calculoCotizacionDescuento * cajas).toLocaleString('es-CO')}</span>  </p>
+            <p>{Tipo}</p>
           </div>
         )}
       </div>

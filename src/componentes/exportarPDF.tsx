@@ -117,37 +117,86 @@ const ExportarCotizacion: React.FC  = () => {
 
             <Text style={estilosParaExportar.title}>Cotización paqueteo Integra</Text>
             <Text style={estilosParaExportar.subtitle}>Fecha: {formattedDate}</Text>
-            
             <Text style={estilosParaExportar.paragraph}>
-              Apreciado Cliente, {"\n"} {"\n"}
+            
+              Cliente:
+              <Text style={estilosParaExportar.subtitle}> {cliente}</Text>{"\n"} {"\n"}
 
-              {cliente}{"\n"} {"\n"}
-              NIT {nitCliente}
-              {"\n"} {"\n"}
-              Vigencia oferta del 1 enero al 31 de diciemnre de {anoVigencia}
+              NIT:
+              <Text style={estilosParaExportar.subtitle}> {nitCliente}</Text>{"\n"} {"\n"}
 
-              {nombreComercial}
+              Comercial: <Text style={estilosParaExportar.subtitle}> {nombreComercial}</Text>{"\n"} {"\n"}
+
+              Vigencia oferta del 1 enero al 31 de diciembre de {anoVigencia}{"\n"} {"\n"}
+
               Esta oferta considera ser servicio de paqueteo, con los siguientes requisitos:{"\n"}{"\n"}
-              1. PAQUETEO URBANO COMERCIAL (DE ACUERDO CON TABLA N.1 COSTOS 
-              POR KG CON DESCUENTO DEL {descuento}%) {"\n"}{"\n"}
               
-              1.1 Despachos de una (1) unidad {"\n"} {"\n"}
-
+              <Text style={estilosParaExportar.subtitle}> 1. CONDICIONES DE COSTO POR Kg PARA URBANO Y NACIONAL (VER ANEXO 1. COSTOS 
+              POR Kg CON DESCUENTO DEL {descuento}%)</Text>{"\n"} {"\n"}
+        
+              <Text style={estilosParaExportar.subtitle}> 1.1 Despachos de una 1 caja  (URBANOS Y NACIONALES)</Text>{"\n"} {"\n"}
+            
               Se tomarán 30 Kg mínimos por caja.              
               Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
               tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.{"\n"} {"\n"}
 
-              1.2 Despachos de dos unidades en adelante {"\n"} {"\n"}
+              <Text style={estilosParaExportar.subtitle}>1.2 Despachos de 2 cajas en adelante URBANOS</Text>{"\n"} {"\n"}
+              
 
-              Se tomarán {minimoKgUrbano} Kg mínimos por caja para urbanos y {minimoKgNacional} para nacionales.              
+              Se tomarán {minimoKgUrbano} Kg mínimos por caja.              
+              Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
+              tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.{"\n"} {"\n"}
+              
+              <Text style={estilosParaExportar.subtitle}>1.3 Despachos de 2 cajas en adelante NACIONALES</Text>{"\n"} {"\n"}
+
+              Se tomarán {minimoKgNacional} Kg mínimos por caja.              
               Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
               tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.
-
+              {"\n"}{"\n"}
+              <Text style={estilosParaExportar.subtitle}>1.3 Costo de manejo paqueteo urbano y nacional </Text>{"\n"} {"\n"}
+                      
+              Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a $ 2.500 por caja{"\n"}
 
             </Text>
-                       
+                
+            <Text style={estilosParaExportar.paragraph}>
+              
+              <Text style={estilosParaExportar.subtitle}>2. RECOGIDAS EN DESTINATARIO URBANO Y NACIONAL</Text>{"\n"} {"\n"}
+              
+              Cuando se despache una sola caja se tomará un peso mínimo de 30 Kg, a partir de la segunda caja se tomará {minimoKgUrbano} Kg mínimo por
+              caja.{"\n"}{"\n"}
+
+              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  {minimoKgUrbano}  kg  mínimos  por  despacho  
+              (hasta  1 unidad),  a  partir  del  segundo  intento  fallido,  en  los  casos  de  que  no  se  efectúe
+              la  recogida  por responsabilidades ajenas a la operación de INTEGRA.{"\n"}{"\n"}
+        
+              <Text style={estilosParaExportar.subtitle}>3. DEVOLUCIONES</Text>{"\n"} {"\n"}
+              
+              En caso de que se presenten devoluciones de pedidos, por causas ajenas a nosotros (Ej.: pedido
+              no solicitado, pedido repetido, orden de compra vencida, etc.) las mismas se cobrarán de acuerdo
+              con los siguientes parámetros: Si el destinatario que originó la devolución se halla en una 
+              ciudad, el flete de la devolución se asimilará con el flete urbano de dicha ciudad, pero si el
+              destinatario se halla en una población distante de la ciudad de origen del despacho,
+              el valor del flete se asimilará con el flete establecido para dicho servicio entre
+              aquellas (ciudad-población), para poder realizar la entrega nuevamente{"\n"}{"\n"}
+              
+              <Text style={estilosParaExportar.subtitle}>3.1 NOTAS</Text>{"\n"} {"\n"}
+
+              Una vez tramitada y solucionada la novedad de la devolución o recogida el tiempo máximo que 
+              Solistica almacenara sus productos en nuestra bodega de devoluciones es de 72 horas. A partir 
+              de la siguiente hora se procederá a almacenar la mercancía al área de almacenamiento temporal el
+              cual tendrá un costo de: 4 días a 15 días a razón de $ 36.858 por estiba ocupada.A partir del día
+              16 se cobrara $73.717 mensual por estiba ocupada.{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}
+
+              <Text style={estilosParaExportar.subtitle}>4. REEXPEDICIONES</Text>{"\n"} {"\n"}
+
+              Se cobrará $3.000 por kg (Correspondientes a las entregas en ciudades o poblaciones no indicadas en la tabla de tarifas
+              origen/destino).{"\n"}
+
+            </Text>
+                   
             <View style={estilosParaExportar.table}>
-            <Text style={estilosParaExportar.tableTitle}>TABLA N.1 COSTOS POR Kg CON DESCUENTO DEL {descuento}%</Text>
+            <Text style={estilosParaExportar.tableTitle}>ANEXO 1. COSTOS POR Kg CON DESCUENTO DEL {descuento}%</Text>
               <View style={estilosParaExportar.tableRow}>
                 <Text style={estilosParaExportar.tableColHeader}> Destino / Origen  </Text>
                 <Text style={estilosParaExportar.tableColHeader}> BOGOTA, D.C </Text>
@@ -173,53 +222,11 @@ const ExportarCotizacion: React.FC  = () => {
                 
             BARRANQUILLA: SOLEDAD, PUERTO COLOMBIA, SABANALARGA {"\n"}{"\n"}
 
-            BUCARAMANGA: FLORIDABLANCA, GIRON, PIEDECUESTA {"\n"}{"\n"}
+            BUCARAMANGA: FLORIDABLANCA, GIRON, PIEDECUESTA {"\n"}
 
             </Text>
 
 
-
-            <Text style={estilosParaExportar.paragraph}>
-              {"\n"}
-              1.3 Costo de manejo paqueteo urbano y nacional {"\n"} {"\n"}
-              
-              Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a:{"\n"}{"\n"}
-
-              {`\u2022`} $ 2.500 por caja{"\n"}{"\n"}{"\n"}
-
-              2.   RECOGIDAS EN DESTINATARIO URBANO Y NACIONAL{"\n"}{"\n"}
-              
-              Cuando se despache una sola caja se tomará un peso mínimo de 30 Kg, a partir de la segunda caja se tomará {minimoKgUrbano} Kg mínimo por
-              caja.{"\n"}{"\n"}
-
-              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  {minimoKgUrbano}  kg  mínimos  por  despacho  
-              (hasta  1 unidad),  a  partir  del  segundo  intento  fallido,  en  los  casos  de  que  no  se  efectúe
-              la  recogida  por responsabilidades ajenas a la operación de INTEGRA.{"\n"}{"\n"}
-        
-              3.   DEVOLUCIONES {"\n"}{"\n"}
-              En caso de que se presenten devoluciones de pedidos, por causas ajenas a nosotros (Ej.: pedido
-              no solicitado, pedido repetido, orden de compra vencida, etc.) las mismas se cobrarán de acuerdo
-              con los siguientes parámetros: Si el destinatario que originó la devolución se halla en una 
-              ciudad, el flete de la devolución se asimilará con el flete urbano de dicha ciudad, pero si el
-              destinatario se halla en una población distante de la ciudad de origen del despacho,
-              el valor del flete se asimilará con el flete establecido para dicho servicio entre
-              aquellas (ciudad-población), para poder realizar la entrega nuevamente{"\n"}{"\n"}
-              
-              3.1 NOTAS:{"\n"}{"\n"}
-
-              Una vez tramitada y solucionada la novedad de la devolución o recogida el tiempo máximo que 
-              Solistica almacenara sus productos en nuestra bodega de devoluciones es de 72 horas. A partir 
-              de la siguiente hora se procederá a almacenar la mercancía al área de almacenamiento temporal el
-              cual tendrá un costo de: 4 días a 15 días a razón de $ 36.858 por estiba ocupada.A partir del día
-              16 se cobrara $73.717 mensual por estiba ocupada.{"\n"}{"\n"}
-
-              4.   REEXPEDICIONES {"\n"}{"\n"}
-
-              Se cobrará $3.000 por kg (Correspondientes a las entregas en ciudades o poblaciones no indicadas en la tabla de tarifas
-              origen/destino).{"\n"}{"\n"}
-
-            </Text>
-            
             {/* imagen de la firma */}
           <View style={estilosParaExportar.footerImage}>
             <Image src={firmaCarlos} style={estilosParaExportar.firma} />

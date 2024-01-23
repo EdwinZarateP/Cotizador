@@ -2,17 +2,19 @@ import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { ciudades } from './data';
 import { ciudadesCombinadas } from './CombinacionesCiudades';
-import '../estilos/ciudad.css'
+import '../estilos/ciudad.css';
 
 
 interface SelectorCiudadProps {
   guardarCosto: (costo: number) => void;
+  guardarTipo: (tipo: string) => void;
 }
 
-const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto }) => {
+const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto, guardarTipo }) => {
   const [ciudadOrigen, setCiudadOrigen] = useState<{ label: string; value: string } | null>(null);
   const [ciudadDestino, setCiudadDestino] = useState<{ label: string; value: string } | null>(null);
   const [costoCombinacion, setCostoCombinacion] = useState(0);
+  const [tipoCombinacion, setTipoCombinacion] = useState('');
 
   const opcionesCiudades = ciudades.map((ciudad) => ({
     label: ciudad.nombre,
@@ -26,7 +28,6 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto }) => {
 
   const handleCiudadOrigenChange = (selectedOption: { label: string; value: string } | null) => {
     setCiudadOrigen(selectedOption);
-    console.log(costoCombinacion)
   };
 
   const handleCiudadDestinoChange = (selectedOption: { label: string; value: string } | null) => {
@@ -43,10 +44,14 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto }) => {
 
       if (combinacionEncontrada) {
         setCostoCombinacion(combinacionEncontrada.costo);
+        setTipoCombinacion(combinacionEncontrada.Tipo);
         guardarCosto(combinacionEncontrada.costo);
+        guardarTipo(combinacionEncontrada.Tipo);
       } else {
         setCostoCombinacion(3000);
+        setTipoCombinacion('');
         guardarCosto(3000);
+        guardarTipo('Nacional');
       }
     }
   };
@@ -68,6 +73,7 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto }) => {
         placeholder="Ciudad Destino"
       />
       <p>TARIFA Kg: ${costoCombinacion}</p>
+      {tipoCombinacion && <p>Tipo: {tipoCombinacion}</p>}
     </div>
   );
 };

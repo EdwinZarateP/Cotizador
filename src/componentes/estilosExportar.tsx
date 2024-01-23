@@ -1,6 +1,9 @@
-import { StyleSheet } from '@react-pdf/renderer';
+import { StyleSheet, Font } from '@react-pdf/renderer';
+// Importa la fuente Helvetica-Bold
+Font.register({ family: 'Helvetica-Bold', src: 'https://unpkg.com/pdfkit-font-helvetica-bold@latest/dist/Helvetica-Bold.ttf', fontStyle: 'normal', fontWeight: 'bold' });
 
 export const estilosParaExportar = StyleSheet.create({
+    
   page: {
     flexDirection: 'row',
     backgroundColor: '#FFFF',
@@ -14,18 +17,20 @@ export const estilosParaExportar = StyleSheet.create({
   },
 
   title: {
-    fontSize: 16,
+    fontSize: 14,
     marginBottom: 10,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#333',
+    fontFamily: 'Helvetica-Bold'
   },
   
   subtitle: {
-    fontSize: 12,
+    fontSize: 10,
     marginBottom: 10,
     textAlign: 'justify',
-    color: '#555'
+    color: 'black',
+    fontFamily: 'Helvetica-Bold'
   },
 
   table: {
@@ -48,6 +53,7 @@ export const estilosParaExportar = StyleSheet.create({
     fontWeight: 'bold',
     alignItems: 'center',
     marginBottom: 1,
+    fontFamily: 'Helvetica-Bold'
   },
   
 
@@ -58,7 +64,8 @@ export const estilosParaExportar = StyleSheet.create({
     textAlign: 'center',
     fontSize: 8,
     fontWeight: 'bold',
-    backgroundColor: '#AED035'
+    backgroundColor: '#AED035',
+    fontFamily: 'Helvetica-Bold'
   },
 
   tableCol: {
@@ -76,7 +83,8 @@ export const estilosParaExportar = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: '#AED035',
     borderRight: '1px solid black',
-    borderLeft: '1px solid black'
+    borderLeft: '1px solid black',
+    fontFamily:'Helvetica-Bold'
   },
 
   tableAdicionales: {
@@ -99,6 +107,7 @@ export const estilosParaExportar = StyleSheet.create({
     borderRadius: '5px',
     textAlign:'center'
   },
+
   paragraph: {
     marginBottom: 10,
     fontSize: 10,
@@ -111,6 +120,7 @@ export const estilosParaExportar = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+
   logo: {
     width: 100, // ajusta el tamaño de la imagen del logo según tus necesidades
     height: 50, // ajusta el tamaño de la imagen del logo según tus necesidades

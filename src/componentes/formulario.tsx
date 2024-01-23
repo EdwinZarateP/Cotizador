@@ -97,6 +97,7 @@ const Formulario: React.FC = () => {
   return (
     <div className="contenedor-formulario">
       <form>
+        <h3>Realice la cotización de su cliente</h3>
         {/* Input para Nombre Comercial */}
         <div className="cajas_informacion">
           <label htmlFor="nombreComercial">Nombre comercial:</label>
@@ -179,7 +180,7 @@ const Formulario: React.FC = () => {
         type="button"
         className='boton-exportar'
         onClick={botonCotizar}>
-            Exportar Cotizacion
+            Generar Cotizacion
             <span></span>
         </button>
 
