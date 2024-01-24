@@ -16,10 +16,12 @@
 
   .contenedor-formulario form{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     text-align: center;
+    width: 100%;
   }
 
   .cajas_informacion {
@@ -38,7 +40,6 @@
     font-weight: 600;
     text-align: left;
     border-radius: 10px;
-    
   }
 
   .cajas_informacion input {
@@ -51,6 +52,56 @@
     background-color: transparent;
     border: solid 0.5px gray;
   }
+
+  .infoClientes{
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 0.5px dashed
+  }
+
+  .infoClientes h4{ 
+    margin-bottom:10px;
+    /* text-align: left; */
+  }
+
+  .cajas_informacionCliente {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    padding: 4px 5px 3px 0;
+  }
+
+  .cajas_informacionCliente input {
+    text-align: center;
+    width: 60%;
+    padding: 5px 0 5px 0;
+    font-size: 14px;
+    color: black;
+    border-radius: 10px;
+    background-color: transparent;
+    border: solid 0.5px gray;
+  }
+
+  .cajas_informacionCliente label{
+    display: flex;
+    width: 40%;
+    font-weight: 600;
+    text-align: left;
+    border-radius: 10px;
+  }
+
+  .informacionMacro{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 0.5px dashed
+  }
+  
 
   .boton-exportar {
     position: relative;

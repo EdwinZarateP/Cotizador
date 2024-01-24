@@ -41,7 +41,9 @@ const Formulario: React.FC = () => {
     tarifaIntegralNacional,
     setTarifaIntegralNacional,
     addValorem,
-    setAddValorem
+    setAddValorem,
+    diasCartera,
+    setDiasCartera
 
   } = useFormularioContext();
 
@@ -71,7 +73,7 @@ const Formulario: React.FC = () => {
     }
   
     // Validar que minimoKgUrbano no sea menor a 15
-    if (minimoKgUrbano < 15) {
+    if (minimoKgUrbano < 15 && minimoKgUrbano > 0) {
       Swal.fire({
         icon: 'warning',
         title: 'Error de peso minimo urbano',
@@ -83,7 +85,7 @@ const Formulario: React.FC = () => {
     }
 
     // Validar que minimoKgNacional no sea menor a 15
-    if (minimoKgNacional < 15) {
+    if (minimoKgNacional < 15 && minimoKgUrbano > 0) {
       Swal.fire({
         icon: 'warning',
         title: 'Error de peso minimo nacional',
@@ -114,163 +116,199 @@ const Formulario: React.FC = () => {
     <div className="contenedor-formulario">
       <form>
         <h3>Realice la cotización de su cliente</h3>
+
         {/* Input para Nombre Comercial */}
-        <div className="cajas_informacion">
-          <label htmlFor="nombreComercial">Nombre comercial: </label>
-          <input
-            type="text"
-            value={nombreComercial}
-            onChange={(e) => setNombreComercial(e.target.value)}
-            required
-          />
+        <div className='infoClientes'>
+
+        <h4>Información cliente:</h4>
+
+          <div className="cajas_informacionCliente">
+            <label htmlFor="nombreComercial">Nombre comercial: </label>
+            <input
+              type="text"
+              value={nombreComercial}
+              onChange={(e) => setNombreComercial(e.target.value)}
+              required
+            />
+          </div>
+
+
+          {/* Input para Cliente */}
+          <div className="cajas_informacionCliente">
+            <label htmlFor="cliente">Cliente:</label>
+            <input
+              type="text"
+              value={cliente}
+              onChange={(e) => setCliente(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Input para NIT Cliente */}
+          <div className="cajas_informacionCliente">
+            <label htmlFor="nitCliente">NIT Cliente:</label>
+            <input
+              type="number"
+              value={nitCliente}
+              onChange={(e) => setNitCliente(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+        
+        <h4>Información urbanos:</h4>
+
+        <div className='informacionMacro'>
+        
+          {/* Input para Minimo kg por caja Urbano */}
+          <div className="cajas_informacion">
+            <label htmlFor="minimoKgUrbano">Minimo kg por caja Urbano:</label>
+            <input
+              type="number"
+              value={minimoKgUrbano}
+              onChange={(e) => setMinimoKgUrbano(Number(e.target.value))}
+              required
+            />
+          </div>
+
+          {/* Input para descuento urbano */}
+          <div className="cajas_informacion">
+            <label htmlFor="descuento">% de descuento urbano:</label>
+            <input
+              type="number"
+              value={descuento}
+              onChange={(e) => setdescuento(Number(e.target.value))}
+              required
+            />
+          </div>
+
+          {/* Input cobro Minimo Despacho Urbano */}
+          <div className="cajas_informacion">
+            <label htmlFor="cobroMinDespachoUrbano">Cobro minimo despacho urbano:</label>
+            <input
+              type="number"
+              value={cobroMinDespachoUrbano}
+              onChange={(e) => setCobroMinDespachoUrbano(Number(e.target.value))}
+              required
+            />
+          </div>
+
+          {/* Input cobro Minimo caja Urbano */}
+          <div className="cajas_informacion">
+            <label htmlFor="cobroMinCajaUrbano">Cobro minimo caja urbano:</label>
+            <input
+              type="number"
+              value={cobroMinCajaUrbano}
+              onChange={(e) => setCobroMinCajaUrbano(Number(e.target.value))}
+              required
+            />
+          </div>
+
+          <div className="cajas_informacion">
+            <label htmlFor="tarifaIntegralUrbano">Tarifa integral Urbano:</label>
+            <input
+              type="number"
+              value={tarifaIntegralUrbano}
+              onChange={(e) => setTarifaIntegralUrbano(Number(e.target.value))}
+              required
+            />
+          </div>
+
+        </div>
+        
+        <h4>Información Nacionales:</h4>
+
+        <div className='informacionMacro'>
+        
+          {/* Input para Minimo kg por caja Nacional */}
+          <div className="cajas_informacion">
+            <label htmlFor="minimoKgNacional">Minimo kg por caja Nacional:</label>
+            <input
+              type="number"
+              value={minimoKgNacional}
+              onChange={(e) => setMinimoKgNacional(Number(e.target.value))}
+              required
+            />
+          </div>
+
+          {/* Input para descuento Nacional */}
+          <div className="cajas_informacion">
+            <label htmlFor="descuentoNacional">% de descuento Nacional:</label>
+            <input
+              type="number"
+              value={descuentoNacional}
+              onChange={(e) => setdescuentoNacional(Number(e.target.value))}
+              required
+            />
+          </div>
+
+          {/* Input cobro Minimo Despacho Nacional */}
+          <div className="cajas_informacion">
+            <label htmlFor="cobroMinDespachoNacional">Cobro minimo despacho nacional:</label>
+            <input
+              type="number"
+              value={cobroMinDespachoNacional}
+              onChange={(e) => setCobroMinDespachoNacional(Number(e.target.value))}
+              required
+            />
+          </div>
+          
+          {/* Input cobro Minimo caja Nacional */}
+          <div className="cajas_informacion">
+            <label htmlFor="cobroMinCajaNacional">Cobro minimo caja nacional:</label>
+            <input
+              type="number"
+              value={cobroMinCajaNacional}
+              onChange={(e) => setCobroMinCajaNacional(Number(e.target.value))}
+              required
+            />
+          </div>
+
+          <div className="cajas_informacion">
+            <label htmlFor="tarifaIntegralNacional">Tarifa integral nacional:</label>
+            <input
+              type="number"
+              value={tarifaIntegralNacional}
+              onChange={(e) => setTarifaIntegralNacional(Number(e.target.value))}
+              required
+            />
+          </div>
         </div>
 
-        {/* Input para Cliente */}
-        <div className="cajas_informacion">
-          <label htmlFor="cliente">Cliente:</label>
-          <input
-            type="text"
-            value={cliente}
-            onChange={(e) => setCliente(e.target.value)}
-            required
-          />
-        </div>
+        <div className='informacionMacro'>
+          
+          <div className="cajas_informacion">
+            <label htmlFor="addValorem">% Negociación especial AddValorem:</label>
+            <input
+              type="number"
+              value={addValorem}
+              onChange={(e) => setAddValorem(Number(e.target.value))}
+              required
+            />
+          </div>
 
-        {/* Input para NIT Cliente */}
-        <div className="cajas_informacion">
-          <label htmlFor="nitCliente">NIT Cliente:</label>
-          <input
-            type="number"
-            value={nitCliente}
-            onChange={(e) => setNitCliente(e.target.value)}
-            required
-          />
-        </div>
+          {/* Input para dias cartera */}
+          <div className="cajas_informacion">
+            <label htmlFor="diasCartera">Dias de cartera:</label>
+            <input
+              type="number"
+              value={diasCartera}
+              onChange={(e) => setDiasCartera(Number(e.target.value))}
+              required
+            />
+          </div>
 
-        {/* Input para Minimo kg por caja Urbano */}
-        <div className="cajas_informacion">
-          <label htmlFor="minimoKgUrbano">Minimo kg por caja Urbano:</label>
-          <input
-            type="number"
-            value={minimoKgUrbano}
-            onChange={(e) => setMinimoKgUrbano(Number(e.target.value))}
-            required
-          />
-        </div>
+          {/* Input para Año de vigencia */}
+          <div className="cajas_informacion">
+            <label htmlFor="anoVigencia">Año de vigencia:</label>
+            <input
+              type="number"
+              value={anoVigencia}
+              onChange={(e) => setAnoVigencia(Number(e.target.value))}
+              required
+            />
+          </div>
 
-        {/* Input para Minimo kg por caja Nacional */}
-        <div className="cajas_informacion">
-          <label htmlFor="minimoKgNacional">Minimo kg por caja Nacional:</label>
-          <input
-            type="number"
-            value={minimoKgNacional}
-            onChange={(e) => setMinimoKgNacional(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        {/* Input para descuento */}
-        <div className="cajas_informacion">
-          <label htmlFor="descuento">% de descuento urbano:</label>
-          <input
-            type="number"
-            value={descuento}
-            onChange={(e) => setdescuento(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        {/* Input para descuento Nacional */}
-        <div className="cajas_informacion">
-          <label htmlFor="descuentoNacional">% de descuento Nacional:</label>
-          <input
-            type="number"
-            value={descuentoNacional}
-            onChange={(e) => setdescuentoNacional(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        <div className="cajas_informacion">
-          <label htmlFor="cobroMinDespachoUrbano">Cobro minimo despacho urbano:</label>
-          <input
-            type="number"
-            value={cobroMinDespachoUrbano}
-            onChange={(e) => setCobroMinDespachoUrbano(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        <div className="cajas_informacion">
-          <label htmlFor="cobroMinCajaUrbano">Cobro minimo caja urbano:</label>
-          <input
-            type="number"
-            value={cobroMinCajaUrbano}
-            onChange={(e) => setCobroMinCajaUrbano(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        <div className="cajas_informacion">
-          <label htmlFor="tarifaIntegralUrbano">Tarifa integral Urbano:</label>
-          <input
-            type="number"
-            value={tarifaIntegralUrbano}
-            onChange={(e) => setTarifaIntegralUrbano(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        <div className="cajas_informacion">
-          <label htmlFor="cobroMinDespachoNacional">Cobro minimo despacho nacional:</label>
-          <input
-            type="number"
-            value={cobroMinDespachoNacional}
-            onChange={(e) => setCobroMinDespachoNacional(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        <div className="cajas_informacion">
-          <label htmlFor="cobroMinCajaNacional">Cobro minimo caja nacional:</label>
-          <input
-            type="number"
-            value={cobroMinCajaNacional}
-            onChange={(e) => setCobroMinCajaNacional(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        <div className="cajas_informacion">
-          <label htmlFor="tarifaIntegralNacional">Tarifa integral nacional:</label>
-          <input
-            type="number"
-            value={tarifaIntegralNacional}
-            onChange={(e) => setTarifaIntegralNacional(Number(e.target.value))}
-            required
-          />
-        </div>
-
-        <div className="cajas_informacion">
-          <label htmlFor="addValorem">% Negociación especial AddValorem:</label>
-          <input
-            type="number"
-            value={addValorem}
-            onChange={(e) => setAddValorem(Number(e.target.value))}
-            required
-          />
-        </div>
-
-
-        {/* Input para Año de vigencia */}
-        <div className="cajas_informacion">
-          <label htmlFor="anoVigencia">Año de vigencia:</label>
-          <input
-            type="number"
-            value={anoVigencia}
-            onChange={(e) => setAnoVigencia(Number(e.target.value))}
-            required
-          />
         </div>
 
         {/* Botón para exportar */}

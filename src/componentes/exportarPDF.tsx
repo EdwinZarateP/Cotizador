@@ -16,7 +16,8 @@ const ExportarCotizacion: React.FC  = () => {
   const { minimoKgUrbano, minimoKgNacional, descuento, descuentoNacional,
      nombreComercial, cliente, nitCliente, anoVigencia , addValorem, 
      cobroMinDespachoUrbano, cobroMinCajaUrbano, tarifaIntegralUrbano, 
-     cobroMinDespachoNacional, cobroMinCajaNacional, tarifaIntegralNacional} = useFormularioContext();
+     cobroMinDespachoNacional, cobroMinCajaNacional, tarifaIntegralNacional,
+    diasCartera} = useFormularioContext();
 
   const generateTable = (descuento: number) => {
     const ciudadesUnicas = [...new Set(ciudadesCombinadas.map(ciudad => ciudad.destino))].sort();
@@ -172,31 +173,61 @@ const ExportarCotizacion: React.FC  = () => {
               <Text style={estilosParaExportar.tableTitle1}>.                                                                    CONDICIONES DE NEGOCIACION URBANO</Text>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho $</Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${cobroMinDespachoUrbano} </Text>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por despacho</Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {minimoKgUrbano} </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo (mas de 2 cajas) </Text>
+                
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}>  
+                  {cobroMinDespachoUrbano !== 0
+                  ? new Intl.NumberFormat('es-CO', {
+                      style: 'currency',
+                      currency: 'COP',
+                      maximumFractionDigits: 0,
+                    }).format(cobroMinDespachoUrbano)
+                  : '-'}
+                </Text>
+                
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo (mas de 2 cajas)</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {minimoKgUrbano !== 0 ? minimoKgUrbano : '-'} </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${cobroMinCajaUrbano} </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja </Text>
+                
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 
+                {cobroMinCajaUrbano !== 0
+                  ? new Intl.NumberFormat('es-CO', {
+                      style: 'currency',
+                      currency: 'COP',
+                      maximumFractionDigits: 0,
+                    }).format(cobroMinCajaUrbano)
+                  : '-'}
+                </Text>
+
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${tarifaIntegralUrbano}  </Text>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por Caja  </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja </Text>
+                
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 
+                {tarifaIntegralUrbano !== 0
+                  ? new Intl.NumberFormat('es-CO', {
+                      style: 'currency',
+                      currency: 'COP',
+                      maximumFractionDigits: 0,
+                    }).format(tarifaIntegralUrbano)
+                  : '-'}
+                </Text>
+
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por Caja </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> - </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Factor de conversion peso/vol</Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> 400 </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> % Descuento por flete </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {descuento} </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}>  {descuento !== 0 ? descuento : '-'} </Text>
               </View>
 
 
@@ -204,62 +235,92 @@ const ExportarCotizacion: React.FC  = () => {
               <Text style={estilosParaExportar.tableTitle1}>.                                                                    CONDICIONES DE NEGOCIACION NACIONAL</Text>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho $</Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${cobroMinDespachoNacional} </Text>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por despacho</Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo (mas de 2 cajas)</Text>
+                
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 
+                {cobroMinDespachoNacional !== 0
+                  ? new Intl.NumberFormat('es-CO', {
+                      style: 'currency',
+                      currency: 'COP',
+                      maximumFractionDigits: 0,
+                    }).format(cobroMinDespachoNacional)
+                  : '-'}
+                </Text>
+
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo (mas de 2 cajas)</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {minimoKgNacional !== 0 ? minimoKgNacional : '-'} </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${cobroMinCajaNacional} </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja </Text>
+                
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 
+                {cobroMinCajaNacional !== 0
+                  ? new Intl.NumberFormat('es-CO', {
+                      style: 'currency',
+                      currency: 'COP',
+                      maximumFractionDigits: 0,
+                    }).format(cobroMinCajaNacional)
+                  : '-'}
+                </Text>
+
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {minimoKgNacional} </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${tarifaIntegralNacional}  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja </Text>
+                
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 
+                {tarifaIntegralNacional !== 0
+                  ? new Intl.NumberFormat('es-CO', {
+                      style: 'currency',
+                      currency: 'COP',
+                      maximumFractionDigits: 0,
+                    }).format(tarifaIntegralNacional)
+                  : '-'}
+                </Text>
+
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> - </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Factor de conversion peso/vol</Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> 400 </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> % Descuento por flete </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {descuentoNacional} </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {descuentoNacional !== 0 ? descuentoNacional : '-'} </Text>
               </View>
   
               {/* COTIZACION REEXPEDICION */}
               <Text style={estilosParaExportar.tableTitle1}>.                                                                    CONDICIONES DE NEGOCIACION REEXPEDICION</Text>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho $</Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 12.000 </Text>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por despacho</Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}>  $ 92.500 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo (mas de 2 cajas)</Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 30.000  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}>  $ 92.500  </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {30} </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 8.000  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}>  $ 92.500 </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 20 </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Factor de conversion peso/vol</Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> 400 </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> % Descuento por flete </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {descuentoNacional} </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> - </Text>
               </View>
 
             
@@ -338,7 +399,7 @@ const ExportarCotizacion: React.FC  = () => {
 
               <Text style={estilosParaExportar.subtitle}> 5. FORMA DE PAGO Y FACTURACIÓN</Text>{"\n"} {"\n"}
               
-              •	Plazo de pago: 30 dias fecha factura.{"\n"}
+              •	Plazo de pago:  { diasCartera }  dias fecha factura.{"\n"}
               •	Intereses por mora: Si las facturas no son canceladas dentro de las fechas anteriormente estipuladas, se causarán intereses por mora de acuerdo con la tasa máxima legal vigente en el mercado.{"\n"}
               •	La actualización de tarifas se realizará el 01 de enero de cada año, de acuerdo con la siguiente formula: IPC 30%+SMMLV 70%{"\n"}{"\n"} {"\n"}
 
@@ -363,7 +424,7 @@ const ExportarCotizacion: React.FC  = () => {
       </div>
       <div className='inputDescargar'>
         
-      {minimoKgUrbano >= 15 && MyDocument && (
+      {minimoKgUrbano >= 0 && MyDocument && (
           <PDFDownloadLink
             document={MyDocument}
             fileName={fileName}

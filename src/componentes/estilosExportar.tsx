@@ -109,7 +109,7 @@ export const estilosParaExportar = StyleSheet.create({
     width: '30%',
     border: '0.5px solid black',
     padding: 2,
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 9,
     fontWeight: 'bold',
     fontFamily: 'Helvetica-Bold'

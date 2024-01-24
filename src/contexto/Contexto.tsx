@@ -16,6 +16,7 @@ interface FormularioContextType {
   cobroMinCajaNacional:number;
   tarifaIntegralNacional:number;
   addValorem:number;
+  diasCartera:number;
   setNombreComercial: React.Dispatch<React.SetStateAction<string>>;
   setCliente: React.Dispatch<React.SetStateAction<string>>;
   setNitCliente: React.Dispatch<React.SetStateAction<string>>; 
@@ -31,6 +32,7 @@ interface FormularioContextType {
   setCobroMinCajaNacional:React.Dispatch<React.SetStateAction<number>>;
   setTarifaIntegralNacional:React.Dispatch<React.SetStateAction<number>>;
   setAddValorem:React.Dispatch<React.SetStateAction<number>>;
+  setDiasCartera:React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface FormularioProviderProps {
@@ -45,8 +47,8 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
   const [nombreComercial, setNombreComercial] = useState('');
   const [cliente, setCliente] = useState('');
   const [nitCliente, setNitCliente] = useState(''); 
-  const [minimoKgUrbano, setMinimoKgUrbano] = useState<number>(30);
-  const [minimoKgNacional, setMinimoKgNacional] = useState<number>(30);
+  const [minimoKgUrbano, setMinimoKgUrbano] = useState<number>(0);
+  const [minimoKgNacional, setMinimoKgNacional] = useState<number>(0);
   const [descuento, setdescuento] = useState<number>(0); 
   const [anoVigencia, setAnoVigencia] = useState<number>(2024); 
   const [descuentoNacional, setdescuentoNacional] = useState<number>(0);
@@ -57,6 +59,7 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
   const [cobroMinCajaNacional, setCobroMinCajaNacional] = useState<number>(0); 
   const [tarifaIntegralNacional, setTarifaIntegralNacional] = useState<number>(0); 
   const [addValorem, setAddValorem] = useState<number>(0); 
+  const [diasCartera, setDiasCartera] = useState<number>(0);
 
 
   // Proporcionamos el valor del contexto
@@ -76,6 +79,7 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
     cobroMinCajaNacional,
     tarifaIntegralNacional,
     addValorem,
+    diasCartera,
     setNombreComercial,
     setCliente,
     setNitCliente,
@@ -90,7 +94,8 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
     setCobroMinDespachoNacional,
     setCobroMinCajaNacional,
     setTarifaIntegralNacional,
-    setAddValorem
+    setAddValorem,
+    setDiasCartera
   };
 
   return (
