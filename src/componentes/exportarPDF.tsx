@@ -17,7 +17,7 @@ const ExportarCotizacion: React.FC  = () => {
      nombreComercial, cliente, nitCliente, anoVigencia , addValorem, 
      cobroMinDespachoUrbano, cobroMinCajaUrbano, tarifaIntegralUrbano, 
      cobroMinDespachoNacional, cobroMinCajaNacional, tarifaIntegralNacional,
-    diasCartera} = useFormularioContext();
+    diasCartera, promedioKgUrbano, promedioKgNacional,} = useFormularioContext();
 
   const generateTable = (descuento: number) => {
     const ciudadesUnicas = [...new Set(ciudadesCombinadas.map(ciudad => ciudad.destino))].sort();
@@ -202,7 +202,7 @@ const ExportarCotizacion: React.FC  = () => {
                   : '-'}
                 </Text>
 
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja </Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
@@ -220,7 +220,7 @@ const ExportarCotizacion: React.FC  = () => {
                 </Text>
 
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por Caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> - </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {promedioKgUrbano} </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
@@ -282,7 +282,7 @@ const ExportarCotizacion: React.FC  = () => {
                 </Text>
 
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> - </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {promedioKgNacional} </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
