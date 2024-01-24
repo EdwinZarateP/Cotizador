@@ -8,13 +8,15 @@ interface FormularioContextType {
   minimoKgNacional: number;
   descuento:number;
   anoVigencia: number; 
+  descuentoNacional:number;
   setNombreComercial: React.Dispatch<React.SetStateAction<string>>;
   setCliente: React.Dispatch<React.SetStateAction<string>>;
   setNitCliente: React.Dispatch<React.SetStateAction<string>>; 
   setMinimoKgUrbano: React.Dispatch<React.SetStateAction<number>>; 
   setMinimoKgNacional: React.Dispatch<React.SetStateAction<number>>;
   setdescuento: React.Dispatch<React.SetStateAction<number>>;
-  setAnoVigencia: React.Dispatch<React.SetStateAction<number>>; 
+  setAnoVigencia: React.Dispatch<React.SetStateAction<number>>;
+  setdescuentoNacional: React.Dispatch<React.SetStateAction<number>>; 
 }
 
 interface FormularioProviderProps {
@@ -33,6 +35,7 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
   const [minimoKgNacional, setMinimoKgNacional] = useState<number>(30);
   const [descuento, setdescuento] = useState<number>(0); 
   const [anoVigencia, setAnoVigencia] = useState<number>(2024); 
+  const [descuentoNacional, setdescuentoNacional] = useState<number>(0); 
 
   // Proporcionamos el valor del contexto
   const contextValue: FormularioContextType = {
@@ -43,6 +46,7 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
     minimoKgNacional,
     descuento,
     anoVigencia,
+    descuentoNacional,
     setNombreComercial,
     setCliente,
     setNitCliente,
@@ -50,6 +54,7 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
     setMinimoKgNacional,
     setdescuento,
     setAnoVigencia,
+    setdescuentoNacional
   };
 
   return (

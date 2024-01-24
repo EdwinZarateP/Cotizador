@@ -6,8 +6,10 @@
   import Header from './componentes/header.tsx';
   import Formulario from './componentes/formulario.tsx';
   import './index.css';
-  import { FormularioProvider,  } from './contexto/Contexto.tsx';
-  import { Claves } from './componentes/claves.tsx'
+  import { FormularioProvider } from './contexto/Contexto.tsx';
+  import { Claves } from './componentes/claves.tsx';
+  import ExcelExportComponent from './componentes/excel.tsx'
+  
 
   const App = () => {
     const [inputValorClave, setInputValorClave] = useState('');
@@ -32,6 +34,8 @@
             <Imagen />
             {claveValida && <Formulario />}
             <Calculadora />
+
+            <ExcelExportComponent/>
           
           </div>
 

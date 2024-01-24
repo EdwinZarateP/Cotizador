@@ -26,6 +26,8 @@ const Formulario: React.FC = () => {
     setAnoVigencia,
     descuento,
     setdescuento,
+    descuentoNacional,
+    setdescuentoNacional
 
   } = useFormularioContext();
 
@@ -155,11 +157,22 @@ const Formulario: React.FC = () => {
 
         {/* Input para descuento */}
         <div className="cajas_informacion">
-          <label htmlFor="descuento">% de descuento:</label>
+          <label htmlFor="descuento">% de descuento urbano:</label>
           <input
             type="number"
             value={descuento}
             onChange={(e) => setdescuento(Number(e.target.value))}
+            required
+          />
+        </div>
+
+        {/* Input para descuento Nacional */}
+        <div className="cajas_informacion">
+          <label htmlFor="descuentoNacional">% de descuento Nacional:</label>
+          <input
+            type="number"
+            value={descuentoNacional}
+            onChange={(e) => setdescuentoNacional(Number(e.target.value))}
             required
           />
         </div>

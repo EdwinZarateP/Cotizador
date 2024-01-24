@@ -141,7 +141,6 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
     let costoManejo = 2500;
 
     // Corregir el peso por minKg si es menor a este
-    // const pesoCorregido = cajas === 1 ? Math.max(peso, minKg) : minKg === 0 ? 30 : Math.max(peso, minKg);
     const pesoCorregido = minKg === 0 ? 30 : cajas === 1 && Math.max(peso, minKg) < 30 ? 30 : Math.max(peso, minKg);
 
 
@@ -149,20 +148,23 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
       if (declarado * 0.005 < costoManejo) {
         calculoCotizacion = redondearMultiplo50 (pesoVolumetrico * costo + costoManejo);
         calculoCotizacionDescuento= redondearMultiplo50 ((pesoVolumetrico * (costo* ((100-descuento)/100)) + costoManejo));
-
+        console.log(calculoCotizacion, pesoVolumetrico, costo, costoManejo, pesoCorregido)
+        
       } else {
         calculoCotizacion = redondearMultiplo50(pesoVolumetrico * costo + declarado * 0.005);
         calculoCotizacionDescuento = redondearMultiplo50((pesoVolumetrico * (costo* ((100-descuento)/100)) + declarado * 0.005));
-
+        
       }
     } else {
       if (declarado * 0.005 < costoManejo) {
         calculoCotizacion = redondearMultiplo50(pesoCorregido * costo + costoManejo);
         calculoCotizacionDescuento = redondearMultiplo50((pesoCorregido * (costo* ((100-descuento)/100)) + costoManejo));
         
+        
       } else {
         calculoCotizacion = redondearMultiplo50(pesoCorregido * costo + declarado * 0.005);
         calculoCotizacionDescuento = redondearMultiplo50((pesoCorregido * (costo* ((100-descuento)/100)) + declarado * 0.005));
+       
        
       }
     }
@@ -185,7 +187,7 @@ const GenerarCotizacion: React.FC<GenerarCotizacionProps> = ({
         {calculoCotizacion && calculoCotizacionDescuento !== undefined && (
           <div>
             <p>El costo por caja es: <br/> <span className="negrita">${calculoCotizacion.toLocaleString('es-CO')}</span> </p>
-            <p>El envío de la(s) {cajas} cajas cuesta:   <br/> <span className="negrita">${(calculoCotizacion * cajas).toLocaleString('es-CO')}</span>  </p>
+            <p>El envío de la(s) {cajas} cajas cuesta: <br/> <span className="negrita">${(calculoCotizacion * cajas).toLocaleString('es-CO')}</span>  </p>
             <p>El envío de la(s) {cajas} cajas cuesta con descuento:   <br/> <span className="negrita">${(calculoCotizacionDescuento * cajas).toLocaleString('es-CO')}</span>  </p>
             <p>{Tipo}</p>
           </div>

@@ -7,7 +7,7 @@ export const estilosParaExportar = StyleSheet.create({
   page: {
     flexDirection: 'row',
     backgroundColor: '#FFFF',
-    padding: 25,
+    padding: '15px 25px 25px 25px',
   },
 
   section: {
@@ -17,8 +17,8 @@ export const estilosParaExportar = StyleSheet.create({
   },
 
   title: {
-    fontSize: 14,
-    marginBottom: 10,
+    fontSize: 12,
+    marginBottom: 5 ,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#333',
@@ -27,7 +27,7 @@ export const estilosParaExportar = StyleSheet.create({
   
   subtitle: {
     fontSize: 10,
-    marginBottom: 10,
+    marginBottom: 0,
     textAlign: 'justify',
     color: 'black',
     fontFamily: 'Helvetica-Bold'
@@ -45,15 +45,35 @@ export const estilosParaExportar = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#000',
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  tablaGenerica0: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    },
+
+  tablaGenerica1: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   tableTitle: {
     fontSize: 9,
-    borderBottomWidth: 1,
     fontWeight: 'bold',
-    alignItems: 'center',
-    marginBottom: 1,
-    fontFamily: 'Helvetica-Bold'
+    padding: '1',
+    fontFamily: 'Helvetica-Bold',
+    borderBottom: '1px solid black',
+    backgroundColor: '#AED035',
+  },
+
+  tableTitle1: {
+    fontSize: 9,
+    fontWeight: 'bold',
+    padding: '1',
+    fontFamily: 'Helvetica-Bold',
+    backgroundColor: '#AED035',
+    border: '0.5px 0.5px 0 0.5px solid black',
   },
   
 
@@ -64,15 +84,52 @@ export const estilosParaExportar = StyleSheet.create({
     textAlign: 'center',
     fontSize: 8,
     fontWeight: 'bold',
-    backgroundColor: '#AED035',
     fontFamily: 'Helvetica-Bold'
+  },
+
+  tablacolumanegrita: {
+    width: '25%',
+    border: '0.5px solid black',
+    padding: 2,
+    textAlign: 'center',
+    fontSize: 9,
+    fontWeight: 'bold',
+    fontFamily: 'Helvetica-Bold'
+  },
+
+  tablacolumasinnegrita: {
+    width: '25%',
+    border: '0.5px solid black',
+    padding: 2,
+    textAlign: 'center',
+    fontSize: 9,
+  },
+
+  tablacolumanegrita1: {
+    width: '30%',
+    border: '0.5px solid black',
+    padding: 2,
+    textAlign: 'center',
+    fontSize: 9,
+    fontWeight: 'bold',
+    fontFamily: 'Helvetica-Bold'
+  },
+
+  tablacolumasinnegrita1: {
+    width: '20%',
+    border: '0.5px solid black',
+    padding: 2,
+    textAlign: 'center',
+    fontSize: 9,
   },
 
   tableCol: {
     width: '16.67%',
+    height:'100%',  
     borderRight: '1px solid black',
     padding: 0,
     textAlign: 'center',
+    justifyContent: 'center',
     fontSize: 8,
   },
 
@@ -95,6 +152,8 @@ export const estilosParaExportar = StyleSheet.create({
     marginBottom: 1,
     padding:2
   },
+
+  
 
   input: {
     
@@ -119,11 +178,17 @@ export const estilosParaExportar = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    
   },
 
   logo: {
     width: 100, // ajusta el tamaño de la imagen del logo según tus necesidades
     height: 50, // ajusta el tamaño de la imagen del logo según tus necesidades
+  },
+
+  headerRight: {
+    width: 40,
+    height: 30,
   },
 
   // Agrega el estilo para la firma (footerImage) aquí

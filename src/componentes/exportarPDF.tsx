@@ -3,7 +3,9 @@
 import { Document, Page, Text, View, PDFDownloadLink, Image } from '@react-pdf/renderer';
 import { estilosParaExportar } from './estilosExportar'; // Importa los estilos desde el nuevo archivo
 import '../estilos/exportarPDF.css';
-import logoImage from '../imagenes/logo.png'; // Importa la imagen desde tu carpeta local
+import logoImage from '../imagenes/logo.png'; 
+import logoBasc from '../imagenes/logoBasc.png'; 
+import logoBuro from '../imagenes/buro.png'; 
 import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
 import { ciudadesCombinadas } from './CombinacionesCiudades';
 import { useFormularioContext } from '../contexto/Contexto.tsx';
@@ -11,12 +13,24 @@ import { useFormularioContext } from '../contexto/Contexto.tsx';
 const ExportarCotizacion: React.FC  = () => {
   
   // Usar el hook para obtener el contexto
-  const { minimoKgUrbano, minimoKgNacional, descuento, nombreComercial, cliente, nitCliente, anoVigencia } = useFormularioContext();
+  const { minimoKgUrbano, minimoKgNacional, descuento, descuentoNacional, nombreComercial, cliente, nitCliente, anoVigencia } = useFormularioContext();
 
   const generateTable = (descuento: number) => {
     const ciudadesUnicas = [...new Set(ciudadesCombinadas.map(ciudad => ciudad.destino))].sort();
   
-    const tableRows = ciudadesUnicas.map((ciudad, index) => {
+      // Excluir las ciudades específicas
+    const ciudadesExcluidas = ['ZIPAQUIRA - CUNDINAMARCA','CAJICA - CUNDINAMARCA', 'COTA - CUNDINAMARCA','CHIA - CUNDINAMARCA',
+    'FACATATIVA - CUNDINAMARCA','FUNZA - CUNDINAMARCA','GACHANCIPA - CUNDINAMARCA','LA CALERA - CUNDINAMARCA',
+    'MADRID - CUNDINAMARCA','MOSQUERA - CUNDINAMARCA','SIBATE - CUNDINAMARCA','SOACHA - CUNDINAMARCA',
+    'SOPO - CUNDINAMARCA','TENJO - CUNDINAMARCA','TOCANCIPA - CUNDINAMARCA','COPACABANA - ANTIOQUIA','BELLO - ANTIOQUIA',
+    'ENVIGADO - ANTIOQUIA','ITAGUI - ANTIOQUIA', 'LA ESTRELLA - ANTIOQUIA', 'SABANETA - ANTIOQUIA',
+    'RIONEGRO - ANTIOQUIA', 'PALMIRA - VALLE DEL CAUCA', 'JAMUNDI - VALLE DEL CAUCA', 'JAMUNDI - VALLE DEL CAUCA',
+    'SOLEDAD - ATLANTICO', 'PUERTO COLOMBIA - ATLANTICO', 'SABANALARGA - ATLANTICO',
+    'FLORIDABLANCA - SANTANDER', 'GIRON - SANTANDER', 'PIEDECUESTA - SANTANDER'];
+    
+    const ciudadesFiltradas = ciudadesUnicas.filter(ciudad => !ciudadesExcluidas.includes(ciudad));
+
+    const tableRows = ciudadesFiltradas.map((ciudad, index) => {
       
       const indexOfDash = ciudad.indexOf('-');
       const truncatedDestino = indexOfDash !== -1 ? ciudad.slice(0, indexOfDash + 5) : ciudad;
@@ -33,7 +47,7 @@ const ExportarCotizacion: React.FC  = () => {
           {bogotaData ? (
             <>
               <Text style={estilosParaExportar.tableCol}>
-                ${Math.ceil(bogotaData.costo * (1 - (descuento / 100)))}
+              ${Math.ceil(bogotaData.costo * (1 - (bogotaData.Tipo === 'URBANO' || bogotaData.Tipo === 'CIUDAD INTERMEDIA' ? descuento : descuentoNacional) / 100))}
               </Text>
             </>
           ) : (
@@ -43,7 +57,7 @@ const ExportarCotizacion: React.FC  = () => {
           {medellinData ? (
             <>
               <Text style={estilosParaExportar.tableCol}>
-                ${Math.ceil(medellinData.costo * (1 - (descuento / 100)))}
+              ${Math.ceil(medellinData.costo * (1 - (medellinData.Tipo === 'URBANO' || medellinData.Tipo === 'CIUDAD INTERMEDIA' ? descuento : descuentoNacional) / 100))}
               </Text>
             </>
           ) : (
@@ -53,7 +67,7 @@ const ExportarCotizacion: React.FC  = () => {
           {caliData ? (
             <>
               <Text style={estilosParaExportar.tableCol}>
-                ${Math.ceil(caliData.costo * (1 - (descuento / 100)))}
+              ${Math.ceil(caliData.costo * (1 - (caliData.Tipo === 'URBANO' || caliData.Tipo === 'CIUDAD INTERMEDIA' ? descuento : descuentoNacional) / 100))}
               </Text>
             </>
           ) : (
@@ -64,7 +78,7 @@ const ExportarCotizacion: React.FC  = () => {
           {barranquillaData ? (
             <>
               <Text style={estilosParaExportar.tableCol}>
-                ${Math.ceil(barranquillaData.costo * (1 - (descuento / 100)))}
+              ${Math.ceil(barranquillaData.costo * (1 - (barranquillaData.Tipo === 'URBANO' || barranquillaData.Tipo === 'CIUDAD INTERMEDIA' ? descuento : descuentoNacional) / 100))}
               </Text>
             </>
           ) : (
@@ -74,7 +88,7 @@ const ExportarCotizacion: React.FC  = () => {
           {bucaramangaData ? (
             <>
               <Text style={estilosParaExportar.tableCol}>
-                ${Math.ceil(bucaramangaData.costo * (1 - (descuento / 100)))}
+              ${Math.ceil(bucaramangaData.costo * (1 - (bucaramangaData.Tipo === 'URBANO' || bucaramangaData.Tipo === 'CIUDAD INTERMEDIA' ? descuento : descuentoNacional) / 100))}
               </Text>
             </>
           ) : (
@@ -99,6 +113,11 @@ const ExportarCotizacion: React.FC  = () => {
   const formattedDate = `${pad(today.getDate())}-${pad(today.getMonth() + 1)}-${today.getFullYear()}`;
   const fileName = `Cotizacion_${formattedDate}.pdf`;
 
+  // Suma 30 días a la fecha actual
+  const fechaVigencia = new Date(today);
+  fechaVigencia.setDate(today.getDate() + 30);
+  // Formatea la nueva fecha como lo necesites (en este caso, DD-MM-YYYY)
+  const formattedFechaVigencia = `${pad(fechaVigencia.getDate())}-${pad(fechaVigencia.getMonth() + 1)}-${fechaVigencia.getFullYear()}`;
   
   
   let MyDocument = null;
@@ -112,91 +131,138 @@ const ExportarCotizacion: React.FC  = () => {
           {/* Encabezado con imagen */}
           <View style={estilosParaExportar.header}>
             <Image src={logoImage} style={estilosParaExportar.logo} />
+            <Text style={estilosParaExportar.title}>OFERTA COMERCIAL PAQUETEO</Text>
+            <Image src={logoBuro} style={estilosParaExportar.headerRight} />
+            <Image src={logoBasc} style={estilosParaExportar.headerRight} />
           </View>
 
 
-            <Text style={estilosParaExportar.title}>Cotización paqueteo Integra</Text>
-            <Text style={estilosParaExportar.subtitle}>Fecha: {formattedDate}</Text>
-            <Text style={estilosParaExportar.paragraph}>
-            
-              Cliente:
-              <Text style={estilosParaExportar.subtitle}> {cliente}</Text>{"\n"} {"\n"}
+            {/* <Text style={estilosParaExportar.title}>OFERTA COMERCIAL PAQUETEO</Text> */}
 
-              NIT:
-              <Text style={estilosParaExportar.subtitle}> {nitCliente}</Text>{"\n"} {"\n"}
+            <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita}> Fecha de Elaboración: </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita}> {formattedDate}  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita}> Vigencia:  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita}> {formattedDate}  al  {formattedFechaVigencia}  </Text>
+            </View>
 
-              Comercial: <Text style={estilosParaExportar.subtitle}> {nombreComercial}</Text>{"\n"} {"\n"}
+            <View style={estilosParaExportar.tablaGenerica1}>
+                <Text style={estilosParaExportar.tablacolumanegrita}> Comercial: </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita}> {nombreComercial}  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita}> Año Tarifario:  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita}> {anoVigencia} </Text>
+            </View>
 
-              Vigencia oferta del 1 enero al 31 de diciembre de {anoVigencia}{"\n"} {"\n"}
-
-              Esta oferta considera ser servicio de paqueteo, con los siguientes requisitos:{"\n"}{"\n"}
-              
-              <Text style={estilosParaExportar.subtitle}> 1. CONDICIONES DE COSTO POR Kg PARA URBANO Y NACIONAL (VER ANEXO 1. COSTOS 
-              POR Kg CON DESCUENTO DEL {descuento}%)</Text>{"\n"} {"\n"}
         
-              <Text style={estilosParaExportar.subtitle}> 1.1 Despachos de una 1 caja  (URBANOS Y NACIONALES)</Text>{"\n"} {"\n"}
             
-              Se tomarán 30 Kg mínimos por caja.              
-              Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
-              tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.{"\n"} {"\n"}
+              {/* INFORMACION CLIENTE */}
+              <Text style={estilosParaExportar.tableTitle1}>.                                                                                 INFORMACION CLIENTE</Text>
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita}> Razón social: </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita}> {cliente}  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita}> NIT:  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita}> {nitCliente} </Text>
+            </View>
 
-              <Text style={estilosParaExportar.subtitle}>1.2 Despachos de 2 cajas en adelante URBANOS</Text>{"\n"} {"\n"}
-              
+            
+              {/* COTIZACION URBANOS */}
+              <Text style={estilosParaExportar.tableTitle1}>.                                                                    CONDICIONES DE NEGOCIACION URBANO</Text>
 
-              Se tomarán {minimoKgUrbano} Kg mínimos por caja.              
-              Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
-              tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.{"\n"} {"\n"}
-              
-              <Text style={estilosParaExportar.subtitle}>1.3 Despachos de 2 cajas en adelante NACIONALES</Text>{"\n"} {"\n"}
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho $</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 12.000 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por despacho</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
+              </View>
 
-              Se tomarán {minimoKgNacional} Kg mínimos por caja.              
-              Para efectos de la relación peso-volumen, se cobrará de acuerdo con los estándares establecidos para 
-              tal fin, (1 M3=400 Kg), se cobrará el mayor entre los dos.
-              {"\n"}{"\n"}
-              <Text style={estilosParaExportar.subtitle}>1.3 Costo de manejo paqueteo urbano y nacional </Text>{"\n"} {"\n"}
-                      
-              Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a $ 2.500 por caja{"\n"}
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 15.000  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {minimoKgUrbano} </Text>
+              </View>
 
-            </Text>
-                
-            <Text style={estilosParaExportar.paragraph}>
-              
-              <Text style={estilosParaExportar.subtitle}>2. RECOGIDAS EN DESTINATARIO URBANO Y NACIONAL</Text>{"\n"} {"\n"}
-              
-              Cuando se despache una sola caja se tomará un peso mínimo de 30 Kg, a partir de la segunda caja se tomará {minimoKgUrbano} Kg mínimo por
-              caja.{"\n"}{"\n"}
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja $ </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 8.000  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por Caja  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 12 </Text>
+              </View>
 
-              NOTA:  Se  cobrará  $  66.804  adicionales  al  valor  de  los  ({minimoKgUrbano} Kg URBANOS / {minimoKgNacional} Kg NACIONALES)  mínimos  por  despacho  
-              (hasta  1 Caja),  a  partir  del  segundo  intento  fallido,  en  los  casos  de  que  no  se  efectúe
-              la  recogida  por responsabilidades ajenas a la operación de INTEGRA.{"\n"}{"\n"}
-        
-              <Text style={estilosParaExportar.subtitle}>3. DEVOLUCIONES</Text>{"\n"} {"\n"}
-              
-              En caso de que se presenten devoluciones de pedidos, por causas ajenas a nosotros (Ej.: pedido
-              no solicitado, pedido repetido, orden de compra vencida, etc.) las mismas se cobrarán de acuerdo
-              con los siguientes parámetros: Si el destinatario que originó la devolución se halla en una 
-              ciudad, el flete de la devolución se asimilará con el flete urbano de dicha ciudad, pero si el
-              destinatario se halla en una población distante de la ciudad de origen del despacho,
-              el valor del flete se asimilará con el flete establecido para dicho servicio entre
-              aquellas (ciudad-población), para poder realizar la entrega nuevamente{"\n"}{"\n"}
-              
-              <Text style={estilosParaExportar.subtitle}>3.1 NOTAS</Text>{"\n"} {"\n"}
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Factor de conversion peso/vol</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 400 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> % Descuento por flete </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {descuento} </Text>
+              </View>
 
-              Una vez tramitada y solucionada la novedad de la devolución o recogida el tiempo máximo que 
-              Solistica almacenara sus productos en nuestra bodega de devoluciones es de 72 horas. A partir 
-              de la siguiente hora se procederá a almacenar la mercancía al área de almacenamiento temporal el
-              cual tendrá un costo de: 4 días a 15 días a razón de $ 36.858 por estiba ocupada.A partir del día
-              16 se cobrara $73.717 mensual por estiba ocupada.{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}
 
-              <Text style={estilosParaExportar.subtitle}>4. REEXPEDICIONES</Text>{"\n"} {"\n"}
+              {/* COTIZACION NACIONALES */}
+              <Text style={estilosParaExportar.tableTitle1}>.                                                                    CONDICIONES DE NEGOCIACION NACIONAL</Text>
 
-              Se cobrará $3.000 por kg (Correspondientes a las entregas en ciudades o poblaciones no indicadas en la tabla de tarifas
-              origen/destino).{"\n"}
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho $</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 12.000 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por despacho</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
+              </View>
 
-            </Text>
-                   
-            <View style={estilosParaExportar.table}>
-            <Text style={estilosParaExportar.tableTitle}>ANEXO 1. COSTOS POR Kg CON DESCUENTO DEL {descuento}%</Text>
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 15.000  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {minimoKgNacional} </Text>
+              </View>
+
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja $ </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 8.000  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por caja </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 12 </Text>
+              </View>
+
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Factor de conversion peso/vol</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 400 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> % Descuento por flete </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {descuentoNacional} </Text>
+              </View>
+  
+              {/* COTIZACION REEXPEDICION */}
+              <Text style={estilosParaExportar.tableTitle1}>.                                                                    CONDICIONES DE NEGOCIACION REEXPEDICION</Text>
+
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho $</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 12.000 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por despacho</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
+              </View>
+
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 30.000  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {30} </Text>
+              </View>
+
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja $ </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 8.000  </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por caja </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 20 </Text>
+              </View>
+
+              <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Factor de conversion peso/vol</Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 400 </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> % Descuento por flete </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {descuentoNacional} </Text>
+              </View>
+
+            
+            {/* TABLA FLETES */}
+              <View style={estilosParaExportar.table}>
+            <Text style={estilosParaExportar.tableTitle}>.                                         TABLA 1. TARIFARIO - DESCUENTO URBANO {descuento}% - NACIONAL {descuentoNacional}%</Text>
               <View style={estilosParaExportar.tableRow}>
                 <Text style={estilosParaExportar.tableColHeader}> Destino / Origen  </Text>
                 <Text style={estilosParaExportar.tableColHeader}> BOGOTA, D.C </Text>
@@ -213,20 +279,68 @@ const ExportarCotizacion: React.FC  = () => {
             Para estos Municipios se cobrara la tarifa de la ciudad capital de la zona metropolitana 
             a la cual corresponden.{"\n"}{"\n"}
 
-            BOGOTA: CAJICA, CHIA, COTA, FACATATIVA, FUNZA, LA CALERA
+            BOGOTA: CAJICA, CHIA, COTA, FACATATIVA, FUNZA, LA CALERA, SIBERIA
             MADRID, MOSQUERA, SIBATE, SOACHA, SOPO, TENJO, TOCANCIPA, GACHANCIPA, ZIPAQUIRA{"\n"}{"\n"}
 
-            MEDELLIN: BELLO, COPACABANA, ENVIGADO, ITAGUI, LA ESTRELLA, SABANETA, RIONEGRO {"\n"}{"\n"} 
+            MEDELLIN: BELLO, CALDAS, COPACABANA, ENVIGADO, ITAGUI, LA ESTRELLA, SABANETA, RIONEGRO {"\n"}{"\n"} 
             
-            CALI: PALMIRA, JAMUNDI, YUMBO {"\n"}{"\n"}
+            CALI: PALMIRA, JAMUNDI, YUMBO, CAVASA {"\n"}{"\n"}
                 
-            BARRANQUILLA: SOLEDAD, PUERTO COLOMBIA, SABANALARGA {"\n"}{"\n"}
+            BARRANQUILLA: MALAMBO, PUERTO COLOMBIA, SOLEDAD,  GALAPA{"\n"}{"\n"}
 
-            BUCARAMANGA: FLORIDABLANCA, GIRON, PIEDECUESTA {"\n"}
+            BUCARAMANGA: FLORIDABLANCA, GIRON, PIEDECUESTA {"\n"}{"\n"}
+
+            CARTAGENA: TURBACO, ARJONA, BAYUNCA, MAMONAL, TURBACO, TURBANA Y PASACABALLOS {"\n"}  
 
             </Text>
+        
+            <Text style={estilosParaExportar.paragraph}>
+            
+              Esta oferta considera ser servicio de paqueteo, con los siguientes requisitos:{"\n"}{"\n"}
+              
+              <Text style={estilosParaExportar.subtitle}> 1. MANEJO</Text>{"\n"} {"\n"}
+
+              • % Ad Valorem: Se pacta un cobro general del {5}% {"\n"}
+              • Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a $ 2.500 por caja{"\n"}{"\n"}
+
+              <Text style={estilosParaExportar.subtitle}> 2. MERCANCÍA DE PROHIBIDO TRANSPORTE</Text>{"\n"} {"\n"}
+      
+              •	Material reactivo, contaminante, corrosivo, de naturaleza explosiva o inflamable (Decreto 1609).{"\n"}
+              •	Productos perecederos.{"\n"}
+              •	Gases comprimidos Material que deba mantenerse sobre condiciones de refrigeración, congelación o calefacción. {"\n"}
+              •	Perecederos y/o comestibles con un tiempo de vencimiento menor a 3 meses. {"\n"}
+              •	Obras de arte. {"\n"}
+              •	Títulos valores, Monedas y/o papel moneda, dinero en efectivo, cheques, metales y piedras preciosas. {"\n"}
+              •	Elementos importados sin que estén debidamente legalizados. {"\n"}
+              •	Especies Animales y vegetales. {"\n"}
+              •	Vidrios y espejos{"\n"}
+              •	No transportamos Mercancías, paquetes o documentos mal empacadas, deficientemente protegidas, que puedan averiar otros envíos o con contenidos no aptos para el transporte, ni vidrio.{"\n"}{"\n"} 
+
+              <Text style={estilosParaExportar.subtitle}> 3. CONDICIONES DEL SERVICIO</Text>{"\n"} {"\n"}
+              
+              •	Toda devolución ajena a responsabilidad de INTEGRA LOGISTICA, sera asumida por el cliente.{"\n"}
+              •	Se otorga un plazo maximo para la solución de una novedad de 72 horas, posterior a este tiempo se cobrara almacenamiento temporal el cual tiene un costo de $40.000 por estiba (o fracción) semanal.{"\n"}
+              •	Los segundos ofrecimientos serán cobrados de acuerdo con la tarifa de la regional destino.{"\n"}
+              •	INTEGRA LOGISTICA asignara un ejecutivo de cuenta para el seguimiento de los despachos.{"\n"}
+              •	En caso de presentarse situaciones ajenas al proceso desarrollado por INTEGRA LOGISTICA que afecten la movilidad en el país y hagan necesario tomar vías alternas y/o esperas prolongadas podra generarse sobre costos que seran negociados entre las partes.{"\n"}
+              •	El tiempo maximo de espera para entrega en punto es de 45 minutos; de igual forma, si se presenta una novedad en el punto, el tiempo maximo de espera para lograr la solución es de 20 minutos, pasado este tiempo se dara continuidad a la ruta y se cobrara el flete por una futura entrega.{"\n"}{"\n"}
+
+              <Text style={estilosParaExportar.subtitle}> 4. AVERIAS, FALTANTES E INDEMNIZACIONES</Text>{"\n"} {"\n"}
+              
+              •	Art 1028. Los reclamos de los clientes por pérdidas o averías se podrán realizar máximo dentro de los tres días siguientes a la fecha de entrega. {"\n"}
+              •	Art 1031. El monto de la indemnización en caso de Pérdida o avería en transporte, INTEGRA LOGISTICA asumirá el valor declarado de acuerdo con la proporción que la mercancía averiada o perdida represente frente al total del despacho. {"\n"}
+              •	Según concepto No. 041573 de julio de 2004 de la DIAN, INTEGRA LOGISTICA. NO asumirá el valor correspondiente al IVA de los productos Averiados o Perdidos, teniendo en cuenta que “Los bienes que se rompen, pierden o sufren daño estos no causan el impuesto sobre las ventas, {"\n"}
+              ya que tales hechos no constituyen venta para efectos del impuesto, debiendo contabilizarse como una perdida la cual deberá soportarse con los documentos pertinentes que dan crédito del hecho”.{"\n"} {"\n"}
 
 
+              <Text style={estilosParaExportar.subtitle}> 5. FORMA DE PAGO Y FACTURACIÓN</Text>{"\n"} {"\n"}
+              
+              •	Plazo de pago: 30 dias fecha factura.{"\n"}
+              •	Intereses por mora: Si las facturas no son canceladas dentro de las fechas anteriormente estipuladas, se causarán intereses por mora de acuerdo con la tasa máxima legal vigente en el mercado.{"\n"}
+              •	La actualización de tarifas se realizará el 01 de enero de cada año, de acuerdo con la siguiente formula: IPC 30%+SMMLV 70%{"\n"}{"\n"} {"\n"}
+
+            </Text>
+                 
             {/* imagen de la firma */}
           <View style={estilosParaExportar.footerImage}>
             <Image src={firmaCarlos} style={estilosParaExportar.firma} />
