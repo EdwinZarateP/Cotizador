@@ -1,6 +1,6 @@
 .contenedor-formulario {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: row; */
     justify-content: center;
     align-items: center;
     background-color: whitesmoke;
@@ -11,38 +11,47 @@
     padding: 0 10px 20px 10px;
     margin: 20px auto;
     text-align: center;
+
   }
-  
-  .cajas_informacion {
+
+  .contenedor-formulario form{
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 280px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .cajas_informacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    text-align: center;
+    height: 55px;
+    padding: 0 5px 0 10px;
   }
 
   .cajas_informacion label{
-    width: 100%;
-    font-weight: 700;
-    align-items: left;
+    display: flex;
+    width: 55%;
+    font-weight: 600;
+    text-align: left;
+    border-radius: 10px;
+    
   }
-  
+
   .cajas_informacion input {
     text-align: center;
-    width: 100%;
-    padding: 10px 0 10px 0;
+    width: 45%;
+    padding: 5px 0 5px 0;
     font-size: 14px;
     color: black;
-    margin-bottom: 20px;
     border-radius: 10px;
     background-color: transparent;
     border: solid 0.5px gray;
   }
 
-  .cajas_informacion label {
-    margin-bottom: 5px;
-  }
-  
   .boton-exportar {
     position: relative;
     display: inline-block;
@@ -56,7 +65,7 @@
     overflow: hidden;
     font-weight: 700;
   }
-  
+
   .boton-exportar:hover {
     background: #AED035;
     color: black;
@@ -66,22 +75,22 @@
                 0 0 10px #AED035,
                 0 0 10px #AED035;
   }
-  
+
   .boton-exportar span {
     position: absolute;
     display: block;
   }
-  
+
   @keyframes btn-anim1 {
     0% {
       left: -100%;
     }
-  
+
     50%,100% {
       left: 100%;
     }
   }
-  
+
   .boton-exportar span:nth-child(1) {
     bottom: 2px;
     left: -100%;

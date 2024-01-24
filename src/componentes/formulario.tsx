@@ -116,7 +116,7 @@ const Formulario: React.FC = () => {
         <h3>Realice la cotización de su cliente</h3>
         {/* Input para Nombre Comercial */}
         <div className="cajas_informacion">
-          <label htmlFor="nombreComercial">Nombre comercial:</label>
+          <label htmlFor="nombreComercial">Nombre comercial: </label>
           <input
             type="text"
             value={nombreComercial}
