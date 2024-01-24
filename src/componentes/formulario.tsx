@@ -22,6 +22,10 @@ const Formulario: React.FC = () => {
     setMinimoKgUrbano,
     minimoKgNacional,
     setMinimoKgNacional,
+    promedioKgUrbano, 
+    setPromedioKgUrbano,
+    promedioKgNacional, 
+    setPromedioKgNacional,
     anoVigencia,
     setAnoVigencia,
     descuento,
@@ -123,7 +127,7 @@ const Formulario: React.FC = () => {
         <h4>Información cliente:</h4>
 
           <div className="cajas_informacionCliente">
-            <label htmlFor="nombreComercial">Nombre comercial: </label>
+            <label htmlFor="nombreComercial">Nombre comercial:</label>
             <input
               type="text"
               value={nombreComercial}
@@ -162,7 +166,7 @@ const Formulario: React.FC = () => {
         
           {/* Input para Minimo kg por caja Urbano */}
           <div className="cajas_informacion">
-            <label htmlFor="minimoKgUrbano">Minimo kg por caja Urbano:</label>
+            <label htmlFor="minimoKgUrbano">Minimo kg (más de 2 cajas):</label>
             <input
               type="number"
               value={minimoKgUrbano}
@@ -173,7 +177,7 @@ const Formulario: React.FC = () => {
 
           {/* Input para descuento urbano */}
           <div className="cajas_informacion">
-            <label htmlFor="descuento">% de descuento urbano:</label>
+            <label htmlFor="descuento">% de descuento flete por kg:</label>
             <input
               type="number"
               value={descuento}
@@ -182,9 +186,9 @@ const Formulario: React.FC = () => {
             />
           </div>
 
-          {/* Input cobro Minimo Despacho Urbano */}
+          {/* Input cobro Minimo mas de dos cajas Urbano */}
           <div className="cajas_informacion">
-            <label htmlFor="cobroMinDespachoUrbano">Cobro minimo despacho urbano:</label>
+            <label htmlFor="cobroMinDespachoUrbano">Cobro minimo mas de 2 cajas:</label>
             <input
               type="number"
               value={cobroMinDespachoUrbano}
@@ -195,7 +199,7 @@ const Formulario: React.FC = () => {
 
           {/* Input cobro Minimo caja Urbano */}
           <div className="cajas_informacion">
-            <label htmlFor="cobroMinCajaUrbano">Cobro minimo caja urbano:</label>
+            <label htmlFor="cobroMinCajaUrbano">Cobro minimo una caja:</label>
             <input
               type="number"
               value={cobroMinCajaUrbano}
@@ -204,12 +208,24 @@ const Formulario: React.FC = () => {
             />
           </div>
 
+          {/* Input Tarifa integral Urbano */}
           <div className="cajas_informacion">
-            <label htmlFor="tarifaIntegralUrbano">Tarifa integral Urbano:</label>
+            <label htmlFor="tarifaIntegralUrbano">Tarifa integral por caja:</label>
             <input
               type="number"
               value={tarifaIntegralUrbano}
               onChange={(e) => setTarifaIntegralUrbano(Number(e.target.value))}
+              required
+            />
+          </div>
+
+          {/* Input promedio kg Urbano */}
+          <div className="cajas_informacion">
+            <label htmlFor="promedioKgUrbano">Promedio Kg estandar:</label>
+            <input
+              type="number"
+              value={promedioKgUrbano}
+              onChange={(e) => setPromedioKgUrbano(Number(e.target.value))}
               required
             />
           </div>
@@ -222,7 +238,7 @@ const Formulario: React.FC = () => {
         
           {/* Input para Minimo kg por caja Nacional */}
           <div className="cajas_informacion">
-            <label htmlFor="minimoKgNacional">Minimo kg por caja Nacional:</label>
+            <label htmlFor="minimoKgNacional">Minimo kg (más de 2 cajas):</label>
             <input
               type="number"
               value={minimoKgNacional}
@@ -233,7 +249,7 @@ const Formulario: React.FC = () => {
 
           {/* Input para descuento Nacional */}
           <div className="cajas_informacion">
-            <label htmlFor="descuentoNacional">% de descuento Nacional:</label>
+            <label htmlFor="descuentoNacional">% de descuento flete por Kg:</label>
             <input
               type="number"
               value={descuentoNacional}
@@ -244,7 +260,7 @@ const Formulario: React.FC = () => {
 
           {/* Input cobro Minimo Despacho Nacional */}
           <div className="cajas_informacion">
-            <label htmlFor="cobroMinDespachoNacional">Cobro minimo despacho nacional:</label>
+            <label htmlFor="cobroMinDespachoNacional">Cobro minimo mas de 2 cajas:</label>
             <input
               type="number"
               value={cobroMinDespachoNacional}
@@ -255,7 +271,7 @@ const Formulario: React.FC = () => {
           
           {/* Input cobro Minimo caja Nacional */}
           <div className="cajas_informacion">
-            <label htmlFor="cobroMinCajaNacional">Cobro minimo caja nacional:</label>
+            <label htmlFor="cobroMinCajaNacional">Cobro minimo una caja:</label>
             <input
               type="number"
               value={cobroMinCajaNacional}
@@ -263,13 +279,25 @@ const Formulario: React.FC = () => {
               required
             />
           </div>
-
+          
+          {/* Input tarifa integral nacional */}
           <div className="cajas_informacion">
-            <label htmlFor="tarifaIntegralNacional">Tarifa integral nacional:</label>
+            <label htmlFor="tarifaIntegralNacional">Tarifa integral por caja:</label>
             <input
               type="number"
               value={tarifaIntegralNacional}
               onChange={(e) => setTarifaIntegralNacional(Number(e.target.value))}
+              required
+            />
+          </div>
+          
+          {/* Input promedio kg nacional */}
+          <div className="cajas_informacion">
+            <label htmlFor="promedioKgNacional">Promedio Kg estandar:</label>
+            <input
+              type="number"
+              value={promedioKgNacional}
+              onChange={(e) => setPromedioKgNacional(Number(e.target.value))}
               required
             />
           </div>
@@ -278,7 +306,7 @@ const Formulario: React.FC = () => {
         <div className='informacionMacro'>
           
           <div className="cajas_informacion">
-            <label htmlFor="addValorem">% Negociación especial AddValorem:</label>
+            <label htmlFor="addValorem">% Negociación AddValorem:</label>
             <input
               type="number"
               value={addValorem}

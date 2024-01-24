@@ -6,6 +6,8 @@ interface FormularioContextType {
   nitCliente: string; 
   minimoKgUrbano: number; 
   minimoKgNacional: number;
+  promedioKgNacional: number;
+  promedioKgUrbano: number;
   descuento:number;
   anoVigencia: number; 
   descuentoNacional:number;
@@ -22,6 +24,8 @@ interface FormularioContextType {
   setNitCliente: React.Dispatch<React.SetStateAction<string>>; 
   setMinimoKgUrbano: React.Dispatch<React.SetStateAction<number>>; 
   setMinimoKgNacional: React.Dispatch<React.SetStateAction<number>>;
+  setPromedioKgUrbano: React.Dispatch<React.SetStateAction<number>>;
+  setPromedioKgNacional: React.Dispatch<React.SetStateAction<number>>;
   setdescuento: React.Dispatch<React.SetStateAction<number>>;
   setAnoVigencia: React.Dispatch<React.SetStateAction<number>>;
   setdescuentoNacional: React.Dispatch<React.SetStateAction<number>>; 
@@ -49,6 +53,8 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
   const [nitCliente, setNitCliente] = useState(''); 
   const [minimoKgUrbano, setMinimoKgUrbano] = useState<number>(0);
   const [minimoKgNacional, setMinimoKgNacional] = useState<number>(0);
+  const [promedioKgNacional, setPromedioKgNacional] = useState<number>(0);
+  const [promedioKgUrbano, setPromedioKgUrbano] = useState<number>(0);
   const [descuento, setdescuento] = useState<number>(0); 
   const [anoVigencia, setAnoVigencia] = useState<number>(2024); 
   const [descuentoNacional, setdescuentoNacional] = useState<number>(0);
@@ -69,6 +75,8 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
     nitCliente,
     minimoKgUrbano,
     minimoKgNacional,
+    promedioKgUrbano,
+    promedioKgNacional,
     descuento,
     anoVigencia,
     descuentoNacional,
@@ -85,6 +93,8 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
     setNitCliente,
     setMinimoKgUrbano,
     setMinimoKgNacional,
+    setPromedioKgUrbano,
+    setPromedioKgNacional,
     setdescuento,
     setAnoVigencia,
     setdescuentoNacional,
