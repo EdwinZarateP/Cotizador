@@ -8,7 +8,7 @@
   import './index.css';
   import { FormularioProvider } from './contexto/Contexto.tsx';
   import { Claves } from './componentes/claves.tsx';
-  import ExcelExportComponent from './componentes/excel.tsx'
+  // import ExcelExportComponent from './componentes/excel.tsx'
   
 
   const App = () => {
@@ -35,7 +35,7 @@
             {claveValida && <Formulario />}
             <Calculadora />
 
-            <ExcelExportComponent/>
+            {/* <ExcelExportComponent/> */}
           
           </div>
 
