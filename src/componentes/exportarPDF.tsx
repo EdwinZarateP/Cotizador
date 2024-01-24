@@ -13,7 +13,10 @@ import { useFormularioContext } from '../contexto/Contexto.tsx';
 const ExportarCotizacion: React.FC  = () => {
   
   // Usar el hook para obtener el contexto
-  const { minimoKgUrbano, minimoKgNacional, descuento, descuentoNacional, nombreComercial, cliente, nitCliente, anoVigencia } = useFormularioContext();
+  const { minimoKgUrbano, minimoKgNacional, descuento, descuentoNacional,
+     nombreComercial, cliente, nitCliente, anoVigencia , addValorem, 
+     cobroMinDespachoUrbano, cobroMinCajaUrbano, tarifaIntegralUrbano, 
+     cobroMinDespachoNacional, cobroMinCajaNacional, tarifaIntegralNacional} = useFormularioContext();
 
   const generateTable = (descuento: number) => {
     const ciudadesUnicas = [...new Set(ciudadesCombinadas.map(ciudad => ciudad.destino))].sort();
@@ -170,23 +173,23 @@ const ExportarCotizacion: React.FC  = () => {
 
               <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho $</Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 12.000 </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${cobroMinDespachoUrbano} </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por despacho</Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
-              </View>
-
-              <View style={estilosParaExportar.tablaGenerica0}>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 15.000  </Text>
-                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> {minimoKgUrbano} </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${cobroMinCajaUrbano} </Text>
+                <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
+              </View>
+
+              <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 8.000  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${tarifaIntegralUrbano}  </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por Caja  </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 12 </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
@@ -202,23 +205,23 @@ const ExportarCotizacion: React.FC  = () => {
 
               <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo despacho $</Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 12.000 </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${cobroMinDespachoNacional} </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por despacho</Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Cobro minimo caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 15.000  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${cobroMinCajaNacional} </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg minimo por caja  </Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> {minimoKgNacional} </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Tarifa integral caja $ </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> $ 8.000  </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> ${tarifaIntegralNacional}  </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 12 </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 30 </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
@@ -300,7 +303,7 @@ const ExportarCotizacion: React.FC  = () => {
               
               <Text style={estilosParaExportar.subtitle}> 1. MANEJO</Text>{"\n"} {"\n"}
 
-              • % Ad Valorem: Se pacta un cobro general del {5}% {"\n"}
+              • % Ad Valorem: Se pacta un cobro general del {addValorem}% {"\n"}
               • Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a $ 2.500 por caja{"\n"}{"\n"}
 
               <Text style={estilosParaExportar.subtitle}> 2. MERCANCÍA DE PROHIBIDO TRANSPORTE</Text>{"\n"} {"\n"}
