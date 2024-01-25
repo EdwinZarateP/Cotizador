@@ -2,6 +2,7 @@ import { useState } from 'react';
 import '../estilos/header.css'
 import InputClave from './clave.tsx';
 
+
 const Header = ({ onInputChange }: { onInputChange: (value: string) => void }) => {
 
   const [inputValorClave, setInputValorClave] = useState('');
@@ -10,6 +11,9 @@ const Header = ({ onInputChange }: { onInputChange: (value: string) => void }) =
     setInputValorClave(value);
     onInputChange(value); // Llama a la función del padre
     console.log(inputValorClave);
+
+      
+
   };
 
   return (

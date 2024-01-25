@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface FormularioContextType {
+  // provienen del formulario
   nombreComercial: string;
   cliente: string;
   nitCliente: string; 
@@ -37,6 +38,37 @@ interface FormularioContextType {
   setTarifaIntegralNacional:React.Dispatch<React.SetStateAction<number>>;
   setAddValorem:React.Dispatch<React.SetStateAction<number>>;
   setDiasCartera:React.Dispatch<React.SetStateAction<number>>;
+
+
+  // variables de medidas
+  valorAlto: number | undefined;
+  valorLargo: number | undefined;
+  valorAncho: number | undefined;
+  setValorAlto: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setValorLargo: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setValorAncho: React.Dispatch<React.SetStateAction<number | undefined>>;
+
+  // variables del ciudad
+  ciudadOrigen: { label: string; value: string } | null;
+  ciudadDestino: { label: string; value: string } | null;
+  costoCombinacion: number;
+  tipoCombinacion: string;
+  setCiudadOrigen: React.Dispatch<React.SetStateAction<{ label: string; value: string } | null>>;
+  setCiudadDestino: React.Dispatch<React.SetStateAction<{ label: string; value: string } | null>>;
+  setCostoCombinacion: React.Dispatch<React.SetStateAction<number>>;
+  setTipoCombinacion: React.Dispatch<React.SetStateAction<string>>;
+
+  // variables del peso y declarado
+  valorPesoMin: number | undefined;
+  setValorPesoMin: React.Dispatch<React.SetStateAction<number | undefined>>;
+  valorDeclarado: number | undefined;
+  setValorDeclarado: React.Dispatch<React.SetStateAction<number | undefined>>;
+  valorCajas: number | undefined;
+  setValorCajas: React.Dispatch<React.SetStateAction<number | undefined>>;
+
+  //variables claves
+  clave: string;
+  setClave: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface FormularioProviderProps {
@@ -67,7 +99,25 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
   const [addValorem, setAddValorem] = useState<number>(0); 
   const [diasCartera, setDiasCartera] = useState<number>(0);
 
+   // Nuevas variables de medidas
+  const [valorAlto, setValorAlto] = useState<number | undefined>(undefined);
+  const [valorLargo, setValorLargo] = useState<number | undefined>(undefined);
+  const [valorAncho, setValorAncho] = useState<number | undefined>(undefined);
 
+  // Variables del ciudad
+  const [ciudadOrigen, setCiudadOrigen] = useState<{ label: string; value: string } | null>(null);
+  const [ciudadDestino, setCiudadDestino] = useState<{ label: string; value: string } | null>(null);
+  const [costoCombinacion, setCostoCombinacion] = useState(0);
+  const [tipoCombinacion, setTipoCombinacion] = useState('');
+
+  // variables del peso y declarado
+  const [valorPesoMin, setValorPesoMin] = useState<number | undefined>(undefined);
+  const [valorDeclarado, setValorDeclarado] = useState<number | undefined>(undefined);
+  const [valorCajas, setValorCajas] = useState<number | undefined>(undefined);
+
+  //variables claves
+  const [clave, setClave] = useState('');
+  
   // Proporcionamos el valor del contexto
   const contextValue: FormularioContextType = {
     nombreComercial,
@@ -105,7 +155,38 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
     setCobroMinCajaNacional,
     setTarifaIntegralNacional,
     setAddValorem,
-    setDiasCartera
+    setDiasCartera,
+
+     // variables del medidas
+     valorAlto,
+     valorLargo,
+     valorAncho,
+     setValorAlto,
+     setValorLargo,
+     setValorAncho,
+
+     // Variables del ciudad
+    ciudadOrigen,
+    ciudadDestino,
+    costoCombinacion,
+    tipoCombinacion,
+    setCiudadOrigen,
+    setCiudadDestino,
+    setCostoCombinacion,
+    setTipoCombinacion,
+
+    // variables del peso y declarado
+    valorPesoMin,
+    setValorPesoMin,
+    valorDeclarado,
+    setValorDeclarado,
+    valorCajas,
+    setValorCajas,
+
+    //variables claves
+    clave,
+    setClave,
+
   };
 
   return (
@@ -123,3 +204,6 @@ export const useFormularioContext = (): FormularioContextType => {
   }
   return context;
 };
+
+
+

@@ -1,0 +1,21 @@
+.Bienvenida{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    justify-content: center;    
+    width: 370px;
+    height: 100%;
+    align-items: center;  
+    font-size: 18px;
+    text-align: center;  
+    background-color:whitesmoke;
+    border-radius: 15px;
+}
+
+.Bienvenida h4{
+    margin: 0;
+}
+
+.Bienvenida p{
+    margin: 0;
+}

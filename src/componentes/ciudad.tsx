@@ -1,20 +1,25 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Select from 'react-select';
+import { useFormularioContext } from '../contexto/Contexto';
 import { ciudades } from './data';
 import { ciudadesCombinadas } from './CombinacionesCiudades';
 import '../estilos/ciudad.css';
 
-
 interface SelectorCiudadProps {
-  guardarCosto: (costo: number) => void;
-  guardarTipo: (tipo: string) => void;
+  // ... Otras props
 }
 
-const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto, guardarTipo }) => {
-  const [ciudadOrigen, setCiudadOrigen] = useState<{ label: string; value: string } | null>(null);
-  const [ciudadDestino, setCiudadDestino] = useState<{ label: string; value: string } | null>(null);
-  const [costoCombinacion, setCostoCombinacion] = useState(0);
-  const [tipoCombinacion, setTipoCombinacion] = useState('');
+const SelectorCiudad: React.FC<SelectorCiudadProps> = () => {
+  const {
+    ciudadOrigen,
+    ciudadDestino,
+    setCiudadOrigen,
+    setCiudadDestino,
+    costoCombinacion,
+    tipoCombinacion,
+    setCostoCombinacion,
+    setTipoCombinacion,
+  } = useFormularioContext();
 
   const opcionesCiudades = ciudades.map((ciudad) => ({
     label: ciudad.nombre,
@@ -45,13 +50,9 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto, guardarTi
       if (combinacionEncontrada) {
         setCostoCombinacion(combinacionEncontrada.costo);
         setTipoCombinacion(combinacionEncontrada.Tipo);
-        guardarCosto(combinacionEncontrada.costo);
-        guardarTipo(combinacionEncontrada.Tipo);
       } else {
         setCostoCombinacion(3000);
         setTipoCombinacion('');
-        guardarCosto(3000);
-        guardarTipo('Nacional');
       }
     }
   };
@@ -72,8 +73,8 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = ({ guardarCosto, guardarTi
         options={opcionesCiudades}
         placeholder="Ciudad Destino"
       />
-      <p>TARIFA Kg: ${costoCombinacion}</p>
-      {tipoCombinacion && <p>Tipo: {tipoCombinacion}</p>}
+      <p>TARIFA Kg: ${ciudadOrigen && ciudadDestino ? costoCombinacion : 3000}</p>
+      {ciudadOrigen && ciudadDestino && <p>Tipo: {tipoCombinacion}</p>}
     </div>
   );
 };

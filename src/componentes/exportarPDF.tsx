@@ -1,5 +1,3 @@
-// ExportarCotizacion.tsx
-// import React, { useState } from 'react';
 import { Document, Page, Text, View, PDFDownloadLink, Image } from '@react-pdf/renderer';
 import { estilosParaExportar } from './estilosExportar'; // Importa los estilos desde el nuevo archivo
 import '../estilos/exportarPDF.css';
@@ -220,7 +218,16 @@ const ExportarCotizacion: React.FC  = () => {
                 </Text>
 
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por Caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {promedioKgUrbano} </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}>
+                  {promedioKgUrbano !== 0
+                  ? new Intl.NumberFormat('es-CO', {
+                      style: 'currency',
+                      currency: 'COP',
+                      maximumFractionDigits: 0,
+                    }).format(promedioKgUrbano)
+                  : '-'}
+                </Text>
+
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
@@ -282,7 +289,15 @@ const ExportarCotizacion: React.FC  = () => {
                 </Text>
 
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {promedioKgNacional} </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 
+                  {promedioKgNacional !== 0
+                  ? new Intl.NumberFormat('es-CO', {
+                      style: 'currency',
+                      currency: 'COP',
+                      maximumFractionDigits: 0,
+                    }).format(promedioKgNacional)
+                  : '-'}
+                </Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
@@ -364,7 +379,7 @@ const ExportarCotizacion: React.FC  = () => {
               
               <Text style={estilosParaExportar.subtitle}> 1. MANEJO</Text>{"\n"} {"\n"}
 
-              • % Ad Valorem: Se pacta un cobro general del {addValorem}% {"\n"}
+              • % Ad Valorem: {addValorem !== 0 ? `Se pacta un cobro general del ${addValorem}%` : 'no aplica'} {"\n"}
               • Se liquidará a una tasa del 0.5%, sobre la totalidad del valor declarado de sus cargamentos con un valor no inferior a $ 2.500 por caja{"\n"}{"\n"}
 
               <Text style={estilosParaExportar.subtitle}> 2. MERCANCÍA DE PROHIBIDO TRANSPORTE</Text>{"\n"} {"\n"}

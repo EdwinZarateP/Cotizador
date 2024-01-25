@@ -1,81 +1,77 @@
-import { useState } from 'react';
-import '../estilos/pesoMinyDeclarado.css'
+import React from 'react';
+import { useFormularioContext } from '../contexto/Contexto';
+import '../estilos/pesoMinyDeclarado.css';
 
-interface SelectorPesoMinyDecProps {
-  onValorPesoMinChange: (nuevoValor: number | undefined) => void;
-  onValorDeclaradoChange: (nuevoValor: number | undefined) => void;
-  onValorCajasChange: (nuevoValor: number | undefined) => void;
-  
-}
+const SelectorPesoMinyDec: React.FC = () => {
+  const {
+    valorPesoMin,
+    setValorPesoMin,
+    valorDeclarado,
+    setValorDeclarado,
+    valorCajas,
+    setValorCajas,
+  } = useFormularioContext();
 
-const SelectorPesoMinyDec: React.FC <SelectorPesoMinyDecProps> = ({ onValorPesoMinChange, onValorDeclaradoChange, onValorCajasChange}) => {
+  const manejarValorPesoMin = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValorPesoMin = parseFloat(event.target.value);
 
-   //Valor Peso minimo
-  const [valorPesoMin, setPesoMin] = useState<number | undefined>(undefined);
-  const manejarvalorPesoMin = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const inputvalorPesoMin = parseFloat(event.target.value);
-  
-    if (!isNaN(inputvalorPesoMin) && inputvalorPesoMin >= 0) {
-      setPesoMin(inputvalorPesoMin);
-      onValorPesoMinChange(inputvalorPesoMin);
+    if (!isNaN(inputValorPesoMin) && inputValorPesoMin >= 2) {
+      setValorPesoMin(inputValorPesoMin);
     } else {
-      setPesoMin(undefined);
-      onValorPesoMinChange(undefined); 
-    }};
+      setValorPesoMin(undefined);
+    }
+  };
 
-    //Valor declarado
-  const [valorDeclarado, setvalorDeclarado] = useState<number | undefined>(undefined);
-  const manejarvalorDeclarado = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const inputvalorDeclarado = parseFloat(event.target.value);
-  
-    if (!isNaN(inputvalorDeclarado) && inputvalorDeclarado >= 0) {
-      setvalorDeclarado(inputvalorDeclarado);
-      onValorDeclaradoChange(inputvalorDeclarado);
+  const manejarValorDeclarado = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValorDeclarado = parseFloat(event.target.value);
+
+    if (!isNaN(inputValorDeclarado) && inputValorDeclarado >= 0) {
+      setValorDeclarado(inputValorDeclarado);
     } else {
-      setvalorDeclarado(undefined);
-      onValorDeclaradoChange(undefined);
-    }};
+      setValorDeclarado(undefined);
+    }
+  };
 
-    //Valor cajas
-  const [valorCajas, setvalorCajas] = useState<number | undefined>(undefined);
-  const manejarvalorCajas = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const inputvalorCajas = parseFloat(event.target.value);
-  
-    if (!isNaN(inputvalorCajas) && inputvalorCajas >= 0) {
-      setvalorCajas(inputvalorCajas);
-      onValorCajasChange(inputvalorCajas);
+  const manejarValorCajas = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValorCajas = parseFloat(event.target.value);
+
+    if (!isNaN(inputValorCajas) && inputValorCajas >= 1) {
+      setValorCajas(inputValorCajas);
     } else {
-      setvalorCajas(undefined);
-      onValorCajasChange(undefined);
-    }};
+      setValorCajas(undefined);
+    }
+  };
 
-    return (
+  return (
+    <div className="contenedorPesos">
+      <input
+        type="number"
+        min="2"
+        placeholder="Peso mínimo: 2 kg"
+        className="ingresosDatos"
+        onChange={manejarValorPesoMin}
+        value={valorPesoMin === undefined ? '' : valorPesoMin}
+      />
 
-        <div className='contenedorPesos'>
+      <input
+        type="number"
+        min="0"
+        placeholder="$ Valor declarado"
+        className="ingresosDatos"
+        onChange={manejarValorDeclarado}
+        value={valorDeclarado === undefined ? '' : valorDeclarado}
+      />
 
-        <input 
-          type="number" min='2'
-         placeholder="Peso minimo: 2 kg"
-         className='ingresosDatos' 
-         onChange={manejarvalorPesoMin}
-         value={valorPesoMin === undefined ? '' : valorPesoMin}/>
-
-        <input type="number" min='0' 
-         placeholder="$ Valor declarado"
-         className='ingresosDatos' 
-         onChange={manejarvalorDeclarado}
-         value={valorDeclarado === undefined ? '' : valorDeclarado}/>
-
-        <input type="number" min='0' 
-         placeholder="Minimo 1 caja"
-         className='ingresosDatos' 
-         onChange={manejarvalorCajas}
-         value={valorCajas === undefined ? '' : valorCajas}/>
-
-
-      </div>
-      
-    )
+      <input
+        type="number"
+        min="1"
+        placeholder="Mínimo 1 caja"
+        className="ingresosDatos"
+        onChange={manejarValorCajas}
+        value={valorCajas === undefined ? '' : valorCajas}
+      />
+    </div>
+  );
 };
 
 export default SelectorPesoMinyDec;
