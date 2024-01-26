@@ -2,7 +2,6 @@
   display: none;
 }
 
-
 .contenedor-formulario {
     display: flex;
     /* flex-direction: row; */
@@ -155,3 +154,8 @@
     background: linear-gradient(90deg, transparent, #AED035);
     animation: btn-anim1 2s linear infinite;
   }
+
+  .cajas_informacion.rojo input {
+    background-color: rgb(238, 98, 98);
+  }
+  
