@@ -46,7 +46,7 @@ const SelectorPesoMinyDec: React.FC = () => {
     <div className="contenedorPesos">
       <input
         type="number"
-        min="2"
+        min="1"
         placeholder="Peso mínimo: 2 kg"
         className="ingresosDatos"
         onChange={manejarValorPesoMin}
