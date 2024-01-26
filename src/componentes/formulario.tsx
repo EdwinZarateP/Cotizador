@@ -71,61 +71,10 @@ const Formulario: React.FC = () => {
       mostrarMensaje('Información incompleta del NIT cliente','Por favor ingrese el NIT del cliente');
       return;
     }
-  
-    // Validar que minimoKgUrbano no sea menor a 15
-    if (minimoKgUrbano < 15 && minimoKgUrbano > 0) {
-      mostrarMensaje('Error de peso minimo urbano','No puede ofrecer un peso inferior a 15 Kg');
-      return;
-    }
-
-    // Validar que minimoKgNacional no sea menor a 15
-    if (minimoKgNacional < 15 && minimoKgUrbano > 0) {
-      mostrarMensaje('Error de peso minimo nacional','No puede ofrecer un peso inferior a 15 Kg');
-      return;
-    }
-
+    
     // Validar que el año de vigenia no sea menor a 2024
     if (anoVigencia < 2024 || anoVigencia > 2034) {
       mostrarMensaje('Error del año vigencia','No puede indicar un año de vigencia inferior a 2024 o superior a 2034');
-      return;
-    }
-
-    // Validar que el cobroMinCajaUrbano de 1 caja no puede ser menor a
-    if (cobroMinCajaUrbano < 12000 && cobroMinCajaUrbano > 0) {
-      mostrarMensaje('Error del cobro minimo una Caja Urbano','No puede ser inferior a $12.000');
-      return;
-    }else{
-
-    }
-
-    // Validar que el cobroMinDespachoUrbano no puede ser menor a 
-    if (cobroMinDespachoUrbano < 10000 && cobroMinDespachoUrbano > 0) {
-      mostrarMensaje('Error del cobro Min mas de 2 cajas Urbano','No puede ser inferior a $10.000');
-      return;
-    }
-
-    
-    // Validar que el cobroMinCajaNacional de 1 caja no puede ser menor a
-    if (cobroMinCajaNacional < 12000 && cobroMinCajaNacional > 0) {
-      mostrarMensaje('Error del cobro minimo una Caja nacional','No puede ser inferior a $12.000');
-      return;
-    }
-
-    // Validar que el cobroMinDespachoNacional no puede ser menor a 
-    if (cobroMinDespachoNacional < 10000 && cobroMinDespachoNacional > 0) {
-      mostrarMensaje('Error del cobro Min mas de 2 cajas nacional','No puede ser inferior a $10.000');
-      return;
-    }
-
-    // Validar que el tarifaIntegralUrbano no puede ser menor a 
-    if (tarifaIntegralUrbano < 10000 && tarifaIntegralUrbano > 0) {
-      mostrarMensaje('Error del tarifa Integral Urbano','No puede ser inferior a $10.000');
-      return;
-    }
-
-    // Validar que el tarifaIntegralNacional no puede ser menor a 
-    if (tarifaIntegralNacional < 12000 && tarifaIntegralNacional > 0) {
-      mostrarMensaje('Error del tarifa integral Nacional','No puede ser inferior a $12.000');
       return;
     }
 
@@ -137,7 +86,171 @@ const Formulario: React.FC = () => {
       tarifaIntegralUrbano ===0 && cobroMinDespachoNacional ===0 &&
       cobroMinCajaNacional ===0 && tarifaIntegralNacional ===0 &&
       addValorem ===0 ) {
-        mostrarMensaje('Debe ingresar al menos un campo','No puede hacer una cotización sin condiciones');
+        mostrarMensaje('Debe ingresar al menos un tipo de negociación','No puede hacer una cotización sin condiciones');
+      return;
+    }
+  //-----------------------------------------------------------------
+  //-------------------1. VALIDACIONES DE POR MIN KG-----------------
+  //-----------------------------------------------------------------
+
+    // Validar que minimoKgUrbano no sea menor a 15
+    if (minimoKgUrbano < 15 && minimoKgUrbano > 0) {
+      mostrarMensaje('Error en Mín kg (más de 2 cajas) urbano','No puede ofrecer un peso inferior a 15 Kg');
+      return;
+    }
+    //validar que nacional tenga información
+    if (minimoKgUrbano > 0 && minimoKgNacional === 0) {
+      mostrarMensaje('Falta información Nacional','Por favor ingrese el Mín kg (más de 2 cajas) para nacional');
+      return;
+    }
+    //validar que el descuento no sea superior a 30%
+    if (minimoKgUrbano > 0 && descuento > 30) {
+      mostrarMensaje('Exceso en descuento Urbano','No puede pasar el tope de 30% en descuentos');
+      return;
+    }
+
+  //-----------------------------------------------------------------
+    // Validar que minimoKgNacional no sea menor a 15
+    if (minimoKgNacional < 15 && minimoKgNacional > 0) {
+      mostrarMensaje('Error en Mín kg (más de 2 cajas) nacional','No puede ofrecer un peso inferior a 15 Kg');
+      return;
+    }
+    //validar que urbano tenga información
+    if (minimoKgNacional > 0 && minimoKgUrbano === 0) {
+      mostrarMensaje('Falta información Urbana','Por favor ingrese el Mín kg (más de 2 cajas) para Urbano');
+      return;
+
+    }
+    //validar que el descuento no sea superior a 30%
+    if (minimoKgNacional > 0 && descuentoNacional > 30) {
+      mostrarMensaje('Exceso en descuento Nacional','No puede pasar el tope de 30% en descuentos');
+      return;
+    }
+
+    //-----------------------------------------------------------------
+    //-------------------2. VALIDACIONES DE POR COBRO------------------
+    //-----------------------------------------------------------------
+
+    //2.1 VALIDACIONES POR cobroMinCajaUrbano--------------------------
+
+    // Validar que el cobroMinCajaUrbano de 1 caja no puede ser menor a
+    if (cobroMinCajaUrbano < 12000 && cobroMinCajaUrbano > 0) {
+      mostrarMensaje('Error del cobro minimo una Caja Urbano','No puede ser inferior a $12.000');
+      return;
+    }
+    //validar que cobroMinDespachoUrbano tenga información
+    if (cobroMinCajaUrbano > 0 && cobroMinDespachoUrbano === 0) {
+      mostrarMensaje('Falta información Urbana','Por favor ingrese el cobro minimo mas de 2 cajas $ para urbano');
+      return;
+    }
+    //validar que cobroMinCajaNacional tenga información
+    if (cobroMinCajaUrbano > 0 && cobroMinCajaNacional === 0) {
+      mostrarMensaje('Falta información nacional','Por favor ingrese el cobro minimo una caja $ para nacional');
+      return;
+    }
+    //validar que cobroMinDespachoNacional tenga información
+    if (cobroMinCajaUrbano > 0 && cobroMinDespachoNacional === 0) {
+      mostrarMensaje('Falta información nacional','Por favor ingrese el cobro mín mas de 2 cajas $ para nacional');
+      return;
+    }
+
+    //2.2 VALIDACIONES POR cobroMinCajaNacional--------------------------
+
+    // Validar que el cobroMinCajaNacional de 1 caja no puede ser menor a
+    if (cobroMinCajaNacional < 10000 && cobroMinCajaNacional > 0) {
+      mostrarMensaje('Error del cobro minimo una Caja Nacional','No puede ser inferior a $10.000');
+      return;
+    }
+    //validar que cobroMinCajaUrbano tenga información
+    if (cobroMinCajaNacional > 0 && cobroMinCajaUrbano === 0) {
+      mostrarMensaje('Falta información Urbana','Por favor ingrese el cobro minimo una caja $ para urbano');
+      return;
+    }
+    //validar que cobroMinDespachoUrbano tenga información
+    if (cobroMinCajaNacional > 0 && cobroMinDespachoUrbano === 0) {
+      mostrarMensaje('Falta información nacional','Por favor ingrese el cobro mín mas de 2 cajas $ para urbano');
+      return;
+    }
+    //validar que cobroMinDespachoNacional tenga información
+    if (cobroMinCajaNacional > 0 && cobroMinDespachoNacional === 0) {
+      mostrarMensaje('Falta información nacional','Por favor ingrese el cobro mín mas de 2 cajas $ para nacional');
+      return;
+    }
+
+    //2.3 VALIDACIONES POR cobroMinDespachoUrbano--------------------------
+
+    // Validar que el cobroMinDespachoUrbano de 1 caja no puede ser menor a
+    if (cobroMinDespachoUrbano < 10000 && cobroMinDespachoUrbano > 0) {
+      mostrarMensaje('Error del cobro minimo más de dos Cajas urbano','No puede ser inferior a $10.000');
+      return;
+    }
+    //validar que cobroMinCajaUrbano tenga información
+    if (cobroMinDespachoUrbano > 0 && cobroMinCajaUrbano === 0) {
+      mostrarMensaje('Falta información Urbana','Por favor ingrese el cobro minimo una caja $ para urbano');
+      return;
+    }
+    //validar que cobroMinCajaNacional tenga información
+    if (cobroMinDespachoUrbano > 0 && cobroMinCajaNacional === 0) {
+      mostrarMensaje('Falta información nacional','Por favor ingrese el cobro minimo una caja $ para nacional');
+      return;
+    }
+    //validar que cobroMinDespachoNacional tenga información
+    if (cobroMinDespachoUrbano > 0 && cobroMinDespachoNacional === 0) {
+      mostrarMensaje('Falta información nacional','Por favor ingrese el cobro mín mas de 2 cajas $ para nacional');
+      return;
+    }
+
+    //2.4 VALIDACIONES POR cobroMinDespachoNacional--------------------------
+
+    // Validar que el cobroMinDespachoUrbano de 1 caja no puede ser menor a
+    if (cobroMinDespachoNacional < 10000 && cobroMinDespachoNacional > 0) {
+      mostrarMensaje('Error del cobro minimo más de dos Cajas Nacional','No puede ser inferior a $10.000');
+      return;
+    }
+    //validar que cobroMinCajaUrbano tenga información
+    if (cobroMinDespachoNacional > 0 && cobroMinCajaUrbano === 0) {
+      mostrarMensaje('Falta información Urbana','Por favor ingrese el cobro minimo una caja $ para urbano');
+      return;
+    }
+    //validar que cobroMinCajaNacional tenga información
+    if (cobroMinDespachoNacional > 0 && cobroMinCajaNacional === 0) {
+      mostrarMensaje('Falta información nacional','Por favor ingrese el cobro minimo una caja $ para nacional');
+      return;
+    }
+    //validar que cobroMinDespachoUrbano tenga información
+    if (cobroMinDespachoNacional > 0 && cobroMinDespachoUrbano === 0) {
+      mostrarMensaje('Falta información nacional','Por favor ingrese el cobro mín mas de 2 cajas $ para urbano ');
+      return;
+    }
+
+
+    //-----------------------------------------------------------------
+    //-------------------3. VALIDACIONES DE POR TARIFA-----------------
+    //-----------------------------------------------------------------
+
+    //3.1 VALIDACIONES POR tarifaIntegralUrbano--------------------------
+
+    // Validar que el tarifaIntegralUrbano de 1 caja no puede ser menor a
+    if (tarifaIntegralUrbano < 12000 && tarifaIntegralUrbano > 0) {
+      mostrarMensaje('Error del la Tarifa integral por caja Urbano','No puede ser inferior a $12.000');
+      return;
+    }
+    //validar que cobroMinDespachoUrbano tenga información
+    if (tarifaIntegralUrbano > 0 && tarifaIntegralNacional === 0) {
+      mostrarMensaje('Falta información Nacional','Por favor ingrese la Tarifa integral $ para nacional');
+      return;
+    }
+
+     //3.2 VALIDACIONES POR tarifaIntegralNacional--------------------------
+
+    // Validar que el tarifaIntegralUrbano de 1 caja no puede ser menor a
+    if (tarifaIntegralNacional < 12000 && tarifaIntegralNacional > 0) {
+      mostrarMensaje('Error del la Tarifa integral por caja Nacional','No puede ser inferior a $12.000');
+      return;
+    }
+    //validar que cobroMinDespachoUrbano tenga información
+    if (tarifaIntegralNacional > 0 && tarifaIntegralUrbano === 0) {
+      mostrarMensaje('Falta información urbana','Por favor ingrese la Tarifa integral $ para urbano');
       return;
     }
 
