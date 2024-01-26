@@ -310,7 +310,7 @@ const Cotizar = () => {
                 <h2>Resultado cotización</h2>
 
                 <p>
-                    El envío de la(s) {valorCajas} cajas con sus condiciones cuesta:<br/>
+                    El envío de la(s) {valorCajas} cajas cuesta:<br/>
                     <span className='negrita'> {formatoMoneda.format(flete)} </span>
                 </p>
 
