@@ -2,7 +2,7 @@ import '../estilos/calculadora.css'
 import SelectorCiudad from './ciudad.tsx';
 import SelectorMedidas from './medidas.tsx';
 import SelectorPesoMinyDec from './pesoMinyDeclarado.tsx';
-import GenerarCotizacion from './cotizarEnvio.tsx';
+import Cotizar from './cotizar.tsx';
 
 function Calculadora() {
 
@@ -14,10 +14,8 @@ function Calculadora() {
         <SelectorMedidas/>
 
         <SelectorPesoMinyDec />
-
-        <GenerarCotizacion
-
-        />
+        
+        <Cotizar/>
       </div>
     )
   }

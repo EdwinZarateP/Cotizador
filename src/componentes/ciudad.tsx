@@ -74,7 +74,7 @@ const SelectorCiudad: React.FC<SelectorCiudadProps> = () => {
         placeholder="Ciudad Destino"
       />
       <p>TARIFA Kg: ${ciudadOrigen && ciudadDestino ? costoCombinacion : 3000}</p>
-      {ciudadOrigen && ciudadDestino && <p>Tipo: {tipoCombinacion}</p>}
+      {ciudadOrigen && ciudadDestino && <p>Ruta: {tipoCombinacion ? tipoCombinacion : "Re expedición"}</p>}
     </div>
   );
 };

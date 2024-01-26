@@ -59,12 +59,14 @@ interface FormularioContextType {
   setTipoCombinacion: React.Dispatch<React.SetStateAction<string>>;
 
   // variables del peso y declarado
-  valorPesoMin: number | undefined;
-  setValorPesoMin: React.Dispatch<React.SetStateAction<number | undefined>>;
-  valorDeclarado: number | undefined;
+  valorPesoMin: number| undefined;
+  valorDeclarado: number| undefined;
+  valorCajas: number| undefined;
   setValorDeclarado: React.Dispatch<React.SetStateAction<number | undefined>>;
-  valorCajas: number | undefined;
+  setValorPesoMin: React.Dispatch<React.SetStateAction<number | undefined>>;
   setValorCajas: React.Dispatch<React.SetStateAction<number | undefined>>;
+
+
 
   //variables claves
   clave: string;
@@ -177,11 +179,11 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
 
     // variables del peso y declarado
     valorPesoMin,
-    setValorPesoMin,
     valorDeclarado,
-    setValorDeclarado,
     valorCajas,
     setValorCajas,
+    setValorPesoMin,
+    setValorDeclarado,
 
     //variables claves
     clave,
