@@ -15,7 +15,7 @@ const SelectorPesoMinyDec: React.FC = () => {
   const manejarValorPesoMin = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValorPesoMin = parseFloat(event.target.value);
 
-    if (!isNaN(inputValorPesoMin) && inputValorPesoMin >= 2) {
+    if (!isNaN(inputValorPesoMin) && inputValorPesoMin >= 1) {
       setValorPesoMin(inputValorPesoMin);
     } else {
       setValorPesoMin(undefined);
