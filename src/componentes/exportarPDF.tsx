@@ -358,23 +358,20 @@ const ExportarCotizacion: React.FC  = () => {
             Para estos Municipios se cobrara la tarifa de la ciudad capital de la zona metropolitana 
             a la cual corresponden.{"\n"}{"\n"}
 
-            BOGOTA: CAJICA, CHIA, COTA, FACATATIVA, FUNZA, LA CALERA, SIBERIA
-            MADRID, MOSQUERA, SIBATE, SOACHA, SOPO, TENJO, TOCANCIPA, GACHANCIPA, ZIPAQUIRA{"\n"}{"\n"}
+            BOGOTA: CAJICA, CHIA, COTA, FACATATIVA, FUNZA, MADRID, MOSQUERA, SIBATE, SOACHA, SOPO, TENJO{"\n"}{"\n"}
 
-            MEDELLIN: BELLO, CALDAS, COPACABANA, ENVIGADO, ITAGUI, LA ESTRELLA, SABANETA, RIONEGRO {"\n"}{"\n"} 
+            MEDELLIN: BELLO, COPACABANA, ENVIGADO, ITAGUI, LA ESTRELLA, SABANETA {"\n"}{"\n"} 
             
-            CALI: PALMIRA, JAMUNDI, YUMBO, CAVASA {"\n"}{"\n"}
+            CALI: PALMIRA, JAMUNDI, YUMBO {"\n"}{"\n"}
                 
-            BARRANQUILLA: MALAMBO, PUERTO COLOMBIA, SOLEDAD,  GALAPA{"\n"}{"\n"}
+            BARRANQUILLA: SABANALARGA, PUERTO COLOMBIA, SOLEDAD{"\n"}{"\n"}
 
             BUCARAMANGA: FLORIDABLANCA, GIRON, PIEDECUESTA {"\n"}{"\n"}
-
-            CARTAGENA: TURBACO, ARJONA, BAYUNCA, MAMONAL, TURBACO, TURBANA Y PASACABALLOS {"\n"}  
 
             </Text>
         
             <Text style={estilosParaExportar.paragraph}>
-            
+            {"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}
               Esta oferta considera ser servicio de paqueteo, con los siguientes requisitos:{"\n"}{"\n"}
               
               <Text style={estilosParaExportar.subtitle}> 1. MANEJO</Text>{"\n"} {"\n"}
