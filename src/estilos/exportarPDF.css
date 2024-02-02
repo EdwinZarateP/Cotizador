@@ -9,7 +9,6 @@
     margin: 0px;
   }
 
-
   
   .inputDescargar {
     width: 100%;
@@ -17,7 +16,11 @@
     margin-top: 20px; /* Espaciado desde el contenedor anterior */
     text-align: center;
   }
+
   
+  .invisible{
+    display:none;
+  }
 
 
   

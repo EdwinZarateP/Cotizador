@@ -66,11 +66,16 @@ interface FormularioContextType {
   setValorPesoMin: React.Dispatch<React.SetStateAction<number | undefined>>;
   setValorCajas: React.Dispatch<React.SetStateAction<number | undefined>>;
 
-
-
   //variables claves
   clave: string;
   setClave: React.Dispatch<React.SetStateAction<string>>;
+
+  //mostrar Descarga
+  seVeDescargar: boolean;
+  setSeVeDescargar: React.Dispatch<React.SetStateAction<boolean>>;
+  mostrarDescargar: () => void;
+  ocultarDescargar: () => void;
+
 }
 
 interface FormularioProviderProps {
@@ -119,6 +124,12 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
 
   //variables claves
   const [clave, setClave] = useState('');
+
+  //mostrar descarga
+  const [seVeDescargar, setSeVeDescargar] = useState(false);
+  const mostrarDescargar =()=> setSeVeDescargar(true)
+  const ocultarDescargar =()=> setSeVeDescargar(false)
+
   
   // Proporcionamos el valor del contexto
   const contextValue: FormularioContextType = {
@@ -188,6 +199,12 @@ export const FormularioProvider: React.FC<FormularioProviderProps> = ({ children
     //variables claves
     clave,
     setClave,
+
+    //mostrar Descarga
+    seVeDescargar,
+    setSeVeDescargar,    
+    ocultarDescargar,
+    mostrarDescargar
 
   };
 

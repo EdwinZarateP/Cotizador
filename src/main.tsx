@@ -20,7 +20,7 @@ const App = () => {
 
   // Encuentra la clave válida y almacénala en la variable claveValida
   const claveValida = Clientes.find(
-    (clave) => clave.clave === inputValorClave && (clave.tipo === "comercial" || clave.tipo === "cliente")
+    (clave) => clave.clave === inputValorClave && (clave.tipo === "comercial" || clave.tipo === "cliente" || clave.tipo === "gerente")
   );
 
   return (
@@ -31,7 +31,7 @@ const App = () => {
           
           <Imagen />
 
-          {claveValida && claveValida.tipo === "comercial" && <Formulario />}
+          {claveValida && (claveValida.tipo === "comercial" || claveValida.tipo === "gerente") && <Formulario />}
           
           {claveValida && claveValida.tipo === "cliente" && <ClienteActivo />}
 

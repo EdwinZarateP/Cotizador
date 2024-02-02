@@ -7,6 +7,8 @@ import logoBuro from '../imagenes/buro.png';
 import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
 import { ciudadesCombinadas } from './CombinacionesCiudades';
 import { useFormularioContext } from '../contexto/Contexto.tsx';
+// import { useNavigate } from 'react-router-dom';
+
 
 const ExportarCotizacion: React.FC  = () => {
   
@@ -15,7 +17,7 @@ const ExportarCotizacion: React.FC  = () => {
      nombreComercial, cliente, nitCliente, anoVigencia , addValorem, 
      cobroMinDespachoUrbano, cobroMinCajaUrbano, tarifaIntegralUrbano, 
      cobroMinDespachoNacional, cobroMinCajaNacional, tarifaIntegralNacional,
-    diasCartera, promedioKgUrbano, promedioKgNacional,} = useFormularioContext();
+    diasCartera, promedioKgUrbano, promedioKgNacional, seVeDescargar, setSeVeDescargar} = useFormularioContext();
 
   const generateTable = (descuento: number) => {
     const ciudadesUnicas = [...new Set(ciudadesCombinadas.map(ciudad => ciudad.destino))].sort();
@@ -218,15 +220,7 @@ const ExportarCotizacion: React.FC  = () => {
                 </Text>
 
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por Caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}>
-                  {promedioKgUrbano !== 0
-                  ? new Intl.NumberFormat('es-CO', {
-                      style: 'currency',
-                      currency: 'COP',
-                      maximumFractionDigits: 0,
-                    }).format(promedioKgUrbano)
-                  : '-'}
-                </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {promedioKgUrbano !== 0 ? promedioKgUrbano : '-'}</Text>
 
               </View>
 
@@ -289,22 +283,14 @@ const ExportarCotizacion: React.FC  = () => {
                 </Text>
 
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Kg promedio por caja </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> 
-                  {promedioKgNacional !== 0
-                  ? new Intl.NumberFormat('es-CO', {
-                      style: 'currency',
-                      currency: 'COP',
-                      maximumFractionDigits: 0,
-                    }).format(promedioKgNacional)
-                  : '-'}
-                </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}>{promedioKgNacional !== 0 ? promedioKgNacional : '-'}</Text>
               </View>
 
               <View style={estilosParaExportar.tablaGenerica0}>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> Factor de conversion peso/vol</Text>
                 <Text style={estilosParaExportar.tablacolumasinnegrita1}> 400 </Text>
                 <Text style={estilosParaExportar.tablacolumanegrita1}> % Descuento por flete </Text>
-                <Text style={estilosParaExportar.tablacolumasinnegrita1}> {descuentoNacional !== 0 ? descuentoNacional : '-'} </Text>
+                <Text style={estilosParaExportar.tablacolumasinnegrita1}>{descuentoNacional !== 0 ? descuentoNacional : '-'}</Text>
               </View>
   
               {/* COTIZACION REEXPEDICION */}
@@ -434,21 +420,23 @@ const ExportarCotizacion: React.FC  = () => {
       <div>
 
       </div>
-      <div className='inputDescargar'>
-        
-      {minimoKgUrbano >= 0 && MyDocument && (
-          <PDFDownloadLink
-            document={MyDocument}
-            fileName={fileName}
-            style={{
-              padding: '10px',
-              color: 'blue',
-              fontSize:'14px',
-            }}
-          >
-            {({ loading }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}
-          </PDFDownloadLink>
-        )}
+      <div className={`${seVeDescargar ? 'inputDescargar' : 'invisible'}`}>
+      
+        { MyDocument && (
+            <PDFDownloadLink
+              document={MyDocument}
+              fileName={fileName}
+              style={{
+                padding: '10px',
+                color: 'blue',
+                fontSize:'14px',
+              }}
+              onClick={() => setSeVeDescargar(false)}
+            >
+              {({ loading }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}
+            </PDFDownloadLink>
+          )}
+
       </div>
     </div>
   );

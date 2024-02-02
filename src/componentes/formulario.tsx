@@ -3,6 +3,7 @@ import { useFormularioContext } from '../contexto/Contexto';
 import ExportarCotizacion from './exportarPDF.tsx';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
+import { Clientes } from './clientes.tsx';
 
 
 const Formulario: React.FC = () => {
@@ -46,9 +47,17 @@ const Formulario: React.FC = () => {
     addValorem,
     setAddValorem,
     diasCartera,
-    setDiasCartera
+    setDiasCartera,
+    clave,
+    setSeVeDescargar
+
 
   } = useFormularioContext();
+
+  // Encuentra la clave válida y almacénala en la variable claveValida
+  let tipoUsuario = Clientes.find(usuario => usuario.clave === clave)?.tipo;
+  console.log(tipoUsuario); 
+  
 
   const mostrarMensaje = ( titulo: string, contexto: string ) => {
     Swal.fire({
@@ -93,9 +102,15 @@ const Formulario: React.FC = () => {
   //-------------------1. VALIDACIONES DE POR MIN KG-----------------
   //-----------------------------------------------------------------
 
-    // Validar que minimoKgUrbano no sea menor a 15
-    if (minimoKgUrbano < 15 && minimoKgUrbano > 0) {
-      mostrarMensaje('Error en Mín kg (más de 2 cajas) urbano','No puede ofrecer un peso inferior a 15 Kg');
+    // Validar que minimoKgUrbano no sea menor a 15 y tipoUsuario es gerente
+    if (minimoKgUrbano < 18 && minimoKgUrbano > 0 && tipoUsuario==='gerente') {
+      mostrarMensaje('Error en Mín kg (más de 2 cajas) urbano','El gerente no puede ofrecer un peso inferior a 18 Kg');
+      return;
+    }
+
+    // Validar que minimoKgUrbano no sea menor a 15 y tipoUsuario es gerente
+    if (minimoKgUrbano < 25 && minimoKgUrbano > 0 && tipoUsuario==='comercial') {
+      mostrarMensaje('Error en Mín kg (más de 2 cajas) urbano','El comercial, no puede ofrecer un peso inferior a 25 Kg');
       return;
     }
     //validar que nacional tenga información
@@ -103,29 +118,56 @@ const Formulario: React.FC = () => {
       mostrarMensaje('Falta información Nacional','Por favor ingrese el Mín kg (más de 2 cajas) para nacional');
       return;
     }
-    //validar que el descuento no sea superior a 30%
-    if (minimoKgUrbano > 0 && descuento > 30) {
-      mostrarMensaje('Exceso en descuento Urbano','No puede pasar el tope de 30% en descuentos');
+    //validar que el descuento no sea superior a 20%
+    if (minimoKgUrbano > 0 && descuento > 20 && tipoUsuario==='gerente') {
+      mostrarMensaje('Exceso en descuento Urbano','El gerente no puede pasar el tope de 20% en descuento');
       return;
     }
 
-  //-----------------------------------------------------------------
-    // Validar que minimoKgNacional no sea menor a 15
-    if (minimoKgNacional < 15 && minimoKgNacional > 0) {
-      mostrarMensaje('Error en Mín kg (más de 2 cajas) nacional','No puede ofrecer un peso inferior a 15 Kg');
+    //validar que el descuento no sea superior a 10%
+    if (minimoKgUrbano > 0 && descuento > 10 && tipoUsuario==='comercial') {
+      mostrarMensaje('Exceso en descuento Urbano','No puede pasar el tope de 10% en descuento');
       return;
     }
+
+    //validar que si hay info en descuento los otros campos esten llenos
+    if ((descuento > 0 || descuentoNacional > 0) && (minimoKgUrbano === 0 || minimoKgNacional === 0)) {
+      mostrarMensaje('Falta información de min kg','No puedes dejar los campos en cero de los minimos kg requeridos tanto en nacional como en urbano');
+      return;
+    }
+
+
+  //-----------------------------------------------------------------
+    // Validar que minimoKgNacional no sea menor a 25
+    if (minimoKgNacional < 25 && minimoKgNacional > 0 && tipoUsuario==='comercial') {
+      mostrarMensaje('Error en Mín kg (más de 2 cajas) nacional','El Comercial no puede ofrecer un peso inferior a 25 Kg');
+      return;
+    }
+
+    // Validar que minimoKgNacional no sea menor a 18
+    if (minimoKgNacional < 18 && minimoKgNacional > 0 && tipoUsuario==='gerente') {
+      mostrarMensaje('Error en Mín kg (más de 2 cajas) nacional','El gerente no puede ofrecer un peso inferior a 18 Kg');
+      return;
+    }
+
     //validar que urbano tenga información
     if (minimoKgNacional > 0 && minimoKgUrbano === 0) {
       mostrarMensaje('Falta información Urbana','Por favor ingrese el Mín kg (más de 2 cajas) para Urbano');
       return;
 
     }
-    //validar que el descuento no sea superior a 30%
-    if (minimoKgNacional > 0 && descuentoNacional > 30) {
-      mostrarMensaje('Exceso en descuento Nacional','No puede pasar el tope de 30% en descuentos');
+    //validar que el descuento no sea superior a 10%
+    if (minimoKgNacional > 0 && descuentoNacional > 10 && tipoUsuario==='comercial') {
+      mostrarMensaje('Exceso en descuento Nacional','El comercial no puede pasar el tope de 10% en descuento');
       return;
     }
+
+    //validar que el descuento no sea superior a 20%
+    if (minimoKgNacional > 0 && descuentoNacional > 20 && tipoUsuario==='gerente') {
+      mostrarMensaje('Exceso en descuento Nacional','El gerente no puede pasar el tope de 20% en descuento');
+      return;
+    }
+    
 
     //-----------------------------------------------------------------
     //-------------------2. VALIDACIONES DE POR COBRO------------------
@@ -253,6 +295,47 @@ const Formulario: React.FC = () => {
       mostrarMensaje('Falta información urbana','Por favor ingrese la Tarifa integral $ para urbano');
       return;
     }
+
+    
+    //-----------------------------------------------------------------
+    //-------------------4. VALIDACIONES DE POR PROMEDIO---------------
+    //-----------------------------------------------------------------
+
+    //4.1 VALIDACIONES POR PROMEDIO URBANO Y NACIONAL------------------
+
+    // Validar que el promedio estandar urbano
+    if (promedioKgUrbano < 18 && promedioKgUrbano > 0 && tipoUsuario==='gerente') {
+      mostrarMensaje('Error del promedio Kg para Urbano','El gerente no puede autorizar un peso inferior a 18 Kg');
+      return;
+    }
+
+    if (promedioKgUrbano < 25 && promedioKgUrbano > 0 && tipoUsuario==='comercial') {
+      mostrarMensaje('Error del promedio Kg para Urbano','El comercial no puede autorizar un peso inferior a 25 Kg');
+      return;
+    }
+    //validar que promedio nacional tenga información
+    if (promedioKgUrbano > 0 && promedioKgNacional === 0) {
+      mostrarMensaje('Falta información Nacional','Por favor ingrese el promedio Kg para nacional');
+      return;
+    }
+
+    // Validar que el promedio estandar nacional
+    if (promedioKgNacional < 18 && promedioKgNacional > 0 && tipoUsuario==='gerente') {
+      mostrarMensaje('Error del promedio Kg para Nacional','El gerente no puede autorizar un peso inferior a 18 Kg');
+      return;
+    }
+
+    if (promedioKgNacional < 25 && promedioKgNacional > 0 && tipoUsuario==='comercial') {
+      mostrarMensaje('Error del promedio Kg para Nacional','El comercial no puede autorizar un peso inferior a 25 Kg');
+      return;
+    }
+    //validar que promedio urbano tenga información
+    if ( promedioKgNacional > 0 && promedioKgUrbano === 0) {
+      mostrarMensaje('Falta información Urbana','Por favor ingrese el promedio Kg para Urbano');
+      return;
+    }
+
+    setSeVeDescargar(true);
 
     setMostrarExportar(true);
 
