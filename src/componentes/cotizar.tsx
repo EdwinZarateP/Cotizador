@@ -123,7 +123,7 @@ const calcularFlete = (
             return redondearMultiplo50(calcularPeso(30,valorPesoMin)*valorCajas * costoCombinacion * ((100 - descuentoNacional) / 100) + calcularManejo(valorDeclarado))
         }
         else if (minimoKgNacional > 0 && tipoCombinacion ==='NACIONAL' && valorCajas>1) {
-            return redondearMultiplo50(calcularPeso(minimoKgNacional,valorPesoMin)*valorCajas * costoCombinacion * ((100 - descuentoNacional) / 100) + calcularManejo(valorDeclarado))
+            return redondearMultiplo50(calcularPeso(minimoKgNacional,valorPesoMin)*valorCajas * costoCombinacion * ((100 - descuentoNacional) / 1004) + calcularManejo(valorDeclarado))
         }
 
         //LOGICA 6. descuento, minimoKgUrbano, valorPesoMin
