@@ -17,7 +17,7 @@ export const estilosParaExportar = StyleSheet.create({
   },
 
   title: {
-    fontSize: 12,
+    fontSize: 10,
     marginBottom: 5 ,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -51,6 +51,7 @@ export const estilosParaExportar = StyleSheet.create({
   tablaGenerica0: {
     flexDirection: 'row',
     alignItems: 'center',
+    
     },
 
   tablaGenerica1: {
@@ -76,6 +77,37 @@ export const estilosParaExportar = StyleSheet.create({
     border: '0.5px 0.5px 0 0.5px solid black',
   },
   
+  tablacolumasEncabezado0:{
+    width: '25%',
+    height:'55px',
+    border: '0.5px solid black',
+    padding: 5,
+    textAlign: 'center',
+    marginBottom:'10px'
+  },
+
+  tablacolumasEncabezado1:{
+    width: '50%',
+    height:'55px',
+    border: '0.5px solid black',
+    paddingTop: '20px',
+    textAlign: 'center',
+    fontSize: 10,
+    fontWeight: 'bold',
+    fontFamily: 'Helvetica-Bold',
+    marginBottom:'10px'
+  },
+
+  tablacolumasEncabezado2:{
+    width: '25%',
+    height:'55px',
+    border: '0.5px solid black',
+    paddingTop:'5px',
+    textAlign: 'center',
+    fontSize: 8,
+    fontFamily: 'Helvetica',
+    marginBottom:'10px'
+  },
 
   tableColHeader: {
     width: '16.67%',
@@ -176,19 +208,19 @@ export const estilosParaExportar = StyleSheet.create({
   // Agrega el estilo para el encabezado (header) aquí
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    
+    marginBottom:'10px'
   },
 
   logo: {
-    width: 100, // ajusta el tamaño de la imagen del logo según tus necesidades
-    height: 50, // ajusta el tamaño de la imagen del logo según tus necesidades
+    width: 90, // ajusta el tamaño de la imagen del logo según tus necesidades
+    height: 40, // ajusta el tamaño de la imagen del logo según tus necesidades
   },
 
   headerRight: {
-    width: 40,
-    height: 30,
+    width: 60,
+    height: 40,
   },
 
   // Agrega el estilo para la firma (footerImage) aquí

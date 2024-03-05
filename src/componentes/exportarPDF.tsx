@@ -132,11 +132,17 @@ const ExportarCotizacion: React.FC  = () => {
         <Page size="A4" style={estilosParaExportar.page}>
           <View style={estilosParaExportar.section}>
             
+            {/* Encabezados con imagenes */}
+          <View style={estilosParaExportar.tablaGenerica0}>            
+            <Text style={estilosParaExportar.tablacolumasEncabezado0}><Image src={logoImage} style={estilosParaExportar.logo} />  </Text>
+            <Text style={estilosParaExportar.tablacolumasEncabezado1}> FORMATO OFERTA COMERCIAL  </Text>
+            <Text style={estilosParaExportar.tablacolumasEncabezado2}> FORM-COM-012 {'\n'}{'\n'} VERSION:01 {'\n'}{'\n'} EMISION: 01/03/2024</Text>
+          </View>
+        
           {/* Encabezado con imagen */}
           <View style={estilosParaExportar.header}>
-            <Image src={logoImage} style={estilosParaExportar.logo} />
-            <Text style={estilosParaExportar.title}>OFERTA COMERCIAL PAQUETEO</Text>
             <Image src={logoBuro} style={estilosParaExportar.headerRight} />
+            <Text style={estilosParaExportar.title}>OFERTA COMERCIAL PAQUETEO</Text>            
             <Image src={logoBasc} style={estilosParaExportar.headerRight} />
           </View>
 
