@@ -30,7 +30,7 @@ interface Cliente {
     cobroMinDespachoNacional:0, cobroMinCajaNacional:0,tarifaIntegralNacional:0,
     addValorem:23,diasCartera:13},
 
-    {nombre:'Nestor Vela', clave:'nestor',nombreComercial:'Carlos Cardona',tipo:'gerente',
+    {nombre:'Nestor Vela', clave:'nv2024',nombreComercial:'Carlos Cardona',tipo:'gerente',
     nitCliente:'80012334', minimoKgUrbano:0, promedioKgNacional:0, minimoKgNacional:0,
     promedioKgUrbano:0, descuento:0, anoVigencia:2024, descuentoNacional:0,
     cobroMinDespachoUrbano:0,cobroMinCajaUrbano:0, tarifaIntegralUrbano:0,

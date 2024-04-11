@@ -5,6 +5,7 @@ import { Clientes } from './clientes.tsx';
 
 // Definición del componente InputClave
 const InputClave: React.FC<{ onInputChange: (value: string) => void }> = ({ onInputChange }) => {
+  
   // Utiliza el contexto para acceder a los valores y funciones necesarios
   const { clave, setClave, setNombreComercial, setCliente,setNitCliente,
     setMinimoKgUrbano,

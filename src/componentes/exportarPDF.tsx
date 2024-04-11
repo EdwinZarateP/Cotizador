@@ -4,8 +4,9 @@ import '../estilos/exportarPDF.css';
 import logoImage from '../imagenes/logo.png'; 
 import logoBasc from '../imagenes/logoBasc.png'; 
 import logoBuro from '../imagenes/buro.png'; 
-// import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
+import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
 import firmaJairo from '../imagenes/FirmaJairo.png';
+import firmaJuan from '../imagenes/FirmaJuan.png';
 import { ciudadesCombinadas } from './CombinacionesCiudades';
 import { useFormularioContext } from '../contexto/Contexto.tsx';
 // import { useNavigate } from 'react-router-dom';
@@ -18,7 +19,8 @@ const ExportarCotizacion: React.FC  = () => {
      nombreComercial, cliente, nitCliente, anoVigencia , addValorem, 
      cobroMinDespachoUrbano, cobroMinCajaUrbano, tarifaIntegralUrbano, 
      cobroMinDespachoNacional, cobroMinCajaNacional, tarifaIntegralNacional,
-    diasCartera, promedioKgUrbano, promedioKgNacional, seVeDescargar, setSeVeDescargar} = useFormularioContext();
+     diasCartera, promedioKgUrbano, promedioKgNacional, seVeDescargar,
+     setSeVeDescargar,clave} = useFormularioContext();
 
   const generateTable = (descuento: number) => {
     const ciudadesUnicas = [...new Set(ciudadesCombinadas.map(ciudad => ciudad.destino))].sort();
@@ -411,9 +413,24 @@ const ExportarCotizacion: React.FC  = () => {
             </Text>
                  
             {/* imagen de la firma */}
-          <View style={estilosParaExportar.footerImage}>
+          {/* <View style={estilosParaExportar.footerImage}>
             <Image src={firmaJairo} style={estilosParaExportar.firma} />
+          </View> */}
+
+          <View style={estilosParaExportar.footerImage}>
+            {clave === 'js2024' ? (
+              <Image src={firmaJuan} style={estilosParaExportar.firma} />
+            ) : clave === 'jh2024' ? (
+              <Image src={firmaJairo} style={estilosParaExportar.firma} />
+            ) : (
+              <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+            )}
           </View>
+
+
+          
+
+
 
           </View>
         </Page>
