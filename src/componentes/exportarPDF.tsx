@@ -4,7 +4,8 @@ import '../estilos/exportarPDF.css';
 import logoImage from '../imagenes/logo.png'; 
 import logoBasc from '../imagenes/logoBasc.png'; 
 import logoBuro from '../imagenes/buro.png'; 
-import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
+// import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
+import firmaJairo from '../imagenes/FirmaJairo.png';
 import { ciudadesCombinadas } from './CombinacionesCiudades';
 import { useFormularioContext } from '../contexto/Contexto.tsx';
 // import { useNavigate } from 'react-router-dom';
@@ -411,7 +412,7 @@ const ExportarCotizacion: React.FC  = () => {
                  
             {/* imagen de la firma */}
           <View style={estilosParaExportar.footerImage}>
-            <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+            <Image src={firmaJairo} style={estilosParaExportar.firma} />
           </View>
 
           </View>
