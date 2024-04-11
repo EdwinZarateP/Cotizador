@@ -7,6 +7,7 @@ import logoBuro from '../imagenes/buro.png';
 import firmaCarlos from '../imagenes/FirmaCarlos.png'; // Importa la imagen desde tu carpeta local
 import firmaJairo from '../imagenes/FirmaJairo.png';
 import firmaJuan from '../imagenes/FirmaJuan.png';
+import firmaNestor from '../imagenes/FirmaNestor.png';
 import { ciudadesCombinadas } from './CombinacionesCiudades';
 import { useFormularioContext } from '../contexto/Contexto.tsx';
 // import { useNavigate } from 'react-router-dom';
@@ -422,6 +423,8 @@ const ExportarCotizacion: React.FC  = () => {
               <Image src={firmaJuan} style={estilosParaExportar.firma} />
             ) : clave === 'jh2024' ? (
               <Image src={firmaJairo} style={estilosParaExportar.firma} />
+            ) : clave === 'nv2024' ? (
+              <Image src={firmaNestor} style={estilosParaExportar.firma} />  
             ) : (
               <Image src={firmaCarlos} style={estilosParaExportar.firma} />
             )}
