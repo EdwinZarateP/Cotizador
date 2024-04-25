@@ -65,6 +65,20 @@ interface Cliente {
     cobroMinDespachoNacional:0, cobroMinCajaNacional:0,tarifaIntegralNacional:0,
     addValorem:0,diasCartera:60},
 
+    {nombre:'Marcela Guerra', clave:'mg2024',nombreComercial:'Marcela Guerra',
+    tipo:'comercial', nitCliente:'80012334', minimoKgUrbano:0, promedioKgNacional:0, minimoKgNacional:0,
+    promedioKgUrbano:0, descuento:0, anoVigencia:2024, descuentoNacional:0,
+    cobroMinDespachoUrbano:0,cobroMinCajaUrbano:0, tarifaIntegralUrbano:0,
+    cobroMinDespachoNacional:0, cobroMinCajaNacional:0,tarifaIntegralNacional:0,
+    addValorem:0,diasCartera:60},
+    
+    {nombre:'Jorge Castañeda', clave:'jc2024',nombreComercial:'Jorge Castañeda',
+    tipo:'comercial', nitCliente:'80012334', minimoKgUrbano:0, promedioKgNacional:0, minimoKgNacional:0,
+    promedioKgUrbano:0, descuento:0, anoVigencia:2024, descuentoNacional:0,
+    cobroMinDespachoUrbano:0,cobroMinCajaUrbano:0, tarifaIntegralUrbano:0,
+    cobroMinDespachoNacional:0, cobroMinCajaNacional:0,tarifaIntegralNacional:0,
+    addValorem:0,diasCartera:60}
+
   ];
   
   export { Clientes};
