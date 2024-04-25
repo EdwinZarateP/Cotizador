@@ -404,7 +404,7 @@ const ExportarCotizacion: React.FC  = () => {
               •	Art 1028. Los reclamos de los clientes por pérdidas o averías se podrán realizar máximo dentro de los tres días siguientes a la fecha de entrega. {"\n"}
               •	Art 1031. El monto de la indemnización en caso de Pérdida o avería en transporte, INTEGRA LOGISTICA asumirá el valor declarado de acuerdo con la proporción que la mercancía averiada o perdida represente frente al total del despacho. {"\n"}
               •	Según concepto No. 041573 de julio de 2004 de la DIAN, INTEGRA LOGISTICA. NO asumirá el valor correspondiente al IVA de los productos Averiados o Perdidos, teniendo en cuenta que “Los bienes que se rompen, pierden o sufren daño estos no causan el impuesto sobre las ventas, {"\n"}
-              ya que tales hechos no constituyen venta para efectos del impuesto, debiendo contabilizarse como una perdida la cual deberá soportarse con los documentos pertinentes que dan crédito del hecho”.{"\n"} {"\n"}
+              ya que tales hechos no constituyen venta para efectos del impuesto, debiendo contabilizarse como una perdida la cual deberá soportarse con los documentos pertinentes que dan crédito del hecho”.{"\n"} {"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}
 
 
               <Text style={estilosParaExportar.subtitle}> 5. FORMA DE PAGO Y FACTURACIÓN</Text>{"\n"} {"\n"}
@@ -420,21 +420,40 @@ const ExportarCotizacion: React.FC  = () => {
             <Image src={firmaJairo} style={estilosParaExportar.firma} />
           </View> */}
 
-          <View style={estilosParaExportar.footerImage}>
-            {clave === 'js2024' ? (
-              <Image src={firmaJuan} style={estilosParaExportar.firma} />
-            ) : clave === 'jh2024' ? (
-              <Image src={firmaJairo} style={estilosParaExportar.firma} />
-            ) : clave === 'jc2024' ? (
-              <Image src={firmaJorge} style={estilosParaExportar.firma} />
-            ) : clave === 'mg2024' ? (
-              <Image src={firmaMarcela} style={estilosParaExportar.firma} />
-            ) : clave === 'nv2024' ? (
-              <Image src={firmaNestor} style={estilosParaExportar.firma} />  
-            ) : (
-              <Image src={firmaCarlos} style={estilosParaExportar.firma} />
-            )}
-          </View>
+<View style={estilosParaExportar.footerImage}>
+  {clave === 'js2024' ? (
+    <>
+      <Image src={firmaJuan} style={estilosParaExportar.firma} />
+      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+    </>
+  ) : clave === 'jh2024' ? (
+    <>
+      <Image src={firmaJairo} style={estilosParaExportar.firma} />
+      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+    </>
+  ) : clave === 'jc2024' ? (
+    <>
+      <Image src={firmaJorge} style={estilosParaExportar.firma} />
+      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+    </>
+  ) : clave === 'mg2024' ? (
+    <>
+      <Image src={firmaMarcela} style={estilosParaExportar.firma} />
+      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+    </>
+  ) : clave === 'nv2024' ? (
+    <>
+      <Image src={firmaNestor} style={estilosParaExportar.firma} />
+      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+    </>
+  ) : (
+    <>
+      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+    </>
+  )}
+</View>
+
 
           </View>
         </Page>
