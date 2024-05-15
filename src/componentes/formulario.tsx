@@ -118,9 +118,9 @@ const Formulario: React.FC = () => {
       mostrarMensaje('Falta información Nacional','Por favor ingrese el Mín kg (más de 2 cajas) para nacional');
       return;
     }
-    //validar que el descuento no sea superior a 20%
+    //validar que el descuento no sea superior a 40%
     if (minimoKgUrbano > 0 && descuento > 40 && tipoUsuario==='gerente') {
-      mostrarMensaje('Exceso en descuento Urbano','El gerente no puede pasar el tope de 20% en descuento');
+      mostrarMensaje('Exceso en descuento Urbano','El gerente no puede pasar el tope de 40% en descuento');
       return;
     }
 
