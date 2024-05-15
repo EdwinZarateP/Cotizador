@@ -448,8 +448,8 @@ const ExportarCotizacion: React.FC  = () => {
     </>
   ) : (
     <>
-      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
-      <Image src={firmaCarlos} style={estilosParaExportar.firma} />
+      <Image src={firmaNestor} style={estilosParaExportar.firma} />
+      {/* <Image src={firmaCarlos} style={estilosParaExportar.firma} /> */}
     </>
   )}
 </View>
