@@ -119,7 +119,7 @@ const Formulario: React.FC = () => {
       return;
     }
     //validar que el descuento no sea superior a 20%
-    if (minimoKgUrbano > 0 && descuento > 20 && tipoUsuario==='gerente') {
+    if (minimoKgUrbano > 0 && descuento > 40 && tipoUsuario==='gerente') {
       mostrarMensaje('Exceso en descuento Urbano','El gerente no puede pasar el tope de 20% en descuento');
       return;
     }
