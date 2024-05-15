@@ -77,6 +77,13 @@ interface Cliente {
     promedioKgUrbano:0, descuento:0, anoVigencia:2024, descuentoNacional:0,
     cobroMinDespachoUrbano:0,cobroMinCajaUrbano:0, tarifaIntegralUrbano:0,
     cobroMinDespachoNacional:0, cobroMinCajaNacional:0,tarifaIntegralNacional:0,
+    addValorem:0,diasCartera:60},
+
+    {nombre:'Joseph Valero', clave:'jv2024',nombreComercial:'Joseph Valero',
+    tipo:'gerente', nitCliente:'800', minimoKgUrbano:0, promedioKgNacional:0, minimoKgNacional:0,
+    promedioKgUrbano:0, descuento:0, anoVigencia:2024, descuentoNacional:0,
+    cobroMinDespachoUrbano:0,cobroMinCajaUrbano:0, tarifaIntegralUrbano:0,
+    cobroMinDespachoNacional:0, cobroMinCajaNacional:0,tarifaIntegralNacional:0,
     addValorem:0,diasCartera:60}
 
   ];
